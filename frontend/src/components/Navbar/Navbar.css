@@ -1,0 +1,43 @@
+.navbarContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 3.2rem; /* 10px 20px */
+  background-color: #007BFF;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 0 2px 4px */
+}
+
+.logo {
+  height: 35px;
+}
+
+.navItems {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem; /* Keep padding consistent */
+  transition: all 0.3s ease; /* Transition all properties */
+  box-sizing: border-box; /* Ensure padding is included in element dimensions */
+}
+
+.navItem:hover{
+  background: white;
+  border-radius: 1rem;
+  color: #007BFF;
+}
+.navItem.active {
+  background: white;
+  border-radius: 1rem;
+  color: #007BFF;
+}
+
