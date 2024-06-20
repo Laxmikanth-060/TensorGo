@@ -1,0 +1,55 @@
+.OurSuccessComponent {
+    margin-top: 4rem;
+  }
+  
+  .OurSuccessHeadingPara {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+    text-align: center;
+  }
+  .OurSuccessHeadingPara > h1 > span {
+    background: linear-gradient(#007BFF, #09008b);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .OurSuccessHeadingPara > p {
+    margin-top: 1em;
+    font-size: 14px;
+    width: 50%;
+  }
+  
+  .OurSuccessStatsList {
+    display: flex;
+    list-style: none;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 2rem;
+  }
+  
+  .OurSuccessStatsNumberText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .OurSuccessStatsNumberText > h2 {
+    font-size: 3rem;
+    font-weight: 100;
+    background: linear-gradient(#007BFF, #09008b);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .OurSuccessStatsNumberText>p{
+    font-weight: 600;
+  }
+  
+
+
+
+  .WhatIsAbhiTrainingsComponent{
+    margin-top: 3rem;
+  }
+
+  
