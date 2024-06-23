@@ -45,7 +45,7 @@
     padding: 0.625rem 1.25rem;
     font-size: 1rem;
     color: #000000;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgb(255, 255, 255);
     border: none;
     border-radius: 1.5rem;
     cursor: pointer;
@@ -53,8 +53,8 @@
   }
   
   .heroButton:hover {
-    background-color: #000000;
-    color: white;
+    background-color: black;
+    color: rgb(255, 255, 255);
   }
   
   .heroImageContainer {

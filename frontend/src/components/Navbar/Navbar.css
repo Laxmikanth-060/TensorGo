@@ -25,9 +25,9 @@
   font-size: 16px;
   font-weight: bold;
   border-radius: 1rem;
-  padding: 0.5rem 0.75rem; /* Keep padding consistent */
-  transition: all 0.3s ease; /* Transition all properties */
-  box-sizing: border-box; /* Ensure padding is included in element dimensions */
+  padding: 0.5rem 0.75rem; 
+  transition: all 0.3s ease; 
+  box-sizing: border-box; 
 }
 
 .navItem:hover{
