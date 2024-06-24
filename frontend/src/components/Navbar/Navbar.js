@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <div className="navbarContainer">
       <img 
-        src="./abhiTrainings-logo-white.png" 
+        src="https://i.ibb.co/3Tv149f/image.png" 
         alt='logo' 
         className="logo" 
       />
