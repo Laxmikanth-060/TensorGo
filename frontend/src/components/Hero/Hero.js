@@ -11,7 +11,7 @@ const Hero = () => {
       </div>
       <div className={styles.heroImageContainer}>
         <img 
-          src="./hero-image.png" 
+          src="./assets/hero-image.png" 
           alt="Hero" 
           className={styles.heroImage}
         />

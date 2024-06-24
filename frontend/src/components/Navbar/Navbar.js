@@ -5,7 +5,11 @@ const Navbar = () => {
   return (
     <div className="navbarContainer">
       <img 
+<<<<<<< HEAD
         src="https://i.ibb.co/3Tv149f/image.png" 
+=======
+        src="./assets/abhiTrainings-logo-white.png" 
+>>>>>>> e1b1fd320aa408a73456fb0447f912041e045adb
         alt='logo' 
         className="logo" 
       />
