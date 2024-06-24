@@ -52,9 +52,36 @@ const OurSuccess = () => {
 
 const WhatIsAbhiTrainings = () => {
   return (
-  <div className={styles.WhatIsAbhiTrainingsComponent}>
+    <div className={styles.WhatIsAbhiTrainingsComponent}>
+      <div className={styles.WhatIsAbhiTrainingsHeadingPara}>
+        <h1>
+          What is <span>Abhi Trainings?</span>
+        </h1>
+        <p>
+          Abhi Trainings is a platform that allows educators to create online
+          classes whereby they can store the course materials online; manage
+          assignments, quizzes and exams; monitor due dates; grade results and
+          provide students with feedback all in one place.
+        </p>
+      </div>
 
-  </div>
+      <div className={styles.ForStudentsForTeacher}>
+        <div className={styles.ForStudents}>
+          <img src="./assets/student.jpg" alt="For Students" />
+          <div className={styles.OverlayText}>For Students</div>
+          <button className={styles.ButtonOverlay} onClick={() => console.log('For Students clicked')}>
+            Enroll now
+          </button>
+        </div>
+        <div className={styles.ForTeacher}>
+          <img src="./assets/teacher.webp" alt="For Teachers" />
+          <div className={styles.OverlayText}>For Instructors</div>
+          <button className={styles.ButtonOverlay} onClick={() => console.log('For Teachers clicked')}>
+            Enroll now
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -63,7 +90,7 @@ const LandingPage = () => {
     <div>
       <Hero />
       <OurSuccess />
-      <WhatIsAbhiTrainings/>
+      <WhatIsAbhiTrainings />
     </div>
   );
 };
