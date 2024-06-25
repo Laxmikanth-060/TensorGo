@@ -84,7 +84,7 @@ const CourseDetails = () => {
             <div className="course-discount">
               <p>&#8377;{course.price-(course.discountInPercentage*course.price)/100}</p>
               <p><span className="discount-offer">&#8377;{course.price}</span>  {course.discountInPercentage}% Off</p>
-              <button>Buy Now</button>
+              <button>Claim Offer</button>
             </div>
             <hr></hr>
             <div className="course-includes-header">
