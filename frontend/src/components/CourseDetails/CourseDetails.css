@@ -1,23 +1,34 @@
 .courseDetails-banner-image img{
     width: 100%;
 }
+.course-name{
+    margin: 0;
+    padding: 0;
+}
 .course-overview{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: -2em;
 }
-
+.course-feedback h1{
+    text-align: center;
+}
 .course-feedback{
     display: flex;
-    background: rgb(87, 177, 177);
+    background: rgba(34, 118, 207, 0.8);
     flex-direction: column ;
     width: 60%;
     border-radius: 1em;
     margin: 5em;
+    color: black;
 }
 .stars{
     color: gold;
     font-size: 1.2em;
+}
+.icons{
+    padding: 0.5em;
 }
 .course-feedback-upper{
     display: flex;
@@ -48,8 +59,18 @@
     align-items: center;
     padding: 0.2em;
 }
+.user-name-stars{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1em;
+}
+.user-name-stars span{
+    font-size: 1.3em;
+}
 .userprofile img{
-    width: 80px;
+    width: 70px;
     border-radius: 50%;
 }
 .course-details{
@@ -73,8 +94,8 @@
     text-decoration: line-through;
 }
 .course-details button{
-    background: rgb(87, 177, 177);
-    padding: 0.5em 6em;
+    background:rgba(0, 123, 255, 0.8);
+    padding: 0.5em 7em;
     outline: none;
     border: none;
     border-radius: 0.4em;
@@ -83,18 +104,27 @@
     transition: 0.3s;
 }
 .course-details button:hover{
-    background: rgb(75, 163, 163);
+    background: rgba(2, 95, 196, 0.8);
+}
+.course-includes-header h4{
+    font-weight: 600;
 }
 .course-includes{
     padding: 0.3em;
     color: rgb(83, 82, 82);
 }
+.training-people-header h4{
+    font-weight: 600;
+}
 .share-icons{
     cursor: pointer;
     padding: 0.5em;
 }
+.share-course h4{
+    font-weight: 600;
+}
 .marketing-articles{
-    background: rgb(97, 161, 161);
+    background:rgba(44, 128, 218, 0.8);
 }
 
 .marketing-articles p:nth-child(1){
@@ -135,6 +165,14 @@
 .physical-classroom-image img{
     width: 80%;
     border-radius: 1em;
+}
+.ellipse{
+    background: rgb(93, 207, 137);
+    padding: 1em;
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    margin: -0.3em;
 }
 
 .education{

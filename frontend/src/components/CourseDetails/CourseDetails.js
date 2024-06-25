@@ -37,73 +37,79 @@ const CourseDetails = () => {
         <img src="https://as2.ftcdn.net/v2/jpg/02/45/08/01/1000_F_245080107_golTKP2zTGtOtpcUgcXRK84Pu7cWAiGh.jpg" alt={course.name} />
       </div>
       <div className="course-overview">
-        <div className="course-feedback">
-            <div className="course-feedback-upper">
-                  <div className="feedback-box">
-                    <p>4 out 5 stars</p>
-                    <p className="stars"> <FaStar /> <FaStar /> <FaStar /> <FaStar /></p>
-                    <p>Top Rating</p>
-                  </div>
-                  <div className="feedback-stars">
-                    <p>5 stars</p>
-                    <p>4 stars</p>
-                    <p>3 stars</p>
-                    <p>2 stars</p>
-                    <p>1 stars</p>
-                  </div>
-                  <div className="feedback-progress">
-                    <p><progress id="file" value="92" max="100"></progress></p>
-                    <p><progress id="file" value="80" max="100"></progress></p>
-                    <p><progress id="file" value="72" max="100"></progress></p>
-                    <p><progress id="file" value="42" max="100"></progress></p>
-                    <p><progress id="file" value="32" max="100"></progress></p>
+          <div className="course-feedback">
+          <h1>{course.name}</h1>
 
-                  </div>
-            </div>
-            <div className="course-feedback-lower">
-                <div className="userprofile"> 
-                    <div>
-                        <img src="https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg" alt="" />
+              <div className="course-feedback-upper">
+                    <div className="feedback-box">
+                      <p>4 out 5 stars</p>
+                      <p className="stars"> <FaStar /> <FaStar /> <FaStar /> <FaStar /></p>
+                      <p>Top Rating</p>
                     </div>
-                    <div>
-                        <h4>Name</h4>
-                        <p className="stars"> <FaStar /> <FaStar /> <FaStar /></p>
+                    <div className="feedback-stars">
+                      <p>5 stars</p>
+                      <p>4 stars</p>
+                      <p>3 stars</p>
+                      <p>2 stars</p>
+                      <p>1 stars</p>
                     </div>
-                </div>
-                <div>
-                  <p>It is very excited to share that I am working with WorkMomentum</p>
-                  <hr></hr>
-                </div>
-            </div>
-        </div>
-        <div className="course-details">
-          <div className="course-discount">
-            <p>&#8377;{course.price-(course.discountInPercentage*course.price)/100}</p>
-            <p><span className="discount-offer">&#8377;{course.price}</span>  {course.discountInPercentage}% Off</p>
-            <button>Buy Now</button>
-          </div>
-          <hr></hr>
-          <div>
-            <h4>This Course Includes</h4>
-            <div className="course-includes"><FaInstagram size={25}/><span>Money Back Guarantee</span></div>
-            <div className="course-includes"><FaWhatsapp size={25}/><span>Access on all devices</span></div>
-            <div className="course-includes"><FaTwitter size={25}/><span>Certification of Completion</span></div>
-            <div className="course-includes"><FaInstagram size={25}/><span>32 Modules</span></div>
+                    <div className="feedback-progress">
+                      <p><progress id="file" value="92" max="100"></progress></p>
+                      <p><progress id="file" value="80" max="100"></progress></p>
+                      <p><progress id="file" value="72" max="100"></progress></p>
+                      <p><progress id="file" value="42" max="100"></progress></p>
+                      <p><progress id="file" value="32" max="100"></progress></p>
 
+                    </div>
+              </div>
+              <div className="course-feedback-lower">
+                  <div className="userprofile"> 
+                      <div>
+                          <img src="https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg" alt="" />
+                      </div>
+                      <div className="user-name-stars">
+                          <span>Name</span>
+                          <p className="stars"> <FaStar /> <FaStar /> <FaStar /></p>
+                      </div>
+                  </div>
+                  <div>
+                    <p>It is very excited to share the journey with Abhi Trainings</p>
+                    <hr></hr>
+                  </div>
+                  
+              </div>
+              
           </div>
-          <hr></hr>
-          <div>
-            <h4>Training 5 or more people</h4>
-            <p>class launched then a year ago and it is still running succesfully Pushpa - The Rise</p>
+          <div className="course-details">
+            <div className="course-discount">
+              <p>&#8377;{course.price-(course.discountInPercentage*course.price)/100}</p>
+              <p><span className="discount-offer">&#8377;{course.price}</span>  {course.discountInPercentage}% Off</p>
+              <button>Buy Now</button>
+            </div>
+            <hr></hr>
+            <div className="course-includes-header">
+              <h4>This Course Includes</h4>
+              <div className="course-includes"><FaInstagram className="icons" size={35}/><span>Money Back Guarantee</span></div>
+              <div className="course-includes"><FaWhatsapp className="icons" size={35}/><span>Access on all devices</span></div>
+              <div className="course-includes"><FaTwitter className="icons" size={35}/><span>Certification of Completion</span></div>
+              <div className="course-includes"><FaInstagram className="icons" size={35}/><span>32 Modules</span></div>
+
+            </div>
+            <hr></hr>
+            <div className="training-people-header">
+              <h4>Training 5 or more people</h4>
+              <p>class launched then a year ago and it is still running succesfully Pushpa - The Rise</p>
+            </div>
+            <hr></hr>
+            <div className="share-course">
+              <h4>Share this course</h4>
+              <FaWhatsapp className="share-icons" size={50}/>
+              <FaInstagram className="share-icons"  size={50}/>
+              <FaTwitter className="share-icons"  size={50}/>
+              <FaWhatsapp className="share-icons" size={50}/>
+              <FaInstagram className="share-icons"  size={50}/>
+            </div>
           </div>
-          <hr></hr>
-          <div>
-            <h4>Share this course</h4>
-            <FaWhatsapp className="share-icons" size={50}/>
-            <FaInstagram className="share-icons"  size={50}/>
-            <FaTwitter className="share-icons"  size={50}/>
-          </div>
-        </div>
       </div>
       <div className="marketing-articles">
         <p className="marketing-heading">Marketing Articles</p>
@@ -120,7 +126,7 @@ const CourseDetails = () => {
       </div>
       <div className="physical-classroom">
             <div className="physical-classroom-text">
-                <p>Everything you can do in a physical classroom, <span>you can do with TOTC</span></p>
+                <p><span className="ellipse"></span>Everything you can do in a physical classroom, <span>you can do with TOTC</span></p>
                 <p>TOTC’s school management software helps traditional and online schools manage scheduling, attendance, payments and virtual classrooms all in one secure cloud-based system.</p>
                 <p>Learn more</p>
             </div>
