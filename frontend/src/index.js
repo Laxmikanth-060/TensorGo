@@ -3,12 +3,13 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Courses from "./components/Courses/Courses";
 import Home from './components/Home/Home'
 import LandingPage from "./components/LandingPage/LandingPage";
 import About from "./components/About/About"
 import Login from "./components/Login/Login"
 import Signup from "./components/Signup/Signup"
+import CourseDetails from "./components/CourseDetails/CourseDetails";
+import Courses from "./components/Courses/Courses";
 
 
 const appRouter = createBrowserRouter([
@@ -32,6 +33,10 @@ const appRouter = createBrowserRouter([
         path:"/about",
         element:<About/>
       },
+      {
+        path:'/courses/:id',
+        element:<CourseDetails/>
+      }
     ],
   },
   {
