@@ -1,0 +1,20 @@
+.error {
+    display: flex;
+    background-color: #f8d7da; /* Light red */
+    color: #721c24; /* Dark red */
+    padding: 10px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .errorIcon {
+    margin-right: 10px; /* Adjust margin as needed */
+    color: #721c24; /* Dark red */
+    font-size: 20px; /* Adjust size as needed */
+  }
+  .errorText{
+    margin-bottom: 0;
+  }
+  
