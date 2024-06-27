@@ -1,16 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
-import imgg from './banner-icon.png';
-import courseimg from './a.jpeg';
-import './Home.css';
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import imgg from "./banner-icon.png";
+import courseimg from "./a.jpeg";
+import "./Home.css";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
-
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
 
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
@@ -18,21 +34,21 @@ const TodoList = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.trim() !== '') {
+    if (inputValue.trim() !== "") {
       setTasks([...tasks, { id: Date.now(), text: inputValue, done: false }]);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
   const toggleTaskDone = (taskId) => {
-    const updatedTasks = tasks.map(task =>
+    const updatedTasks = tasks.map((task) =>
       task.id === taskId ? { ...task, done: !task.done } : task
     );
     setTasks(updatedTasks);
   };
 
   const deleteTask = (taskId) => {
-    const updatedTasks = tasks.filter(task => task.id !== taskId);
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
   };
 
@@ -47,20 +63,23 @@ const TodoList = () => {
           placeholder="Enter task..."
           className="todo-input"
         />
-        <button type="submit" className="todo-button">Add Task</button>
+        <button type="submit" className="todo-button">
+          Add Task
+        </button>
       </form>
       <ul className="todo-list">
-        {tasks.map(task => (
-          <li key={task.id} className={`todo-item ${task.done ? 'done' : ''}`}>
+        {tasks.map((task) => (
+          <li key={task.id} className={`todo-item ${task.done ? "done" : ""}`}>
             <span onClick={() => toggleTaskDone(task.id)}>{task.text}</span>
-            <button onClick={() => deleteTask(task.id)} className="todo-delete">Delete</button>
+            <button onClick={() => deleteTask(task.id)} className="todo-delete">
+              Delete
+            </button>
           </li>
         ))}
       </ul>
     </div>
   );
 };
-
 
 const Leaderboard = ({ data }) => {
   // Sort the data by score in descending order
@@ -88,7 +107,7 @@ const Leaderboard = ({ data }) => {
 const Card = () => {
   return (
     <div className="card">
-      <div className='img'>
+      <div className="img">
         <img src={courseimg} alt="" />
       </div>
       <div className="content">
@@ -107,26 +126,54 @@ const Card = () => {
 };
 
 const Home = () => {
-  
-  
   const data = [
-    { id: 1, name: 'Munnu', score: 2500, avatar: 'https://i.pravatar.cc/50?img=1' },
-    { id: 2, name: 'Swapnith', score: 2300, avatar: 'https://i.pravatar.cc/50?img=2' },
-    { id: 3, name: 'Ajay', score: 2200, avatar: 'https://i.pravatar.cc/50?img=3' },
-    { id: 4, name: 'Chandu', score: 2100, avatar: 'https://i.pravatar.cc/50?img=4' },
-    { id: 5, name: 'Varsha', score: 2000, avatar: 'https://i.pravatar.cc/50?img=5' }
+    {
+      id: 1,
+      name: "Munnu",
+      score: 2500,
+      avatar: "https://i.pravatar.cc/50?img=1",
+    },
+    {
+      id: 2,
+      name: "Swapnith",
+      score: 2300,
+      avatar: "https://i.pravatar.cc/50?img=2",
+    },
+    {
+      id: 3,
+      name: "Ajay",
+      score: 2200,
+      avatar: "https://i.pravatar.cc/50?img=3",
+    },
+    {
+      id: 4,
+      name: "Chandu",
+      score: 2100,
+      avatar: "https://i.pravatar.cc/50?img=4",
+    },
+    {
+      id: 5,
+      name: "Kummu",
+      score: 2000,
+      avatar: "https://i.pravatar.cc/50?img=5",
+    },
+    {
+      id: 6,
+      name: "Gummu",
+      score: 2400,
+      avatar: "https://i.pravatar.cc/50?img=7",
+    },
   ];
 
-  const firstname = 'Varsha';
+  const firstname = "Varsha";
 
   const currentDate = new Date();
-  const options = { month: 'long', day: 'numeric', year: 'numeric' };
-  const formattedDate = currentDate.toLocaleDateString('en-US', options);
-  
-  
+  const options = { month: "long", day: "numeric", year: "numeric" };
+  const formattedDate = currentDate.toLocaleDateString("en-US", options);
+
   const useTimeTracker = () => {
     const [timeSpent, setTimeSpent] = useState(() => {
-      const savedTime = localStorage.getItem('timeSpent');
+      const savedTime = localStorage.getItem("timeSpent");
       return savedTime ? parseInt(savedTime, 10) : 0;
     });
     const [startTime, setStartTime] = useState(null);
@@ -135,9 +182,9 @@ const Home = () => {
       const handleVisibilityChange = () => {
         if (document.hidden) {
           const endTime = new Date();
-          setTimeSpent(prev => {
+          setTimeSpent((prev) => {
             const updatedTime = prev + (endTime - startTime);
-            localStorage.setItem('timeSpent', updatedTime);
+            localStorage.setItem("timeSpent", updatedTime);
             return updatedTime;
           });
         } else {
@@ -146,14 +193,17 @@ const Home = () => {
       };
 
       setStartTime(new Date());
-      document.addEventListener('visibilitychange', handleVisibilityChange);
+      document.addEventListener("visibilitychange", handleVisibilityChange);
 
       return () => {
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
         const endTime = new Date();
-        setTimeSpent(prev => {
+        setTimeSpent((prev) => {
           const updatedTime = prev + (endTime - startTime);
-          localStorage.setItem('timeSpent', updatedTime);
+          localStorage.setItem("timeSpent", updatedTime);
           return updatedTime;
         });
       };
@@ -165,21 +215,20 @@ const Home = () => {
   const timeSpent = useTimeTracker();
 
   const studyData = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
     datasets: [
       {
-        label: 'Hours Studied',
+        label: "Hours Studied",
         data: [2, 4, 3, 5, 6, 2, 3], // Mock data, replace with actual time spent
         fill: false,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: "rgba(75,192,192,0.4)",
+        borderColor: "rgba(75,192,192,1)",
       },
     ],
   };
- 
 
   return (
-    <div className='home'>
+    <div className="home">
       <div className="banner">
         <div className="banner-left">
           <div>{formattedDate}</div>
@@ -197,7 +246,7 @@ const Home = () => {
         <div className="course-div">
           <div className="head">
             <p>Active Courses</p>
-            <button className='btn'>See all</button>
+            <button className="btn">See all</button>
           </div>
           <div className="courses">
             <Card />
@@ -217,11 +266,10 @@ const Home = () => {
           <p>Total Time Spent: {(timeSpent / 1000 / 60).toFixed(2)} minutes</p>
         </div>
         {/* <div className='todo-container'> */}
-        <TodoList/>
-        
+        <TodoList />
       </div>
     </div>
   );
-}
+};
 
 export default Home;
