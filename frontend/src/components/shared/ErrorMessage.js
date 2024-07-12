@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./ErrorMessage.module.css";
 import { AiOutlineCloseCircle } from "react-icons/ai"; // Import the error icon
 

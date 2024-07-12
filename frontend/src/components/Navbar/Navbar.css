@@ -17,6 +17,7 @@
 .navItems {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 20px;
   margin: 0;
   padding: 0;
@@ -53,6 +54,47 @@
   cursor: pointer;
 }
 
+.profileItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profileImg {
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  width: max-content;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdownItem {
+  padding: 0.5rem 1rem;
+  color: #0e3f70;
+  text-decoration: none;
+  display: block;
+  cursor: pointer;
+}
+
+.dropdownItem:hover {
+  background-color: #f0f0f0;
+}
 @media (max-width: 768px) {
   .navItems {
     flex-direction: column;

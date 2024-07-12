@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -13,6 +13,7 @@ import {
 import imgg from "./banner-icon.png";
 import courseimg from "./a.jpeg";
 import "./Home.css";
+import { UserContext } from "../../context/UserContext";
 
 ChartJS.register(
   CategoryScale,
@@ -165,7 +166,7 @@ const Home = () => {
     },
   ];
 
-  const firstname = "Varsha";
+  const { user } = useContext(UserContext);
 
   const currentDate = new Date();
   const options = { month: "long", day: "numeric", year: "numeric" };
@@ -233,7 +234,7 @@ const Home = () => {
         <div className="banner-left">
           <div>{formattedDate}</div>
           <div>
-            <h1>Welcome back, {firstname}!</h1>
+            {user? <h1>Welcome back, {user.username}!</h1> : <h1>Welcome back!</h1>}
             <p>Always stay updated in your study portal</p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs"
-import { generateTokenAndSetCookie } from "../lib/utils/generateToken.js";
+import  {generateTokenAndSetCookie}  from "../lib/utils/generateToken.js";
 import User from '../models/user.model.js'
 
 export const signup = async (req,res)=>{
@@ -46,8 +46,6 @@ export const signup = async (req,res)=>{
             username:newUser.username,
             profileImg:newUser.profileImg,
             coverImg:newUser.coverImg,
-            bio:newUser.bio,
-            link:newUser.link,
         })
     }
     else{
@@ -64,10 +62,13 @@ export const signup = async (req,res)=>{
 export const login = async (req,res)=>{
     try{
         const {username, password} = req.body;
-        const user = await User.findOne({username})
-        const isPassword = await bcrypt.compare(password,user.password || "")
-        if(!user || !isPassword){
-            return res.status(400).json({error:"Username or Password wrong"})
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(400).json({ error: "Username or Password wrong" });
+        }
+        const isPassword = await bcrypt.compare(password, user.password);
+        if (!isPassword) {
+            return res.status(400).json({ error: "Username or Password wrong" });
         }
         generateTokenAndSetCookie(user._id,res);
 
@@ -77,9 +78,6 @@ export const login = async (req,res)=>{
             email:user.email,
             username:user.username,
             profileImg:user.profileImg,
-            coverImg:user.coverImg,
-            bio:user.bio,
-            link:user.link,
         })
     }catch(error){
         console.log("Error in Login controller",error);
@@ -87,20 +85,19 @@ export const login = async (req,res)=>{
     }
 };
 
-export const logout = async (req,res)=>{
+export const logout = async (req, res) => {
     try {
-        res.cookie("jwt","",{maxAge:0})
-        res.status(200).json({error:"LoggedOut Successfully"})
+      res.cookie('jwt', '', { maxAge: 0, httpOnly: true, secure: true, sameSite: 'Strict' });
+      res.status(200).json({ message: 'Logged out successfully' });
     } catch (error) {
-        console.log("Error in Logout controller",error);
-        res.status(500).json({error:"Internal Server Error:"})
+      console.log("Error in Logout controller", error);
+      res.status(500).json({ error: "Internal Server Error:" });
     }
-};
+  };
 
 export const authCheck = async (req,res)=>{
     try {
-        //console.log(req.user._id);
-        const user = await User.findById(req.user._id).select("-password")
+        const user = req.user;
         return res.status(200).json(user)
     } catch (error) {
         console.log("Error in authCheck Controller",error.message);

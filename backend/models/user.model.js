@@ -20,6 +20,13 @@ const userSchema = new mongoose.Schema({
         require:true,
         minLength:4
     },
+    profileImg:{
+        type:String,
+        default:"https://i.ibb.co/BTG6sJ9/user-removebg-preview.png",
+    },
+    coverImg:{
+        type:String,
+    }
     
 },{timestamps:true});
 
