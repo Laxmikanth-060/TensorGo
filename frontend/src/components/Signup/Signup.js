@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import ErrorMessage from "../shared/ErrorMessage";
-import Loader from "../shared/Loader"; // Adjust the path as per your project structure
+import Loader from "../shared/Loader"; 
+import { UserContext } from "../../context/UserContext";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -14,6 +15,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {setUser} = useContext(UserContext);
   const navigate = useNavigate();
   const url = "http://localhost:1234";
 
@@ -30,7 +32,7 @@ function Signup() {
         email,
         password,
       });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      setUser(data)
       setLoading(false);
       navigate("/");
     } catch (error) {
