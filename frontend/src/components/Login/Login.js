@@ -35,7 +35,6 @@ function Login() {
           withCredentials: true, 
         }
       );
-      localStorage.setItem("userInfo", JSON.stringify(data));
       setUser(data)
       setLoading(false);
       navigate("/");
