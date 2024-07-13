@@ -10,6 +10,7 @@ import Login from "./components/Login/Login"
 import Signup from "./components/Signup/Signup"
 import CourseDetails from "./components/CourseDetails/CourseDetails";
 import Courses from "./components/Courses/Courses";
+import Payment from "./components/PaymentGateway/Payment";
 
 
 const appRouter = createBrowserRouter([
@@ -36,6 +37,10 @@ const appRouter = createBrowserRouter([
       {
         path:'/courses/:id',
         element:<CourseDetails/>
+      },
+      {
+        path: "/payment",
+        element: <Payment/>
       }
     ],
   },

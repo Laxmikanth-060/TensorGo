@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import connectMongoDB from './db/connectMongoDB.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+const paymentRoutes = require("./routes/payment.js")
 
 const app = express();
 dotenv.config();
@@ -17,6 +18,9 @@ app.use(cors({
     origin: 'http://localhost:3000', 
     credentials: true, 
   }));
+
+app.use("/api/payment/", paymentRoutes);
+
 
 app.use('/api/auth',authRoutes);
 
