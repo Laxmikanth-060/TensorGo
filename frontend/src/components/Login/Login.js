@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
@@ -6,24 +6,36 @@ import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import ErrorMessage from "../shared/ErrorMessage";
 import Loader from "../shared/Loader"; 
-
+import { UserContext } from "../../context/UserContext";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const {setUser} = useContext(UserContext);
   const navigate = useNavigate();
   const url = "http://localhost:1234";
+
+  useEffect(()=>{
+    setError(null);
+  },[username,password])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const { data } = await axios.post(`${url}/api/auth/login`, {
-        username,
-        password,
-      });
-      localStorage.setItem("userInfo", JSON.stringify(data));
+      const { data } = await axios.post(
+        `${url}/api/auth/login`,
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true, 
+        }
+      );
+      setUser(data)
       setLoading(false);
       navigate("/");
     } catch (error) {
@@ -61,6 +73,7 @@ function Login() {
               onChange={(e) => setUsername(e.target.value)}
               required
               className={styles.login_input}
+              autoComplete="off"
             />
             <input
               type="password"
