@@ -6,21 +6,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Courses from "./components/Courses/Courses";
 import Home from "./components/Home/Home";
-import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";
 import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
-import About from "./components/About/About";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
 import CourseDetails from "./components/CourseDetails/CourseDetails";
 import Payment from "./components/PaymentGateway/Payment";
 import { UserProvider } from "./context/UserContext";
-import Courses from "./components/Courses/Courses";
-import { UserProvider } from "./context/UserContext";
-import CreateCourseMain from "./components/CreateCourse/CreateCourseMain";
 
 const appRouter = createBrowserRouter([
   {
@@ -78,4 +71,5 @@ root.render(
       <App />
     </RouterProvider>
   </UserProvider>
+
 );
