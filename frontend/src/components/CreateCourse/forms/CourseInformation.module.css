@@ -1,0 +1,139 @@
+.formContainer {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 40px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formDiv {
+  display: flex;
+  width: 100%;
+  gap: 10%;
+}
+
+.formDivLeft {
+  width: 50%;
+}
+
+.formDivRight {
+  width: 50%;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 800;
+}
+
+.inputField[type='text'],
+.inputField[type='file'],
+.textarea,
+.select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  outline: none;
+}
+
+.dropdowns {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.dropdown {
+  width: 45%;
+}
+
+textarea {
+  resize: vertical; 
+}
+
+/* Submit button */
+.submitButton[type='submit'] {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submitButton[type='submit']:hover {
+  background-color: #45a049;
+}
+
+/* Custom upload button */
+.inputField[type='file'] {
+  display: none; /* Hide the default file input button */
+}
+
+.uploadButton {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  display: inline-block;
+}
+
+.uploadButton:hover {
+  background-color: #0056b3;
+}
+
+.dropzone {
+  border: 2px dashed #007bff;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+  padding: 50px 20px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropzone p {
+  margin: 0;
+  font-size: 16px;
+  color: #007bff;
+}
+
+.previewImage {
+  height: 250px;
+  padding: 0;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .formContainer {
+      width: 100%;
+      padding: 20px 40px;
+  }
+
+  .formDiv {
+      flex-direction: column;
+  }
+
+  .formDivLeft, 
+  .formDivRight {
+      width: 100%;
+  }
+
+  .inputField,
+  textarea,
+  select {
+      font-size: 14px;
+  }
+}

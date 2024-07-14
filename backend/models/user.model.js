@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         require:true,
-        minLength:4
     },
     profileImg:{
         type:String,
@@ -26,6 +25,18 @@ const userSchema = new mongoose.Schema({
     },
     coverImg:{
         type:String,
+    },
+    studentId:{
+        type:mongoose.Schema.Types.ObjectId,
+        default:null,
+    },
+    instructorId:{
+        type:mongoose.Schema.Types.ObjectId,
+        default:null,
+    },
+    isSuperAdmin:{
+        type:Boolean,
+        default:false,
     }
     
 },{timestamps:true});

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import styles from "./Signup.module.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import ErrorMessage from "../shared/ErrorMessage";
-import Loader from "../shared/Loader"; 
+import Loader from "../shared/Loader";
 import { UserContext } from "../../context/UserContext";
 
 function Signup() {
@@ -15,7 +15,7 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const {setUser} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const url = "http://localhost:1234";
 
@@ -32,7 +32,7 @@ function Signup() {
         email,
         password,
       });
-      setUser(data)
+      setUser(data);
       setLoading(false);
       navigate("/");
     } catch (error) {
