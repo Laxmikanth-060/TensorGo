@@ -44,7 +44,7 @@ export const googleDriveUpload = upload.array("files", async (req, res) => {
 
     res.status(200).json({ fileIds });
   } catch (error) {
-    console.error(error);
+    console.error("Error during file upload:",error);
     res.status(500).send("An error occurred during file upload.");
   }
 });
