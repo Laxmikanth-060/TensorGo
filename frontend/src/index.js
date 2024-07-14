@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import CreateCourseMain from './components/CreateCourse/CreateCourseMain';
 import Courses from "./components/Courses/Courses";
 import Home from "./components/Home/Home";
 import LandingPage from "./components/LandingPage/LandingPage";

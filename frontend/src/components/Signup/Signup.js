@@ -8,6 +8,7 @@ import ErrorMessage from "../shared/ErrorMessage";
 import Loader from "../shared/Loader";
 import { UserContext } from "../../context/UserContext";
 
+
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
