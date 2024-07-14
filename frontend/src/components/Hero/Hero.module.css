@@ -8,7 +8,7 @@
     align-items: flex-start;
     justify-content: space-between;
     text-align: left;
-    background-color: #007BFF;
+    background-color: #0e3f70;
     color: white;
     position: relative;
     overflow: hidden;
@@ -32,7 +32,7 @@
     display: inline-block;
     margin-top: 10px;
     background-color: white;
-    color: #007BFF;
+    color: #0e3f70;
     padding: 5px 10px;
     border-radius: 10px;
   }
@@ -68,5 +68,6 @@
     max-width: 100%;
     height: auto;
     max-height: 35em;
+    filter: drop-shadow(10px 10px 10px black);
   }
   

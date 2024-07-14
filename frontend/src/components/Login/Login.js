@@ -1,123 +1,109 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import './Login.css';
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import styles from "./Login.module.css";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { IoArrowBack } from "react-icons/io5";
+import ErrorMessage from "../shared/ErrorMessage";
+import Loader from "../shared/Loader"; 
+import { UserContext } from "../../context/UserContext";
+function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const {setUser} = useContext(UserContext);
+  const navigate = useNavigate();
+  const url = "http://localhost:1234";
 
-const Login = () => {
-  const [status, setStatus] = useState('login');
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  useEffect(()=>{
+    setError(null);
+  },[username,password])
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const { data } = await axios.post(
+        `${url}/api/auth/login`,
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true, 
+        }
+      );
+      setUser(data)
+      setLoading(false);
+      navigate("/");
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.error);
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+      setLoading(false);
+    }
   };
 
-  const loginHanlder=(e)=>{
-
-  }
-
-  const registerHanlder=(e)=>{
-
-  }
-
   return (
-    <div className="container">
-      <div>
-        {status === 'login' ? (
-          <img src="/login.png" alt="login" className="img" />
-        ) : (
-          <img src="/register.png" alt="register" className="img" />
-        )}
-      </div>
-
-      <div className='dataDiv'>
-        <h4 id='title'>Welcome to AbhiTrainings..!</h4>
-        <div className="buttonsDiv">
+    <div className={styles.login_container}>
+      {loading && <Loader />}
+      <div className={styles.login_form_container}>
+        <div className={styles.login_left}>
           <button
-            className={status === 'login' ? 'button highlighted' : 'button'}
-            onClick={() => setStatus('login')}
+            type="button"
+            onClick={() => navigate(-1)}
+            className={styles.back_button}
           >
-            Login
+            <IoArrowBack size={24} />
           </button>
-          <button
-            className={status === 'register' ? 'button highlighted' : 'button'}
-            onClick={() => setStatus('register')}
-          >
-            Register
-          </button>
+          <div className={styles.logo_title_container}>
+            <h1 className={styles.login_title}>Login</h1>
+          </div>
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <form className={styles.login_form} onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className={styles.login_input}
+              autoComplete="off"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className={styles.login_input}
+            />
+            <button type="submit" className={styles.login_green_btn}>
+              Log In
+            </button>
+          </form>
         </div>
-
-        {status === 'login' ? (
-          <div className="inputsDiv">
-            <h5 className='subHeading'>login here with your existing credentials</h5>
-
-            <form onSubmit={loginHanlder}>
-            <div>
-            <h4 className='inputTitle'>Username</h4>
-              <input placeholder="Username" className="input" />
-            </div>
-
-            {/* <div>
-            <h4 className='inputTitle'>Password</h4>
-            <input type={passwordVisible ? 'text' : 'password'} className="input"/>
-            <button  onClick={togglePasswordVisibility} className="password-toggle-button">
-            <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
-             </button>
-            </div> */}
-        <h4 className='inputTitle'>Password</h4>
-    <div className="password-toggle">
-      <input type={passwordVisible ? 'text' : 'password'}  className="password-input" placeholder='Password'/>
-      <button  onClick={togglePasswordVisibility} className="password-toggle-button" type='button'>
-        <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
-      </button>
-    </div>
-
-            <div className='bottomDiv'>
-              <div><input type='checkbox' id='checkbox'/><h7>Remember me</h7></div>
-              <div><h7>Forget Password?</h7></div>
-            </div>
-
-            <div className='LoginSignupButton'>
-            <button className='button2'>Login</button>
-            </div>
-
-            </form>
-          </div>
-        ) : (
-          <div className="inputsDiv">
-            <h5 className='subHeading'>Register into the website with your credentials</h5>
-
-            <form onSubmit={registerHanlder}>   
-            <div>
-              <h4 className='inputTitle'>Email</h4>
-              <input placeholder="Email" className="input" />
-            </div>
-            <div>
-            <h4 className='inputTitle'>Username</h4>
-              <input placeholder="Username" className="input" />
-            </div>
-
-            {/* <div>
-            <h4 className='inputTitle'>Password</h4>
-              <input placeholder="Password" className="input" />
-            </div> */}
-
-<h4 className='inputTitle'>Password</h4>
-    <div className="password-toggle">
-      <input type={passwordVisible ? 'text' : 'password'}  className="password-input" placeholder='Password'/>
-      <button  onClick={togglePasswordVisibility} className="password-toggle-button" type='button'>
-        <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
-      </button>
-    </div>
-          
-            <div className='LoginSignupButton'>
-            <button className='button2'>Register</button>
-            </div>
-            </form>
-          </div>
-        )}
+        <div className={styles.login_right}>
+          <img
+            src="./assets/abhiTrainings-logo.png"
+            alt="AbhiTrainings"
+            className={styles.login_right_img}
+          />
+          <Link to="/signup">
+            <button type="button" className={styles.login_white_btn}>
+              Sign Up
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default Login;
