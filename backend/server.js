@@ -23,6 +23,15 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.cookie("cookieName", "cookieValue", {
+    httpOnly: true,
+    sameSite: "Lax",
+    secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+  });
+  next();
+});
+
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/gDrive", gDriveRoutes);
