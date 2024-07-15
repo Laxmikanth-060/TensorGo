@@ -1,0 +1,28 @@
+.CreateCourseMainContainer{
+    margin-top: 20px;
+}
+.mainTitle{
+    text-align: center;
+    font-weight: 700;
+}
+.buttonsNav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap:10px;
+}
+.backButton,
+.nextButton{
+    width: 5rem;
+    padding: 5px 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+.backButton{
+    background-color: lightgray;
+    color: black;
+}

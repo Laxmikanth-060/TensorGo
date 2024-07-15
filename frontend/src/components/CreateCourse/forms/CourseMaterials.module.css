@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: 0 30px;
+  flex-wrap: wrap; /* Allow wrapping for responsive design */
 }
 
 .formContainer {
@@ -77,6 +78,23 @@
 .label {
   display: block;
   margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.inputGroup {
+  position: relative;
+  margin: 5px 0;
+}
+
+.floatingLabel {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: rgb(104, 104, 104);
+  pointer-events: none;
+  transition: .3s;
 }
 
 .input,
@@ -89,19 +107,19 @@
   outline: none;
 }
 
+.input:focus~.floatingLabel,
+.input:not(:placeholder-shown)~.floatingLabel,
+.textarea:focus~.floatingLabel,
+.textarea:not(:placeholder-shown)~.floatingLabel {
+  top: 0;
+  font-size: 13px;
+  background: #fafafa;
+  color: black;
+}
+
 .fileInput {
   display: none;
 }
-
-/* button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-} */
 
 .removeButton {
   background-color: #dc3545;
@@ -111,6 +129,7 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: auto;
 }
 
 .addVideoButton,
@@ -125,7 +144,7 @@
 }
 
 .uploadButton {
-  background-color: #007bff;
+  background-color: #3b9400;
   color: #fff;
   padding: 8px 16px;
   border: none;
@@ -145,4 +164,21 @@
   margin-bottom: 20px;
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    margin: 0 10px;
+  }
+
+  .formContainer,
+  .previewContainer {
+    width: 100%;
+  }
+
+  .previewContainer {
+    margin: 20px 0;
+  }
 }

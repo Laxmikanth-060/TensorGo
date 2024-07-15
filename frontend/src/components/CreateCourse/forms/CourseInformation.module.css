@@ -31,10 +31,7 @@
   font-weight: 800;
 }
 
-.inputField[type='text'],
-.inputField[type='file'],
-.textarea,
-.select {
+.inputField{
   width: 100%;
   padding: 10px;
   font-size: 14px;
@@ -44,6 +41,7 @@
   background-color: #f9f9f9;
   outline: none;
 }
+
 
 .dropdowns {
   display: flex;

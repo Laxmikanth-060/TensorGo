@@ -1,28 +1,17 @@
 import React, { useState } from "react";
-import styles from "./CourseMaterials.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import styles from "./CourseMaterials.module.css";
 
-const CourseMaterials = () => {
-  const [modules, setModules] = useState([
-    {
-      moduleName: "",
-      videosList: [
-        {
-          videoName: "",
-          description: "",
-          videoFile: null,
-          expanded: true,
-        },
-      ],
-    },
-  ]);
+const CourseMaterials = ({ data, updateData }) => {
+  const [modules, setModules] = useState(data);
 
   const handleModuleChange = (index, event) => {
     const { name, value } = event.target;
     const updatedModules = [...modules];
     updatedModules[index][name] = value;
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const handleVideoChange = (moduleIndex, videoIndex, event) => {
@@ -34,12 +23,14 @@ const CourseMaterials = () => {
       updatedModules[moduleIndex].videosList[videoIndex][name] = value;
     }
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const toggleExpand = (moduleIndex, videoIndex) => {
     const updatedModules = [...modules];
     updatedModules[moduleIndex].videosList[videoIndex].expanded = !updatedModules[moduleIndex].videosList[videoIndex].expanded;
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const addModule = () => {
@@ -60,8 +51,10 @@ const CourseMaterials = () => {
   };
 
   const removeModule = (index) => {
-    const updatedModules = modules.filter((_, i) => i !== index);
+    const updatedModules = [...modules];
+    updatedModules.splice(index, 1);
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const addVideo = (moduleIndex) => {
@@ -73,14 +66,14 @@ const CourseMaterials = () => {
       expanded: true,
     });
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const removeVideo = (moduleIndex, videoIndex) => {
     const updatedModules = [...modules];
-    updatedModules[moduleIndex].videosList = updatedModules[moduleIndex].videosList.filter(
-      (_, i) => i !== videoIndex
-    );
+    updatedModules[moduleIndex].videosList.splice(videoIndex, 1);
     setModules(updatedModules);
+    updateData(updatedModules);
   };
 
   const handleSubmit = (event) => {
@@ -108,22 +101,25 @@ const CourseMaterials = () => {
                 />
               </div>
               <button type="button" onClick={() => removeModule(moduleIndex)} className={styles.removeButton}>
-                Remove Module
+                Remove
               </button>
             </div>
             {module.videosList.map((video, videoIndex) => (
               <div key={videoIndex} className={styles.videoContainer}>
                 <div className={styles.videoHeader}>
                   <div className={styles.videoNameInput}>
-                    <input
-                      type="text"
-                      name="videoName"
-                      value={video.videoName}
-                      onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
-                      placeholder="Video Name"
-                      className={styles.input}
-                      required
-                    />
+                    <div className={styles.inputGroup}>
+                      <input
+                        type="text"
+                        name="videoName"
+                        value={video.videoName}
+                        onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                        className={styles.input}
+                        placeholder=""
+                        required
+                      />
+                      <label className={styles.floatingLabel}>Video Name</label>
+                    </div>
                   </div>
                   <div className={styles.videoActions}>
                     <FontAwesomeIcon
@@ -141,14 +137,17 @@ const CourseMaterials = () => {
                 {video.expanded && (
                   <div className={styles.videoDetails}>
                     <div className={styles.videoField}>
-                      <label className={styles.label}>Description</label>
-                      <textarea
-                        name="description"
-                        value={video.description}
-                        onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
-                        className={styles.textarea}
-                        required
-                      />
+                      <div className={styles.inputGroup}>
+                        <textarea
+                          name="description"
+                          value={video.description}
+                          onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                          className={styles.textarea}
+                          placeholder=""
+                          required
+                        />
+                        <label className={styles.floatingLabel}>Description</label>
+                      </div>
                     </div>
                     <div className={styles.videoField}>
                       <label className={styles.label}>Video File</label>

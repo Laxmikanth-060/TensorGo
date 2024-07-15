@@ -1,9 +1,56 @@
-import React from 'react'
+import React, { useState } from 'react';
+import styles from './PricingInformation.module.css';
 
-const PricingInformation = () => {
+const PricingInformation = ({ data, updateData }) => {
+  const [formData, setFormData] = useState(data);
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    updateData({ ...formData, [name]: value }); // Update parent component data
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Perform submit actions, like sending data to the backend
+    console.log(formData);
+  };
+
   return (
-    <div>PricingInformation</div>
-  )
-}
+    <div className={styles.formContainer}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <h5 className={styles.title}>Pricing Information</h5>
+        <div className={styles.field}>
+          <label htmlFor="price" className={styles.label}>Price</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value={formData.price}
+            onChange={handleChange}
+            className={styles.input}
+            required
+          />
+        </div>
+        <div className={styles.field}>
+          <label htmlFor="upiId" className={styles.label}>UPI ID</label>
+          <input
+            type="text"
+            id="upiId"
+            name="upiId"
+            value={formData.upiId}
+            onChange={handleChange}
+            className={styles.input}
+            required
+          />
+        </div>
+        <button type="submit" className={styles.submitButton}>Submit</button>
+      </form>
+    </div>
+  );
+};
 
-export default PricingInformation
+export default PricingInformation;

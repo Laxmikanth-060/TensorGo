@@ -3,16 +3,8 @@ import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import styles from "./CourseInformation.module.css";
 
-const CourseInformation = () => {
-  const [formData, setFormData] = useState({
-    title: "",
-    category: "",
-    level: "",
-    description: "",
-    coverImage: null,
-  });
-
-  const [imageLink, setImageLink] = useState("");
+const CourseInformation = ({ data, updateData }) => {
+  const [formData, setFormData] = useState(data);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,7 +24,10 @@ const CourseInformation = () => {
         "https://api.imgbb.com/1/upload",
         formData
       );
-      setImageLink(response.data.data.url);
+      setFormData((prevData) => ({
+        ...prevData,
+        coverImage: response.data.data.url
+      }));
     } catch (error) {
       console.error("Error uploading image: ", error);
     }
@@ -53,15 +48,12 @@ const CourseInformation = () => {
   });
 
   useEffect(() => {
-    if (imageLink) {
-      console.log("Image uploaded: ", imageLink);
-      // You can perform additional actions with the image link here
-    }
-  }, [imageLink]);
+    updateData(formData);
+  }, [formData]);
 
   return (
     <div className={styles.formContainer}>
-      <h5>Course Information</h5>
+      <h5><strong>Course Information</strong></h5>
       <div className={styles.formDiv}>
         <div className={styles.formDivLeft}>
           <div className={styles.formGroup}>
@@ -100,7 +92,7 @@ const CourseInformation = () => {
                 name="level"
                 value={formData.level}
                 onChange={handleChange}
-                className={styles.inputField}
+                className={`${styles.inputField}` }
                 required
               >
                 <option value="">Select Level</option>
@@ -119,7 +111,7 @@ const CourseInformation = () => {
               value={formData.description}
               onChange={handleChange}
               className={styles.inputField}
-              maxLength={30}
+              maxLength={300}
               rows={5}
               required
             />
@@ -128,9 +120,9 @@ const CourseInformation = () => {
         <div className={styles.formDivRight}>
           <div className={styles.formGroup}>
             <label htmlFor="coverImage" className={styles.label}>Cover Image</label>
-            {imageLink ? (
+            {formData.coverImage ? (
               <img
-                src={imageLink}
+                src={formData.coverImage}
                 alt="preview"
                 className={styles.previewImage}
               />
