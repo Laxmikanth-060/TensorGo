@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CourseMaterials.module.css";
 
-const CourseMaterials = ({ data, updateData }) => {
+const CourseMaterials = ({ data, updateData,courseId }) => {
   const [modules, setModules] = useState(data);
+  const fileInputRef = useRef(null);
 
   const handleModuleChange = (index, event) => {
     const { name, value } = event.target;
@@ -82,6 +83,35 @@ const CourseMaterials = ({ data, updateData }) => {
     console.log(modules);
   };
 
+  const handleFileUpload = async () => {
+    const files = fileInputRef.current.files;
+    if (files.length > 0) {
+      const formData = new FormData();
+      for (let i = 0; i < files.length; i++) {
+        formData.append("files", files[i]);
+      }
+
+      formData.append("courseId", courseId);
+      console.log(formData)
+
+      //   for (let pair of formData.entries()) {
+      //     console.log(pair[0] + ": " + pair[1].name);
+      //   }
+
+      try {
+        const response = await fetch("http://localhost:1234/gDrive/upload", {
+          method: "POST",
+          body: formData,
+        });
+        console.log(response);
+        const data = await response.json();
+        console.log("Uploaded files: ", data.files);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit} className={styles.formContainer}>
@@ -153,6 +183,7 @@ const CourseMaterials = ({ data, updateData }) => {
                       <label className={styles.label}>Video File</label>
                       <input
                         type="file"
+                        multiple ref={fileInputRef}
                         name="videoFile"
                         onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
                         className={styles.fileInput}
@@ -164,6 +195,13 @@ const CourseMaterials = ({ data, updateData }) => {
                         onClick={() => document.getElementsByName(`videoFile`)[0].click()}
                       >
                         Upload Video
+                      </button>
+                      <button 
+                        type="button" 
+                        className={styles.uploadButton} 
+                        onClick={handleFileUpload}
+                      >
+                        Submit Video
                       </button>
                     </div>
                   </div>

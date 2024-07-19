@@ -22,16 +22,17 @@ export const googleDriveUpload = async (req, res) => {
     const drive = google.drive({ version: "v3", auth });
 
     const uploadedFiles = [];
-
+    const courseId = req.body.courseId;
+    //console.log(courseId)
     for (let i = 0; i < req.files.length; i++) {
       const file = req.files[i];
 
       const response = await drive.files.create({
         // responsible to create file in drive
         requestBody: {
-          name: file.originalname, // name of the file to be uploaded in drive, this will also be the name of the file once it is downloaded from drive.
-          mimeType: file.mimeType, // refers to the extension
-          parents: ["1TA-cBG3Ud5etD9a1Am4Uk7LkX4CzeH2u"], // the G drive folder id where the videos need to be stored
+          name: file.originalname, // Name of the file to be uploaded in drive, this will also be the name of the file once it is downloaded from drive.
+          mimeType: file.mimeType, // Refers to the extension
+          parents: [`${courseId}`], // The G drive folder id where the videos need to be stored
         },
         media: {
           body: fs.createReadStream(file.path),
@@ -42,19 +43,20 @@ export const googleDriveUpload = async (req, res) => {
     }
     res.json({ files: uploadedFiles });
   } catch (error) {
-    console.error("Error during file upload:", error);
+    //console.error("Error during file upload:", error);
+    console.log("Error in file upload!")
     res.status(500).send("An error occurred during file upload.");
   }
 };
 
 //TO CREATE A FOLDER
 export const createFolder = async (req, res) => {
-  console.log("Create Folder");
+  //console.log("Create Folder");
   try {
     const drive = google.drive({ version: "v3", auth });
-    console.log(req.body);
+    //console.log(req.body);
     const fileMetadata = {
-      name: req.body.folderName,
+      name: req.body.title,
       mimeType: "application/vnd.google-apps.folder",
       parents: ["1TA-cBG3Ud5etD9a1Am4Uk7LkX4CzeH2u"],
     };
