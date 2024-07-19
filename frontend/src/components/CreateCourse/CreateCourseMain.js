@@ -29,8 +29,8 @@ const CreateCourseMain = () => {
     ],
     pricingInfo: {
       price: 0,
-      upiId: '',
-    }
+      upiId: "",
+    },
   });
 
   const updateFormData = (section, data) => {
@@ -43,22 +43,24 @@ const CreateCourseMain = () => {
   return (
     <div className={styles.CreateCourseMainContainer}>
       <h3 className={styles.mainTitle}>Create Course</h3>
-
+      <div className={styles.pageNumberContainer}>
+        <div className={styles.pageNumber}>Page {page}/3</div>
+      </div>
       <div>
         {page === 1 ? (
           <CourseInformation
             data={formData.courseInfo}
-            updateData={(data) => updateFormData('courseInfo', data)}
+            updateData={(data) => updateFormData("courseInfo", data)}
           />
         ) : page === 2 ? (
           <CourseMaterials
             data={formData.courseMaterials}
-            updateData={(data) => updateFormData('courseMaterials', data)}
+            updateData={(data) => updateFormData("courseMaterials", data)}
           />
         ) : (
           <PricingInformation
             data={formData.pricingInfo}
-            updateData={(data) => updateFormData('pricingInfo', data)}
+            updateData={(data) => updateFormData("pricingInfo", data)}
           />
         )}
       </div>
