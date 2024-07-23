@@ -5,6 +5,8 @@ import cookieParser from "cookie-parser";
 import connectMongoDB from "./db/connectMongoDB.js";
 import authRoutes from "./routes/auth.routes.js";
 import gDriveRoutes from "./routes/gdrive.routes.js";
+import Razorpay from "razorpay";
+import payment from "./routes/payment.js"
 
 dotenv.config();
 
@@ -35,6 +37,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/gDrive", gDriveRoutes);
+app.use("/api/payment",payment)
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,9 +50,6 @@ app.use(
   })
 );
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/gDrive", gDriveRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`);
