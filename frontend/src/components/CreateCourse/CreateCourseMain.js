@@ -3,6 +3,7 @@ import styles from "./CreateCourseMain.module.css";
 import CourseInformation from "./forms/CourseInformation";
 import PricingInformation from "./forms/PricingInformation";
 import CourseMaterials from "./forms/CourseMaterials";
+
 const CreateCourseMain = () => {
   const [page, setPage] = useState(1);
   const [formData, setFormData] = useState({
@@ -13,7 +14,7 @@ const CreateCourseMain = () => {
       level: "",
       description: "",
       coverImage: null,
-      thumbnailImage: "",  // Add other required fields if necessary
+      thumbnailImage: "",
       duration: 0,
       price: 0,
       publishedDate: "",
@@ -38,12 +39,31 @@ const CreateCourseMain = () => {
       upiId: "",
     },
   });
+  const [errors, setErrors] = useState({});
 
   const updateFormData = (section, data) => {
     setFormData((prevData) => ({
       ...prevData,
       [section]: data,
     }));
+  };
+
+  const validateCourseInfo = () => {
+    const newErrors = {};
+    if (!formData.courseInfo.title) {
+      newErrors.title = "Title is required";
+    }
+    if (!formData.courseInfo.category) {
+      newErrors.category = "Category is required";
+    }
+    if (!formData.courseInfo.level) {
+      newErrors.level = "Level is required";
+    }
+    if (!formData.courseInfo.description) {
+      newErrors.description = "Description is required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmitAll = async () => {
@@ -63,6 +83,7 @@ const CreateCourseMain = () => {
       // Handle error (e.g., show an error message)
     }
   };
+
   const handleCreateCourseFolder = async () => {
     const title = formData.courseInfo.title;
     if (title) {
@@ -96,9 +117,16 @@ const CreateCourseMain = () => {
 
   const handleNextButton = () => {
     if (page === 1) {
-      handleCreateCourseFolder();
+      if (validateCourseInfo()) {
+        handleCreateCourseFolder();
+        setPage((prev) => prev + 1);
+      }
+      else{
+        alert("Please enter all the fields!")
+      }
+    } else {
+      setPage((prev) => prev + 1);
     }
-    setPage((prev) => prev + 1);
   };
 
   return (
@@ -112,6 +140,7 @@ const CreateCourseMain = () => {
           <CourseInformation
             data={formData.courseInfo}
             updateData={(data) => updateFormData("courseInfo", data)}
+            errors={errors}
           />
         ) : page === 2 ? (
           <CourseMaterials

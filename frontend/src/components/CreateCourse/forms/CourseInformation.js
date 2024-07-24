@@ -14,7 +14,7 @@ const CourseInformation = ({ data, updateData }) => {
     }));
   };
 
-  const uploadImage = async (file) => {
+  const uploadImage = async (file, imageType) => {
     const formData = new FormData();
     formData.append("image", file);
     formData.append("key", "8781a1d6743760303a07331a4de14957");
@@ -24,26 +24,32 @@ const CourseInformation = ({ data, updateData }) => {
         "https://api.imgbb.com/1/upload",
         formData
       );
+      const imageUrl = response.data.data.url;
       setFormData((prevData) => ({
         ...prevData,
-        coverImage: response.data.data.url
+        [imageType]: imageUrl,
       }));
     } catch (error) {
       console.error("Error uploading image: ", error);
     }
   };
 
-  const onDrop = (acceptedFiles) => {
+  const onDrop = (acceptedFiles, imageType) => {
     const file = acceptedFiles[0];
     setFormData((prevData) => ({
       ...prevData,
-      coverImage: file,
+      [imageType]: file,
     }));
-    uploadImage(file);
+    uploadImage(file, imageType);
   };
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
+  const { getRootProps: getCoverImageRootProps, getInputProps: getCoverImageInputProps, isDragActive: isCoverImageDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => onDrop(acceptedFiles, 'coverImage'),
+    accept: "image/*",
+  });
+
+  const { getRootProps: getThumbnailImageRootProps, getInputProps: getThumbnailImageInputProps, isDragActive: isThumbnailImageDragActive } = useDropzone({
+    onDrop: (acceptedFiles) => onDrop(acceptedFiles, 'thumbnailImage'),
     accept: "image/*",
   });
 
@@ -123,13 +129,33 @@ const CourseInformation = ({ data, updateData }) => {
             {formData.coverImage ? (
               <img
                 src={formData.coverImage}
-                alt="preview"
+                alt="Cover Img"
                 className={styles.previewImage}
               />
             ) : (
-              <div {...getRootProps({ className: styles.dropzone })}>
-                <input {...getInputProps()} />
-                {isDragActive ? (
+              <div {...getCoverImageRootProps({ className: styles.dropzone })}>
+                <input {...getCoverImageInputProps()} />
+                {isCoverImageDragActive ? (
+                  <p>Drop the files here...</p>
+                ) : (
+                  <p>Drag 'n' drop to upload, or click to select files</p>
+                )}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="thumbnailImage" className={styles.label}>Thumbnail Image</label>
+            {formData.thumbnailImage ? (
+              <img
+                src={formData.thumbnailImage}
+                alt="Thumb Nail"
+                className={styles.previewImage}
+              />
+            ) : (
+              <div {...getThumbnailImageRootProps({ className: styles.dropzone })}>
+                <input {...getThumbnailImageInputProps()} />
+                {isThumbnailImageDragActive ? (
                   <p>Drop the files here...</p>
                 ) : (
                   <p>Drag 'n' drop to upload, or click to select files</p>
