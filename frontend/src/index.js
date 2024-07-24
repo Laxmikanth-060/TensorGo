@@ -11,8 +11,8 @@ import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
-import Payment from "./components/PaymentGateway/Payment";
 import { UserProvider } from "./context/UserContext";
+import Razorpay from "./components/PaymentGateway/Razorpay";
 import CourseOverview from "./components/CourseDetails/CourseOverview";
 import CourseDetails from "./components/CourseDetails/CourseDetails"
 const appRouter = createBrowserRouter([
@@ -50,7 +50,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/payment",
-        element: <Payment />,
+        element: <Razorpay />,
       },
       {
         path:'/course-details',

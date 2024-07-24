@@ -3,24 +3,28 @@ import styles from "./CreateCourseMain.module.css";
 import CourseInformation from "./forms/CourseInformation";
 import PricingInformation from "./forms/PricingInformation";
 import CourseMaterials from "./forms/CourseMaterials";
-
 const CreateCourseMain = () => {
   const [page, setPage] = useState(1);
   const [formData, setFormData] = useState({
     courseInfo: {
-      id:"",
+      id: "",
       title: "",
       category: "",
       level: "",
       description: "",
       coverImage: null,
+      thumbnailImage: "",  // Add other required fields if necessary
+      duration: 0,
+      price: 0,
+      publishedDate: "",
+      rating: 0,
     },
     courseMaterials: [
       {
         moduleName: "",
         videosList: [
           {
-            id:"",
+            id: "",
             videoName: "",
             description: "",
             videoFile: null,
@@ -31,8 +35,8 @@ const CreateCourseMain = () => {
     ],
     pricingInfo: {
       price: 0,
-      upiId: '',
-    }
+      upiId: "",
+    },
   });
 
   const updateFormData = (section, data) => {
@@ -42,7 +46,23 @@ const CreateCourseMain = () => {
     }));
   };
 
-
+  const handleSubmitAll = async () => {
+    try {
+      const response = await fetch("http://localhost:1234/courses/create-with-details", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      console.log("Submission successful:", data);
+      // Handle successful submission (e.g., show a success message, redirect)
+    } catch (error) {
+      console.error("Submission failed:", error);
+      // Handle error (e.g., show an error message)
+    }
+  };
   const handleCreateCourseFolder = async () => {
     const title = formData.courseInfo.title;
     if (title) {
@@ -57,7 +77,6 @@ const CreateCourseMain = () => {
             body: JSON.stringify({ title }),
           }
         );
-        //console.log(response);
         const data = await response.json();
         console.log("Created folder ID: ", data.folderId);
         setFormData((prevFormData) => ({
@@ -75,48 +94,47 @@ const CreateCourseMain = () => {
     }
   };
 
-  const handleNextButton = ()=>{
-    setPage((prev) => prev + 1);
-    if(page == 1){
+  const handleNextButton = () => {
+    if (page === 1) {
       handleCreateCourseFolder();
     }
-  }
+    setPage((prev) => prev + 1);
+  };
 
   return (
     <div className={styles.CreateCourseMainContainer}>
       <h3 className={styles.mainTitle}>Create Course</h3>
-
+      <div className={styles.pageNumberContainer}>
+        <div className={styles.pageNumber}>Page {page}/3</div>
+      </div>
       <div>
         {page === 1 ? (
           <CourseInformation
             data={formData.courseInfo}
-            updateData={(data) => updateFormData('courseInfo', data)}
+            updateData={(data) => updateFormData("courseInfo", data)}
           />
         ) : page === 2 ? (
           <CourseMaterials
             data={formData.courseMaterials}
             updateData={(data) => updateFormData('courseMaterials', data)}
-            courseId = {formData.courseInfo.id}
+            courseId={formData.courseInfo.id}
           />
         ) : (
           <PricingInformation
             data={formData.pricingInfo}
-            updateData={(data) => updateFormData('pricingInfo', data)}
+            updateData={(data) => updateFormData("pricingInfo", data)}
           />
         )}
       </div>
       <div className={styles.buttonsNav}>
-        {page !== 1 ? (
+        {page !== 1 && (
           <button
             className={styles.backButton}
-            onClick={() => {
-              setPage((prev) => prev - 1);
-            }}
+            onClick={() => setPage((prev) => prev - 1)}
           >
             Back
           </button>
-        ) : null}
-
+        )}
         {page !== 3 ? (
           <button
             className={styles.nextButton}
@@ -124,7 +142,14 @@ const CreateCourseMain = () => {
           >
             Next
           </button>
-        ) : null}
+        ) : (
+          <button
+            className={styles.submitButton}
+            onClick={handleSubmitAll}
+          >
+            Submit
+          </button>
+        )}
       </div>
     </div>
   );

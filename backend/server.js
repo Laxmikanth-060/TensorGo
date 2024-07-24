@@ -5,6 +5,10 @@ import cookieParser from "cookie-parser";
 import connectMongoDB from "./db/connectMongoDB.js";
 import authRoutes from "./routes/auth.routes.js";
 import gDriveRoutes from "./routes/gdrive.routes.js";
+import Razorpay from "razorpay";
+import payment from "./routes/payment.js"
+import courseRoutes from './routes/course.routes.js';
+import moduleRoutes from './routes/module.routes.js';
 
 dotenv.config();
 
@@ -35,6 +39,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/gDrive", gDriveRoutes);
+app.use("/api/payment",payment)
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -47,11 +52,14 @@ app.use(
   })
 );
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/gDrive", gDriveRoutes);
+app.use('/courses', courseRoutes);
+app.use('/modules', moduleRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`);
   connectMongoDB();
 });
+
+
+
+//https://www.devknus.com/course/tutorialreactminiprojects/reactminiprojects/11

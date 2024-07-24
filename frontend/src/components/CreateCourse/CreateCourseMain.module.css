@@ -5,12 +5,19 @@
     text-align: center;
     font-weight: 700;
 }
+.pageNumberContainer{
+    display: flex;
+}
+.pageNumber{
+    margin-left: 90%;
+}
 .buttonsNav{
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     gap:10px;
+    margin-bottom: 10%;
 }
 .backButton,
 .nextButton{
