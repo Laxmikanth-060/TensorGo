@@ -1,11 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import styles from "./CourseMaterials.module.css";
 
-const CourseMaterials = ({ data, updateData,courseId }) => {
+const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
   const [modules, setModules] = useState(data);
-  const fileInputRef = useRef(null);
+  const fileInputRefs = useRef([]);
+
+  useEffect(() => {
+    setModules(data);
+  }, [data]);
 
   const handleModuleChange = (index, event) => {
     const { name, value } = event.target;
@@ -44,6 +48,7 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
             videoName: "",
             description: "",
             videoFile: null,
+            videoUrl: "",
             expanded: true,
           },
         ],
@@ -64,6 +69,7 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
       videoName: "",
       description: "",
       videoFile: null,
+      videoUrl: "",
       expanded: true,
     });
     setModules(updatedModules);
@@ -77,34 +83,40 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
     updateData(updatedModules);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Submit form data to the backend or perform any required actions
-    console.log(modules);
+  const validateForm = () => {
+    for (let module of modules) {
+      if (!module.moduleName) {
+        return false;
+      }
+      for (let video of module.videosList) {
+        if (!video.videoName || !video.description || !video.videoFile) {
+          return false;
+        }
+      }
+    }
+    return true;
   };
 
-  const handleFileUpload = async () => {
-    const files = fileInputRef.current.files;
+  const handleFileUpload = async (moduleIndex, videoIndex) => {
+    const fileInputRef = fileInputRefs.current[moduleIndex][videoIndex];
+    const files = fileInputRef.files;
     if (files.length > 0) {
       const formData = new FormData();
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i]);
       }
-
       formData.append("courseId", courseId);
-      console.log(formData)
-
-      //   for (let pair of formData.entries()) {
-      //     console.log(pair[0] + ": " + pair[1].name);
-      //   }
-
       try {
         const response = await fetch("http://localhost:1234/gDrive/upload", {
           method: "POST",
           body: formData,
         });
-        console.log(response);
         const data = await response.json();
+        const fileId = data.files[0].id;
+        const updatedModules = [...modules];
+        updatedModules[moduleIndex].videosList[videoIndex].videoUrl = fileId;
+        setModules(updatedModules);
+        updateData(updatedModules);
         console.log("Uploaded files: ", data.files);
       } catch (error) {
         console.log(error);
@@ -112,9 +124,14 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
     }
   };
 
+  const triggerFileInput = (moduleIndex, videoIndex) => {
+    const fileInputRef = fileInputRefs.current[moduleIndex][videoIndex];
+    fileInputRef.click();
+  };
+
   return (
     <div className={styles.container}>
-      <form onSubmit={handleSubmit} className={styles.formContainer}>
+      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(validateForm()); }} className={styles.formContainer}>
         <h5 className={styles.title}>Modules and Videos</h5>
         {modules.map((module, moduleIndex) => (
           <div key={moduleIndex} className={styles.moduleContainer}>
@@ -183,7 +200,13 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
                       <label className={styles.label}>Video File</label>
                       <input
                         type="file"
-                        multiple ref={fileInputRef}
+                        multiple
+                        ref={(el) => {
+                          if (!fileInputRefs.current[moduleIndex]) {
+                            fileInputRefs.current[moduleIndex] = [];
+                          }
+                          fileInputRefs.current[moduleIndex][videoIndex] = el;
+                        }}
                         name="videoFile"
                         onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
                         className={styles.fileInput}
@@ -192,14 +215,14 @@ const CourseMaterials = ({ data, updateData,courseId }) => {
                       <button 
                         type="button" 
                         className={styles.uploadButton} 
-                        onClick={() => document.getElementsByName(`videoFile`)[0].click()}
+                        onClick={() => triggerFileInput(moduleIndex, videoIndex)}
                       >
                         Upload Video
                       </button>
                       <button 
                         type="button" 
                         className={styles.uploadButton} 
-                        onClick={handleFileUpload}
+                        onClick={() => handleFileUpload(moduleIndex, videoIndex)}
                       >
                         Submit Video
                       </button>

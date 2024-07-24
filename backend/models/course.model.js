@@ -3,61 +3,73 @@ import mongoose from "mongoose";
 const courseSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    // required: true,
   },
   category: {
     type: String,
-    required: true,
+    // required: true,
   },
   level: {
     type: String,
-    required: true,
+    // required: true,
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   thumbnailImage: {
     type: String,
-    required: true,
+    // required: true,
   },
   coverImage: {
     type: String,
-    required: true,
+    // required: true,
   },
   instructor: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
+    // required: true,
     ref: 'Instructor',
   },
   duration: {
     type: Number,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
+    // required: true,
   },
   publishedDate: {
     type: Date,
-    required: true,
+    // required: true,
   },
   rating: {
     type: Number,
-    required: true,
+    // required: true,
   },
-},{timestamps:true});
+  modules: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Module',
+    },
+  ],
+  pricingInfo: {
+    price: {
+      type: Number,
+      // required: true,
+    },
+    upiId: {
+      type: String,
+      // required: true,
+    },
+  },
+}, { timestamps: true });
 
 const moduleSchema = new mongoose.Schema({
   moduleName: {
     type: String,
-    require: true,
+    // require: true,
   },
   videosList: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "Video",
+      // required: true,
+      ref: 'Video',
     },
   ],
 });
@@ -65,30 +77,26 @@ const moduleSchema = new mongoose.Schema({
 const videoSchema = new mongoose.Schema({
   videoName: {
     type: String,
-    require: true,
+    // require: true,
   },
   videoUrl: {
     type: String,
-    require: true,
+    // require: true,
   },
   duration: {
     type: Number,
-    required: true,
+    // required: true,
   },
   description: {
     type: String,
-    required: true,
+    // required: true,
   },
   publishedDate: {
     type: Date,
-    required: true,
+    // required: true,
   },
-},{timestamps:true});
+}, { timestamps: true });
 
-const Course = mongoose.model("Course", courseSchema);
-const Module = mongoose.model("Module", moduleSchema);
-const Video = mongoose.model("Video", videoSchema);
-
-module.exports = Course;
-module.exports = Module;
-module.exports = Video;
+export const Course = mongoose.model('Course', courseSchema);
+export const Module = mongoose.model('Module', moduleSchema);
+export const Video = mongoose.model('Video', videoSchema);

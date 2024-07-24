@@ -13,15 +13,9 @@ const PricingInformation = ({ data, updateData }) => {
     updateData({ ...formData, [name]: value }); // Update parent component data
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Perform submit actions, like sending data to the backend
-    console.log(formData);
-  };
-
   return (
     <div className={styles.formContainer}>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form className={styles.form}>
         <h5 className={styles.title}>Pricing Information</h5>
         <div className={styles.field}>
           <label htmlFor="price" className={styles.label}>Price</label>
@@ -47,7 +41,6 @@ const PricingInformation = ({ data, updateData }) => {
             required
           />
         </div>
-        <button type="submit" className={styles.submitButton}>Submit</button>
       </form>
     </div>
   );
