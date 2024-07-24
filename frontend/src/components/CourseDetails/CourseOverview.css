@@ -1,0 +1,222 @@
+.courseDetails-banner-image img{
+    width: 100%;
+}
+.course-name{
+    margin: 0;
+    padding: 0;
+}
+.course-overview{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: -2em;
+}
+.course-feedback h1{
+    text-align: center;
+}
+.course-feedback{
+    display: flex;
+    background: rgba(34, 118, 207, 0.8);
+    flex-direction: column ;
+    width: 60%;
+    border-radius: 1em;
+    margin: 5em;
+    color: black;
+}
+.stars{
+    color: gold;
+    font-size: 1.2em;
+}
+.icons{
+    padding: 0.5em;
+}
+.course-feedback-upper{
+    display: flex;
+    justify-content: space-around;
+    padding: 2em;
+    font-size: 1.2em;
+}
+.feedback-stars{
+    margin: 1em;
+}
+.feedback-box{
+    margin: 1em;
+    background: rgb(255, 255, 255);
+    border-radius: 0.5em;
+    height: max-content;
+    padding: 2em;
+}
+.feedback-progress{
+    margin: 1em;
+}
+
+.course-feedback-lower{
+    padding-bottom: 5em;
+}
+
+.userprofile{
+    display: flex;
+    align-items: center;
+    padding: 0.2em;
+}
+.user-name-stars{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1em;
+}
+.user-name-stars span{
+    font-size: 1.3em;
+}
+.userprofile img{
+    width: 70px;
+    border-radius: 50%;
+}
+.course-details{
+    margin: 1em;
+    padding: 1em;
+    width: 30%;
+    margin-top: -4em;
+}
+.course-discount p{
+    text-align: center;
+    font-weight: 600;
+    line-height: 0.8;
+}
+.course-discount p:nth-child(1){
+    font-size: 1.5em;
+}
+.course-discount p:nth-child(2) {
+    color: rgb(77, 75, 75);
+}
+.discount-offer{
+    text-decoration: line-through;
+}
+.course-details button{
+    background:rgba(0, 123, 255, 0.8);
+    padding: 0.5em 7em;
+    outline: none;
+    border: none;
+    border-radius: 0.4em;
+    color: white;
+    font-weight: 800;
+    transition: 0.3s;
+}
+.course-details button:hover{
+    background: rgba(2, 95, 196, 0.8);
+}
+.course-includes-header h4{
+    font-weight: 600;
+}
+.course-includes{
+    padding: 0.3em;
+    color: rgb(83, 82, 82);
+}
+.training-people-header h4{
+    font-weight: 600;
+}
+.share-icons{
+    cursor: pointer;
+    padding: 0.5em;
+}
+.share-course h4{
+    font-weight: 600;
+}
+.marketing-articles{
+    background:rgba(44, 128, 218, 0.8);
+}
+
+.marketing-articles p:nth-child(1){
+    text-align: center;
+    font-weight: 500;
+    font-size: 2em;
+}
+
+.physical-classroom{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2em;
+}
+
+.physical-classroom-text{
+    width: 50%;
+    margin: 2em;
+    font-size: 1.7em;
+}
+.physical-classroom-text p:nth-child(2){
+    font-size: 0.7em;
+}
+.physical-classroom-text p:nth-child(3){
+    color: rgb(91, 189, 189);
+    font-size: 0.8em;
+    cursor: pointer;
+}
+.physical-classroom-text p:nth-child(3):hover{
+    text-decoration: underline;
+}
+.physical-classroom-text span{
+    color: rgb(69, 185, 185);
+}
+.physical-classroom-image{
+    width: 45%;
+}
+.physical-classroom-image img{
+    width: 80%;
+    border-radius: 1em;
+}
+.ellipse{
+    background: rgb(93, 207, 137);
+    padding: 1em;
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    margin: -0.3em;
+}
+
+.education{
+    margin:0em 4em;
+}
+.top-education{
+    margin: 1em;
+    display: flex;
+}
+
+.top-education-card{
+    background: transparent;
+    width: 25em;
+    font-size: 1em;
+    height: max-content;
+    background-image: url("https://s3-alpha-sig.figma.com/img/e4c7/276a/25a9cc6960c67cafa4666142463a3cc6?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WyYSRjtjCcY3NHNfZzd9jnCBqdTEJ2ShxgPjLa3fnRwA0eCXPFXOWy0uuHhjKLU~XcCZRxYRkKFs26q1Iz4NS-46JTs9mOamCEQOaG9DXCUOy7vg3LKEZYkvfqhE30bT9WOMPvxLfhSxmc3QYEkbT3cIehPlVhF0NY8~NVA5ZcV50q~8Bue0kmYtNTuF6iGBNV-XIHoC9Iy0Iar0OX4PFwAiSI95w3o60TOwZFKaEaUI~-qXdo67UoABQXr5vnwTASKF-3J1PdRenuIYc3mymFvJ8laqS-sSfvICwZnMaOV8jPCZ7VnC6~-aAUArbtp~1-573WyfFz460X~jL~cqEQ__");
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1em;
+    margin: 1em;
+}
+.top-education-card p{
+    width: 70%;
+    padding: 0.6em;
+    font-weight: 450;
+}
+.top-education-card p:nth-child(1){
+    font-weight: 600;
+    font-size: 1.4em;
+    color: white;
+    padding: 0.5em;
+}
+.top-education-card-offer-box{
+    background: rgb(168, 6, 6);
+    width: 5em;
+    border-radius: 0.5em;
+    color: white;
+    height: 3em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    padding: 1.8em;
+    margin: 0.8em;
+}

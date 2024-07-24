@@ -11,10 +11,10 @@ import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
-import CourseDetails from "./components/CourseDetails/CourseDetails";
 import Payment from "./components/PaymentGateway/Payment";
 import { UserProvider } from "./context/UserContext";
-
+import CourseOverview from "./components/CourseDetails/CourseOverview";
+import CourseDetails from "./components/CourseDetails/CourseDetails"
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +42,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/courses/:id",
-        element: <CourseDetails />,
+        element: <CourseOverview />,
       },
       {
         path:"/add-new-course",
@@ -52,6 +52,10 @@ const appRouter = createBrowserRouter([
         path: "/payment",
         element: <Payment />,
       },
+      {
+        path:'/course-details',
+        element:<CourseDetails/>
+      }
     ],
   },
   {
