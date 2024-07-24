@@ -60,13 +60,12 @@ import express from 'express';
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 import 'dotenv/config';
-import Payment from '../models/Payment.js';
 
 const router = express.Router();
 
 const razorpayInstance = new Razorpay({
-    key_id: ({}).RAZORPAY_KEY_ID,
-    key_secret: ({}).RAZORPAY_SECRET,
+    key_id: "rzp_test_2hT3HGAOOFDmrX",
+    key_secret: "keDEOcxsYMwt1HAh3ZlCUoWQ",
 });
 
 // ROUTE 1 : Create Order Api Using POST Method http://localhost:4000/api/payment/order

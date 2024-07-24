@@ -77,7 +77,7 @@ const CreateCourseMain = () => {
 
   const handleNextButton = ()=>{
     setPage((prev) => prev + 1);
-    if(page == 1){
+    if(page === 1){
       handleCreateCourseFolder();
     }
   }
