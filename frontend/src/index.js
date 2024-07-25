@@ -41,7 +41,7 @@ const appRouter = createBrowserRouter([
         element: <GoogleDrive />,
       },
       {
-        path: "/courses/:id",
+        path: "/courses/:courseId",
         element: <CourseOverview />,
       },
       {

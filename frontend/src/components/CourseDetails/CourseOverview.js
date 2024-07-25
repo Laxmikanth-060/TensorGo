@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./CourseOverview.css";
 import { useLocation,Link } from "react-router-dom";
-import CoursesData from "../../utils/CoursesData"
 import {FaWhatsapp, FaInstagram, FaTwitter} from "react-icons/fa"
 import CourseCard from "../Courses/CourseCard";
 import styles from "../Courses/Courses.module.css"
 import { FaStar } from "react-icons/fa6";
+import getCourseById from "../../utils/getCourseById";
 
 
 const CourseOverview = () => {
@@ -13,23 +13,39 @@ const CourseOverview = () => {
   const [coursesList,setCoursesList] = useState([])
   const location = useLocation();
   const id = location.pathname.split('/')[2];
+  
 
   useEffect(() => {
-    const courseData = CoursesData();
-    const marketingCourses = courseData
-    .filter((course) => course.id.toString() !== id)
-    .slice(0, 3);
-    setCoursesList(marketingCourses);
-    const requiredCourse = courseData.find(course => course.id.toString() === id);
-
-    if (requiredCourse) {
-      setCourse(requiredCourse);
+    const fetchCourse = async()=>{
+      const courseData = await getCourseById(id);
+      if (courseData) {
+        setCourse(courseData);
+      }
     }
+    fetchCourse();
   }, [id]);
 
   if (!course) {
     return <div>Loading...</div>; 
-    }
+  }
+
+  const {
+    title,
+    category,
+    level,
+    description,
+    thumbnailImage,
+    coverImage,
+    duration,
+    pricingInfo,
+    publishedDate,
+    rating,
+    instructorImage,
+    instructorName,
+    discountInPercentage=0
+  } = course;
+  const price = pricingInfo.price
+  console.log(course);
 
   return (
     <div className="courseDetails">
@@ -38,7 +54,7 @@ const CourseOverview = () => {
       </div>
       <div className="course-overview">
           <div className="course-feedback">
-          <h1>{course.name}</h1>
+          <h1>{title}</h1>
 
               <div className="course-feedback-upper">
                     <div className="feedback-box">
@@ -82,9 +98,9 @@ const CourseOverview = () => {
           </div>
           <div className="course-details">
             <div className="course-discount">
-              <p>&#8377;{course.price-(course.discountInPercentage*course.price)/100}</p>
-              <p><span className="discount-offer">&#8377;{course.price}</span>  {course.discountInPercentage}% Off</p>
-              <button>Claim Offer</button>
+              <p>&#8377;{price-(discountInPercentage*price)/100}</p>
+               {discountInPercentage !== 0 && <p><span className="discount-offer">&#8377;{price}</span>{discountInPercentage}% Off</p>}
+              <button>Buy Now</button>
             </div>
             <hr></hr>
             <div className="course-includes-header">
