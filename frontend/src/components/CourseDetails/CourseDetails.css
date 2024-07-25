@@ -1,6 +1,41 @@
-.course-details {
-    display: flex;
-    height: 100vh;
-    margin: 0px;
-  }
+.course-home {
+  display: flex;
+  padding: 50px ;
   
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+li .icon {
+  margin-right: 8px;
+  color: #007bff; /* Change this to your desired icon color */
+}
+
+.module-list {
+  width: 30%;
+  border-right: 1px solid #ccc;
+  padding-right: 10px;
+}
+.video-display {
+  display: flex;
+  flex-direction: column; 
+  flex-grow: 1;        
+  width: 100%;           
+  background-color: #f0f0f0; 
+  padding: 20px;        
+  box-sizing: border-box; 
+}
+
+#course-video {
+  width: 100%;           
+  height: auto;          
+}
+
