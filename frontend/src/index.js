@@ -40,10 +40,10 @@ const appRouter = createBrowserRouter([
         path: "/driveUpload",
         element: <GoogleDrive />,
       },
-      {
-        path: "/courses/:courseId",
-        element: <CourseOverview />,
-      },
+      // {
+      //   path: "/courses/:courseId",
+      //   element: <CourseOverview />,
+      // },
       {
         path:"/add-new-course",
         element:<CreateCourseMain/>,
@@ -53,7 +53,7 @@ const appRouter = createBrowserRouter([
         element: <Razorpay />,
       },
       {
-        path:'/course-details',
+        path:'/courses/:courseId',
         element:<CourseDetails/>
       }
     ],
