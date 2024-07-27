@@ -1,37 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
 import './CourseDetails.css';
-// import Accordion from 'react-bootstrap/Accordion';
+// // import Accordion from 'react-bootstrap/Accordion';
 import { FaPlayCircle } from 'react-icons/fa'; 
+import { Accordion } from 'react-bootstrap';
+
 import { Accordion } from 'react-bootstrap';
 
 
 const CourseDetails = () => {
-  const [currentVideo, setCurrentVideo] = useState('intro.mp4');
+  const location = useLocation();
+  const id = location.pathname.split('/')[2];
+  const [currentVideo, setCurrentVideo] = useState('');
   const [currentVideoTitle, setCurrentVideoTitle] = useState('Introduction');
   const [activeKey, setActiveKey] = useState(null);
+  const [courseData, setCourseData] = useState([]);
+  const [modules, setModules] = useState([]);
 
-  const modules = [
-    {
-      title: 'Module 1',
-      content: [
-        { title: 'Introduction', video: 'intro.mp4' },
-        { title: 'Lesson 1', video: 'video1.mp4' },
-        { title: 'Lesson 2', video: 'video2.mp4' }
-      ]
-    },
-    {
-      title: 'Module 2',
-      content: [
-        { title: 'Lesson 1', video: 'video3.mp4' },
-        { title: 'Lesson 2', video: 'video4.mp4' }
-      ]
-    },
-    // Add more modules as needed
-  ];
+  useEffect(() => {
+    const fetchCourseData = async () => {
+      const courseData = await getCourseById(id);
+      if (courseData) {
+        setCourseData(courseData);
+        setModules(courseData.modules);
+        if (courseData.modules.length > 0 && courseData.modules[0].videosList.length > 0) {
+          setCurrentVideo(courseData.modules[0].videosList[0].videoUrl);
+          setCurrentVideoTitle(courseData.modules[0].videosList[0].videoName);
+        }
+      }
+    };
+    fetchCourseData();
+  }, [id]);
 
   const handleAccordionClick = (index) => {
     setActiveKey(activeKey === index ? null : index);
   };
+
+  const handleVideoClick = (videoUrl, videoName) => {
+    setCurrentVideo(videoUrl);
+    setCurrentVideoTitle(videoName);
+  };
+
+  if (courseData.length === 0) {
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="course-home">
@@ -40,16 +56,13 @@ const CourseDetails = () => {
           {modules.map((module, index) => (
             <Accordion.Item eventKey={index} key={index}>
               <Accordion.Header onClick={() => handleAccordionClick(index)}>
-                {module.title}
+                {module.moduleName}
               </Accordion.Header>
               <Accordion.Body>
                 <ul>
-                  {module.content.map((item, idx) => (
-                    <li key={idx} onClick={() => {
-                      setCurrentVideo(item.video);
-                      setCurrentVideoTitle(item.title);
-                    }}>
-                      <FaPlayCircle className="icon" /> {item.title}
+                  {module.videosList.map((item, idx) => (
+                    <li key={idx} onClick={() => handleVideoClick(item.videoUrl, item.videoName)}>
+                      <FaPlayCircle className="icon" /> {item.videoName}
                     </li>
                   ))}
                 </ul>
@@ -60,10 +73,9 @@ const CourseDetails = () => {
       </div>
       <div className="video-display">
         <h1>{currentVideoTitle}</h1>
-        <video id="course-video" controls>
-          <source src={currentVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        <ReactPlayer url={`http://localhost:1234/gDrive/file/${currentVideo}`} controls />
+        {/* Try testing with a known YouTube URL */}
+        {/* <ReactPlayer url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' controls /> */}
       </div>
     </div>
   );

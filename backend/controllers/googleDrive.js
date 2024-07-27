@@ -58,7 +58,7 @@ export const createFolder = async (req, res) => {
     const fileMetadata = {
       name: req.body.title,
       mimeType: "application/vnd.google-apps.folder",
-      parents: ["1TA-cBG3Ud5etD9a1Am4Uk7LkX4CzeH2u"],
+      parents: ["1eGb1tHJmaE_RLFhZvqFi7PM9QrCECYdx"],
     };
 
     const file = await drive.files.create({
@@ -96,7 +96,7 @@ export const listFilesInFolder = async (req, res) => {
 export const getFile = async (req, res) => {
   try {
     const fileId = req.params.fileId;
-    // console.log("FILE ID :" + fileId);
+    //console.log("FILE ID :" + fileId);
     const drive = google.drive({ version: "v3", auth });
     const response = await drive.files.get(
       {

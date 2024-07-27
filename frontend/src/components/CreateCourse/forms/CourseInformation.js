@@ -86,8 +86,8 @@ const CourseInformation = ({ data, updateData }) => {
                 required
               >
                 <option value="">Select Category</option>
-                <option value="category1">Category 1</option>
-                <option value="category2">Category 2</option>
+                <option value="Technology">Technology</option>
+                <option value="Personality Development">Personality Development</option>
               </select>
             </div>
 
