@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './CourseDetails.css';
-import Accordion from 'react-bootstrap/Accordion';
+// import Accordion from 'react-bootstrap/Accordion';
 import { FaPlayCircle } from 'react-icons/fa'; 
+import { Accordion } from 'react-bootstrap';
+
 
 const CourseDetails = () => {
   const [currentVideo, setCurrentVideo] = useState('intro.mp4');

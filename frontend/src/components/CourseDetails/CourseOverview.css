@@ -5,18 +5,35 @@
     margin: 0;
     padding: 0;
 }
+
 .course-overview{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: -2em;
+    margin-top: -4em;
+}
+.course-overview-buttons {
+    margin: 2em 4em;
+}
+.course-overview-buttons button{
+    padding: 0.7em 2.65em;
+    background: rgb(188, 206, 209);
+    outline: none;
+    border: none;
+    border-radius: 0.5em;
+    margin: 1em;
+    transition: 0.5s;
+}
+.course-overview-buttons button:hover{
+    background: rgb(14, 147, 156);
 }
 .course-feedback h1{
     text-align: center;
+    padding-top: 1em;
 }
 .course-feedback{
     display: flex;
-    background: rgba(34, 118, 207, 0.8);
+    background: rgba(128, 226, 226, 0.8);
     flex-direction: column ;
     width: 60%;
     border-radius: 1em;
@@ -41,7 +58,7 @@
 }
 .feedback-box{
     margin: 1em;
-    background: rgb(255, 255, 255);
+    background: rgb(137, 183, 194);
     border-radius: 0.5em;
     height: max-content;
     padding: 2em;
@@ -77,7 +94,7 @@
     margin: 1em;
     padding: 1em;
     width: 30%;
-    margin-top: -4em;
+    margin-top: -23.6em;
 }
 .course-discount p{
     text-align: center;
@@ -94,8 +111,8 @@
     text-decoration: line-through;
 }
 .course-details button{
-    background:rgba(0, 123, 255, 0.8);
-    padding: 0.5em 7em;
+    background:rgba(60, 207, 195, 0.8);
+    padding: 0.5em 8.7em;
     outline: none;
     border: none;
     border-radius: 0.4em;
@@ -104,7 +121,7 @@
     transition: 0.3s;
 }
 .course-details button:hover{
-    background: rgba(2, 95, 196, 0.8);
+    background: rgba(34, 129, 125, 0.8);
 }
 .course-includes-header h4{
     font-weight: 600;
@@ -124,13 +141,13 @@
     font-weight: 600;
 }
 .marketing-articles{
-    background:rgba(44, 128, 218, 0.8);
+    background:rgba(127, 214, 203, 0.8);
 }
 
 .marketing-articles p:nth-child(1){
     text-align: center;
     font-weight: 500;
-    font-size: 2em;
+    font-size: 2.5em;
 }
 
 .physical-classroom{
@@ -188,18 +205,20 @@
     width: 25em;
     font-size: 1em;
     height: max-content;
-    background-image: url("https://s3-alpha-sig.figma.com/img/e4c7/276a/25a9cc6960c67cafa4666142463a3cc6?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WyYSRjtjCcY3NHNfZzd9jnCBqdTEJ2ShxgPjLa3fnRwA0eCXPFXOWy0uuHhjKLU~XcCZRxYRkKFs26q1Iz4NS-46JTs9mOamCEQOaG9DXCUOy7vg3LKEZYkvfqhE30bT9WOMPvxLfhSxmc3QYEkbT3cIehPlVhF0NY8~NVA5ZcV50q~8Bue0kmYtNTuF6iGBNV-XIHoC9Iy0Iar0OX4PFwAiSI95w3o60TOwZFKaEaUI~-qXdo67UoABQXr5vnwTASKF-3J1PdRenuIYc3mymFvJ8laqS-sSfvICwZnMaOV8jPCZ7VnC6~-aAUArbtp~1-573WyfFz460X~jL~cqEQ__");
+    background-image: url("https://kimberlineducation.com/wp-content/uploads/2023/01/teacher-sitting-in-classroom-EDLH44H-min-1024x683.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
     border-radius: 1em;
+    font-weight: bold;
     margin: 1em;
 }
 .top-education-card p{
     width: 70%;
     padding: 0.6em;
-    font-weight: 450;
+    font-weight: 400;
+    color: rgb(43, 3, 3);
 }
 .top-education-card p:nth-child(1){
     font-weight: 600;

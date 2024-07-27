@@ -6,3 +6,7 @@
 	align-items: center;
 	margin: auto;
 }
+
+.payment-info input{
+	margin: 0.2em;
+}
