@@ -9,6 +9,8 @@ import Razorpay from "razorpay";
 import payment from "./routes/payment.js"
 import courseRoutes from './routes/course.routes.js';
 import moduleRoutes from './routes/module.routes.js';
+import chatRoutes from './routes/chat.routes.js'
+import messageRoutes from './routes/message.routes.js'
 
 dotenv.config();
 
@@ -54,6 +56,8 @@ app.use(
 
 app.use('/courses', courseRoutes);
 app.use('/modules', moduleRoutes);
+app.use('/chat',chatRoutes)
+app.use('/message',messageRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`);
