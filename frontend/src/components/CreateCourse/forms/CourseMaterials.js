@@ -6,6 +6,7 @@ import styles from "./CourseMaterials.module.css";
 const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
   const [modules, setModules] = useState(data);
   const fileInputRefs = useRef([]);
+  const[uploadStatus,setUploadStatus] = useState(false);
 
   useEffect(() => {
     setModules(data);
@@ -97,7 +98,8 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
     return true;
   };
 
-  const handleFileUpload = async (moduleIndex, videoIndex) => {
+  const  handleFileUpload = async (moduleIndex, videoIndex) => {
+    setUploadStatus(true);
     const fileInputRef = fileInputRefs.current[moduleIndex][videoIndex];
     const files = fileInputRef.files;
     if (files.length > 0) {
@@ -117,8 +119,10 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
         updatedModules[moduleIndex].videosList[videoIndex].videoUrl = fileId;
         setModules(updatedModules);
         updateData(updatedModules);
+        setUploadStatus(false);
         console.log("Uploaded files: ", data.files);
       } catch (error) {
+        setUploadStatus(false);
         console.log(error);
       }
     }
@@ -198,34 +202,42 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                     </div>
                     <div className={styles.videoField}>
                       <label className={styles.label}>Video File</label>
-                      <input
-                        type="file"
-                        multiple
-                        ref={(el) => {
-                          if (!fileInputRefs.current[moduleIndex]) {
-                            fileInputRefs.current[moduleIndex] = [];
-                          }
-                          fileInputRefs.current[moduleIndex][videoIndex] = el;
-                        }}
-                        name="videoFile"
-                        onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
-                        className={styles.fileInput}
-                        required
-                      />
-                      <button 
-                        type="button" 
-                        className={styles.uploadButton} 
-                        onClick={() => triggerFileInput(moduleIndex, videoIndex)}
-                      >
-                        Upload Video
-                      </button>
-                      <button 
-                        type="button" 
-                        className={styles.uploadButton} 
-                        onClick={() => handleFileUpload(moduleIndex, videoIndex)}
-                      >
-                        Submit Video
-                      </button>
+                      <div>
+                        <input
+                          type="file"
+                          multiple
+                          ref={(el) => {
+                            if (!fileInputRefs.current[moduleIndex]) {
+                              fileInputRefs.current[moduleIndex] = [];
+                            }
+                            fileInputRefs.current[moduleIndex][videoIndex] = el;
+                          }}
+                          name="videoFile"
+                          onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                          className={styles.fileInput}
+                          required
+                        />
+                        <button 
+                          type="button" 
+                          className={styles.uploadButton} 
+                          onClick={() => triggerFileInput(moduleIndex, videoIndex)}
+                        >
+                          Select Video
+                        </button>
+
+                        <button 
+                          type="button" 
+                          className={styles.uploadButton} 
+                          onClick={() => handleFileUpload(moduleIndex, videoIndex)}
+                        >
+                          Upload Video
+                        </button>
+                        {uploadStatus && (
+                          <div className="spinner-border" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 )}

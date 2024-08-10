@@ -11,10 +11,10 @@ import About from "./components/About/About";
 import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
-import CourseDetails from "./components/CourseDetails/CourseDetails";
 import { UserProvider } from "./context/UserContext";
 import Razorpay from "./components/PaymentGateway/Razorpay";
-
+import CourseOverview from "./components/CourseDetails/CourseOverview";
+import CourseDetails from "./components/CourseDetails/CourseDetails"
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -44,10 +44,10 @@ const appRouter = createBrowserRouter([
         path: "/batches",
         element: <CourseDetails/>,
       },
-      {
-        path: "/courses/:id",
-        element: <CourseDetails />,
-      },
+      // {
+      //   path: "/courses/:courseId",
+      //   element: <CourseOverview />,
+      // },
       {
         path:"/add-new-course",
         element:<CreateCourseMain/>,
@@ -56,6 +56,10 @@ const appRouter = createBrowserRouter([
         path: "/payment",
         element: <Razorpay />,
       },
+      {
+        path:'/courses/:courseId',
+        element:<CourseDetails/>
+      }
     ],
   },
   {

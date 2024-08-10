@@ -6,17 +6,21 @@ import styles from "./Courses.module.css";
 const CourseCard = (props) => {
     const { courseDetails } = props;
     const {
-      courseImageUrl,
-      duration,
-      name,
+      title,
+      category,
+      level,
       description,
-      instructorName,
-      instructorPhotoUrl,
-      price,
-      discountInPercentage,
+      thumbnailImage,
+      coverImage,
+      duration,
+      pricingInfo,
+      publishedDate,
       rating,
+      instructorImage,
+      instructorName,
+      discountInPercentage=0
     } = courseDetails;
-  
+    const price = pricingInfo.price
     const renderStars = (rating) => {
       const fullStars = Math.floor(rating);
       const halfStar = rating % 1 !== 0;
@@ -42,8 +46,8 @@ const CourseCard = (props) => {
     return (
       <li className={styles.courseCard}>
         <img
-          src={courseImageUrl}
-          alt={name + " Image"}
+          src={thumbnailImage}
+          alt={title + " Image"}
           className={styles.courseCardImageUrl}
         />
         <div className={styles.coursesRatingDurationContainer}>
@@ -60,12 +64,12 @@ const CourseCard = (props) => {
             </p>
           </div>
         </div>
-        <h1 className={styles.courseName}>{name}</h1>
+        <h1 className={styles.courseName}>{title}</h1>
         <p className={styles.courseDescription}>{description}</p>
         <div className={styles.courseCardFooterContainer}>
           <div className={styles.courseCardInstructorContainer}>
             <img
-              src={instructorPhotoUrl}
+              src={instructorImage}
               alt="Instructor"
               className={styles.courseCardInstructorImage}
             />

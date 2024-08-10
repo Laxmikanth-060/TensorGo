@@ -1,168 +1,81 @@
-import React, { useEffect, useState } from "react";
-import "./CourseDetails.css";
-import { useLocation,Link } from "react-router-dom";
-import CoursesData from "../../utils/CoursesData"
-import {FaWhatsapp, FaInstagram, FaTwitter} from "react-icons/fa"
-import CourseCard from "../Courses/CourseCard";
-import styles from "../Courses/Courses.module.css"
-import { FaStar } from "react-icons/fa6";
+import React, { useEffect, useState } from 'react';
+import ReactPlayer from 'react-player';
+import './CourseDetails.css';
+// // import Accordion from 'react-bootstrap/Accordion';
+import { FaPlayCircle } from 'react-icons/fa'; 
+import { Accordion } from 'react-bootstrap';
+
+import { Accordion } from 'react-bootstrap';
 
 
 const CourseDetails = () => {
-  const [course, setCourse] = useState(null); 
-  const [coursesList,setCoursesList] = useState([])
   const location = useLocation();
   const id = location.pathname.split('/')[2];
+  const [currentVideo, setCurrentVideo] = useState('');
+  const [currentVideoTitle, setCurrentVideoTitle] = useState('Introduction');
+  const [activeKey, setActiveKey] = useState(null);
+  const [courseData, setCourseData] = useState([]);
+  const [modules, setModules] = useState([]);
 
   useEffect(() => {
-    const courseData = CoursesData();
-    const marketingCourses = courseData
-    .filter((course) => course.id.toString() !== id)
-    .slice(0, 3);
-    setCoursesList(marketingCourses);
-    const requiredCourse = courseData.find(course => course.id.toString() === id);
-
-    if (requiredCourse) {
-      setCourse(requiredCourse);
-    }
+    const fetchCourseData = async () => {
+      const courseData = await getCourseById(id);
+      if (courseData) {
+        setCourseData(courseData);
+        setModules(courseData.modules);
+        if (courseData.modules.length > 0 && courseData.modules[0].videosList.length > 0) {
+          setCurrentVideo(courseData.modules[0].videosList[0].videoUrl);
+          setCurrentVideoTitle(courseData.modules[0].videosList[0].videoName);
+        }
+      }
+    };
+    fetchCourseData();
   }, [id]);
 
-  if (!course) {
-    return <div>Loading...</div>; 
-    }
+  const handleAccordionClick = (index) => {
+    setActiveKey(activeKey === index ? null : index);
+  };
+
+  const handleVideoClick = (videoUrl, videoName) => {
+    setCurrentVideo(videoUrl);
+    setCurrentVideoTitle(videoName);
+  };
+
+  if (courseData.length === 0) {
+    return (
+      <div className="spinner-border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    );
+  }
 
   return (
-    <div className="courseDetails">
-      <div className="courseDetails-banner-image">
-        <img src="https://as2.ftcdn.net/v2/jpg/02/45/08/01/1000_F_245080107_golTKP2zTGtOtpcUgcXRK84Pu7cWAiGh.jpg" alt={course.name} />
+    <div className="course-home">
+      <div className="module-list">
+        <Accordion activeKey={activeKey}>
+          {modules.map((module, index) => (
+            <Accordion.Item eventKey={index} key={index}>
+              <Accordion.Header onClick={() => handleAccordionClick(index)}>
+                {module.moduleName}
+              </Accordion.Header>
+              <Accordion.Body>
+                <ul>
+                  {module.videosList.map((item, idx) => (
+                    <li key={idx} onClick={() => handleVideoClick(item.videoUrl, item.videoName)}>
+                      <FaPlayCircle className="icon" /> {item.videoName}
+                    </li>
+                  ))}
+                </ul>
+              </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
       </div>
-      <div className="course-overview">
-          <div className="course-feedback">
-          <h1>{course.name}</h1>
-
-              <div className="course-feedback-upper">
-                    <div className="feedback-box">
-                      <p>4 out 5 stars</p>
-                      <p className="stars"> <FaStar /> <FaStar /> <FaStar /> <FaStar /></p>
-                      <p>Top Rating</p>
-                    </div>
-                    <div className="feedback-stars">
-                      <p>5 stars</p>
-                      <p>4 stars</p>
-                      <p>3 stars</p>
-                      <p>2 stars</p>
-                      <p>1 stars</p>
-                    </div>
-                    <div className="feedback-progress">
-                      <p><progress id="file" value="92" max="100"></progress></p>
-                      <p><progress id="file" value="80" max="100"></progress></p>
-                      <p><progress id="file" value="72" max="100"></progress></p>
-                      <p><progress id="file" value="42" max="100"></progress></p>
-                      <p><progress id="file" value="32" max="100"></progress></p>
-
-                    </div>
-              </div>
-              <div className="course-feedback-lower">
-                  <div className="userprofile"> 
-                      <div>
-                          <img src="https://cdn.vectorstock.com/i/500p/17/61/male-avatar-profile-picture-vector-10211761.jpg" alt="" />
-                      </div>
-                      <div className="user-name-stars">
-                          <span>Name</span>
-                          <p className="stars"> <FaStar /> <FaStar /> <FaStar /></p>
-                      </div>
-                  </div>
-                  <div>
-                    <p>It is very excited to share the journey with Abhi Trainings</p>
-                    <hr></hr>
-                  </div>
-                  
-              </div>
-              
-          </div>
-          <div className="course-details">
-            <div className="course-discount">
-              <p>&#8377;{course.price-(course.discountInPercentage*course.price)/100}</p>
-              <p><span className="discount-offer">&#8377;{course.price}</span>  {course.discountInPercentage}% Off</p>
-              <button>Claim Offer</button>
-            </div>
-            <hr></hr>
-            <div className="course-includes-header">
-              <h4>This Course Includes</h4>
-              <div className="course-includes"><FaInstagram className="icons" size={35}/><span>Money Back Guarantee</span></div>
-              <div className="course-includes"><FaWhatsapp className="icons" size={35}/><span>Access on all devices</span></div>
-              <div className="course-includes"><FaTwitter className="icons" size={35}/><span>Certification of Completion</span></div>
-              <div className="course-includes"><FaInstagram className="icons" size={35}/><span>32 Modules</span></div>
-
-            </div>
-            <hr></hr>
-            <div className="training-people-header">
-              <h4>Training 5 or more people</h4>
-              <p>class launched then a year ago and it is still running succesfully Pushpa - The Rise</p>
-            </div>
-            <hr></hr>
-            <div className="share-course">
-              <h4>Share this course</h4>
-              <FaWhatsapp className="share-icons" size={50}/>
-              <FaInstagram className="share-icons"  size={50}/>
-              <FaTwitter className="share-icons"  size={50}/>
-              <FaWhatsapp className="share-icons" size={50}/>
-              <FaInstagram className="share-icons"  size={50}/>
-            </div>
-          </div>
-      </div>
-      <div className="marketing-articles">
-        <p className="marketing-heading">Marketing Articles</p>
-        <ul className={styles.coursesContainer}>
-            {coursesList && coursesList.map((eachCourse) => (
-              <Link
-                className={styles.courseCardLinkContainer}
-                key={`${eachCourse._id}`}
-              >
-                <CourseCard  courseDetails={eachCourse} />
-              </Link>
-            ))}
-          </ul>
-      </div>
-      <div className="physical-classroom">
-            <div className="physical-classroom-text">
-                <p><span className="ellipse"></span>Everything you can do in a physical classroom, <span>you can do with TOTC</span></p>
-                <p>TOTC’s school management software helps traditional and online schools manage scheduling, attendance, payments and virtual classrooms all in one secure cloud-based system.</p>
-                <p>Learn more</p>
-            </div>
-            <div className="physical-classroom-image">
-              <img src="https://img.freepik.com/free-photo/confident-teacher-explaining-lesson-pupils_74855-9751.jpg" alt="" />
-            </div>
-      </div>
-      <div className="education">
-        <h3>Top Education Offers and Deals are listed here</h3>
-      <div className="top-education">
-            <div className="top-education-card">
-                <div className="top-education-card-offer-box">50%</div>
-                <p>FOR INSTRUCTORS</p>
-                <p>Abhi Trainings software management
-                  software helps traditional and 
-                  online schools manage scheduling
-                </p>
-            </div>
-            <div className="top-education-card">
-                <div className="top-education-card-offer-box">50%</div>
-                <p>FOR INSTRUCTORS</p>
-                <p>Abhi Trainings software management
-                  software helps traditional and 
-                  online schools manage scheduling
-                </p>
-            </div>
-            <div className="top-education-card">
-                <div className="top-education-card-offer-box">50%</div>
-                <p>FOR INSTRUCTORS</p>
-                <p>Abhi Trainings software management
-                  software helps traditional and 
-                  online schools manage scheduling
-                </p>
-            </div>
-            
-      </div>
+      <div className="video-display">
+        <h1>{currentVideoTitle}</h1>
+        <ReactPlayer url={`http://localhost:1234/gDrive/file/${currentVideo}`} controls />
+        {/* Try testing with a known YouTube URL */}
+        {/* <ReactPlayer url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' controls /> */}
       </div>
     </div>
   );

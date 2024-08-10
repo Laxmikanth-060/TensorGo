@@ -35,7 +35,7 @@ export const createCourseWithDetails = async (req, res) => {
 
 export const getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find().populate('instructor modules');
+    const courses = await Course.find().populate('instructor');
     res.json(courses);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -60,27 +60,17 @@ export const getCourseById = async (req, res) => {
   }
 };
 
-export const getModulesByCourseId = async (req, res) => {
-  try {
-    const courseId = req.params.courseId;
-    const modules = await Module.find({ course: courseId }).populate('videosList');
-    if (!modules) {
-      return res.status(404).json({ error: 'Modules not found' });
-    }
-    res.json(modules);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
 
-export const createModuleForCourse = async (req, res) => {
-  try {
-    const courseId = req.params.courseId;
-    const newModule = new Module({ ...req.body, course: courseId });
-    const savedModule = await newModule.save();
-    await Course.findByIdAndUpdate(courseId, { $push: { modules: savedModule._id } });
-    res.status(201).json(savedModule);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+//Not required but dont remove
+// export const getModulesByCourseId = async (req, res) => {
+//   try {
+//     const courseId = req.params.courseId;
+//     const modules = await Module.find({ course: courseId }).populate('videosList');
+//     if (!modules) {
+//       return res.status(404).json({ error: 'Modules not found' });
+//     }
+//     res.json(modules);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// };
