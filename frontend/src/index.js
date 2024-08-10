@@ -41,6 +41,10 @@ const appRouter = createBrowserRouter([
         element: <GoogleDrive />,
       },
       {
+        path: "/batches",
+        element: <CourseDetails/>,
+      },
+      {
         path: "/courses/:id",
         element: <CourseDetails />,
       },

@@ -45,6 +45,7 @@ const Navbar = () => {
       <ul className={`navItems ${isOpen ? 'open' : ''}`}>
         <li><NavLink className="navItem" activeclassname="active" to="/home" onClick={toggleNav}>Home</NavLink></li>
         <li><NavLink className="navItem" activeclassname="active" to="/courses" onClick={toggleNav}>Courses</NavLink></li>
+        <li><NavLink className="navItem" activeclassname="active" to="/batches" onClick={toggleNav}>Batches</NavLink></li>
         <li><NavLink className="navItem" activeclassname="active" to="/about" onClick={toggleNav}>About Us</NavLink></li>
         {user ? (
           <li className="profileItem">
