@@ -78,6 +78,7 @@
 .courseCardImageUrl {
   width: 100%;
   border-radius: 0.5em;
+  height: 30%;
 }
 
 .coursesRatingDurationContainer {
@@ -134,8 +135,8 @@
 .courseCardFooterContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
+  align-items: center;
 }
 
 .courseCardInstructorContainer {

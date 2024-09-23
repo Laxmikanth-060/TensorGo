@@ -15,6 +15,7 @@ import { UserProvider } from "./context/UserContext";
 import CourseDetails from "./components/CourseDetails/CourseDetails"
 import Profile from "./components/Profile/Profile"
 import EditProfile from "./components/Profile/EditProfile";
+import CoursePage from "./components/CourseDetails/CoursePage";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -39,6 +40,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/driveUpload",
         element: <GoogleDrive />,
+      },
+      {
+        path: "/course/:courseId",
+        element: <CoursePage />,
       },
       {
         path:"/add-new-course",
