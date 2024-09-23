@@ -11,4 +11,4 @@ const getCourseById = async (courseId) => {
     }
   };
 
-  export default getCourseById
+  export default getCourseById;

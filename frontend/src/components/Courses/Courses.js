@@ -18,7 +18,6 @@ const RecommendedCourses = ({ courses, enrolledCourses }) => {
   const filteredCourses = sortedCourses.filter(
     (course) => !enrolledCourses.includes(course._id)
   );
-  console.log(filteredCourses);
 
   const settings = {
     dots: true,
@@ -67,6 +66,7 @@ const RecommendedCourses = ({ courses, enrolledCourses }) => {
               to={`/courses/${eachCourse._id}`}
               className={styles.courseCardLinkContainer}
               key={eachCourse._id}
+              marketingCourses={filteredCourses}
             >
               <CourseCard courseDetails={eachCourse} />
             </Link>

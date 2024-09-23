@@ -25,6 +25,7 @@ const userSchema = new mongoose.Schema({
     },
     coverImg:{
         type:String,
+        default:"https://i.ibb.co/hdV1NwF/web-banner.png",
     },
     studentId:{
         type:mongoose.Schema.Types.ObjectId,
