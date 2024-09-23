@@ -65,7 +65,7 @@ const CourseCard = (props) => {
           </div>
         </div>
         <h1 className={styles.courseName}>{title}</h1>
-        <p className={styles.courseDescription}>{description}</p>
+        <p className={styles.courseDescription}>{description.substring(0,200)}...</p>
         <div className={styles.courseCardFooterContainer}>
           <div className={styles.courseCardInstructorContainer}>
             <img

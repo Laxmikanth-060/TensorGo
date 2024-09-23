@@ -71,7 +71,7 @@ const CourseDetails = () => {
       </div>
       <div className="video-display">
         <h1>{currentVideoTitle}</h1>
-        <ReactPlayer url={`http://localhost:1234/gDrive/file/${currentVideo}`} controls />
+        <ReactPlayer url={`http://localhost:1234/gDrive/file/${currentVideo}`} width="100%" controls />
         {/* Try testing with a known YouTube URL */}
         {/* <ReactPlayer url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' controls /> */}
       </div>
