@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import './CourseDetails.css';
-// // import Accordion from 'react-bootstrap/Accordion';
 import { FaPlayCircle } from 'react-icons/fa'; 
 import { Accordion } from 'react-bootstrap';
-
-import { Accordion } from 'react-bootstrap';
-
+import { useLocation, useParams } from 'react-router-dom';
+import getCourseById from '../../utils/getCourseById';
 
 const CourseDetails = () => {
-  const location = useLocation();
-  const id = location.pathname.split('/')[2];
+  const { courseId } = useParams(); 
   const [currentVideo, setCurrentVideo] = useState('');
   const [currentVideoTitle, setCurrentVideoTitle] = useState('Introduction');
   const [activeKey, setActiveKey] = useState(null);
@@ -19,7 +16,7 @@ const CourseDetails = () => {
 
   useEffect(() => {
     const fetchCourseData = async () => {
-      const courseData = await getCourseById(id);
+      const courseData = await getCourseById(courseId);
       if (courseData) {
         setCourseData(courseData);
         setModules(courseData.modules);
@@ -30,7 +27,7 @@ const CourseDetails = () => {
       }
     };
     fetchCourseData();
-  }, [id]);
+  }, [courseId]);
 
   const handleAccordionClick = (index) => {
     setActiveKey(activeKey === index ? null : index);
@@ -74,8 +71,6 @@ const CourseDetails = () => {
       <div className="video-display">
         <h1>{currentVideoTitle}</h1>
         <ReactPlayer url={`http://localhost:1234/gDrive/file/${currentVideo}`} controls />
-        {/* Try testing with a known YouTube URL */}
-        {/* <ReactPlayer url='https://www.youtube.com/watch?v=dQw4w9WgXcQ' controls /> */}
       </div>
     </div>
   );
