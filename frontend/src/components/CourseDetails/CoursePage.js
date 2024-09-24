@@ -130,7 +130,7 @@ const CoursePage = () => {
                       {activeModule === idx && (
                         <ul className="video-list">
                           {module.videosList.map((video, index) => (
-                            <li key={index} className="video-name">
+                            <li key={index} className="video-title">
                               <MdOndemandVideo /> {video.videoName}
                             </li>
                           ))}

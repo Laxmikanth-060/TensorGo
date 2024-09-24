@@ -97,6 +97,32 @@ const videoSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
+const UserProgressSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',
+    required: true,
+  },
+  completedVideos: [
+    {
+      videoId: {
+        type: String,
+      },
+      completedAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+});
+
 export const Course = mongoose.model('Course', courseSchema);
 export const Module = mongoose.model('Module', moduleSchema);
 export const Video = mongoose.model('Video', videoSchema);
+export const UserProgress = mongoose.model('UserProgress', UserProgressSchema);
+

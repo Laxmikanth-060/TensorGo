@@ -1,4 +1,4 @@
-import { Course, Module, Video } from '../models/course.model.js';
+import { Course, Module, UserProgress, Video } from '../models/course.model.js';
 
 export const createCourseWithDetails = async (req, res) => {
   try {
@@ -57,6 +57,46 @@ export const getCourseById = async (req, res) => {
     res.json(course);
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+};
+
+//To mark the video as completed
+export const markVideoAsCompleted = async (req, res) => {
+  const { userId, courseId, videoId } = req.body;
+
+  try {
+    // Find the user's progress in the course
+    let progress = await UserProgress.findOne({ userId, courseId });
+    if (!progress) {
+      // If no progress exists, create a new entry
+      progress = new UserProgress({
+        userId,
+        courseId,
+        completedVideos: [{ videoId }],
+      });
+    } else {
+      // If progress exists, add the videoId to completedVideos
+      progress.completedVideos.push({ videoId });
+    }
+
+    await progress.save();
+    return res.status(200).json({ message: 'Video marked as completed', progress });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error marking video as completed', error });
+  }
+};
+
+// Function to get user's progress
+export const getUserProgress = async (req, res) => {
+  const { userId, courseId } = req.params;
+  try {
+    const progress = await UserProgress.findOne({ userId, courseId });
+    if (!progress) {
+      return res.status(404).json({ message: 'Progress not found' });
+    }
+    return res.status(200).json({ progress });
+  } catch (error) {
+    return res.status(500).json({ message: 'Error fetching progress', error });
   }
 };
 
