@@ -16,6 +16,7 @@ import CourseDetails from "./components/CourseDetails/CourseDetails"
 import Profile from "./components/Profile/Profile"
 import EditProfile from "./components/Profile/EditProfile";
 import CoursePage from "./components/CourseDetails/CoursePage";
+import CourseReviews from "./components/CourseDetails/CourseReviews";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -44,6 +45,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/course/:courseId",
         element: <CoursePage />,
+      },
+      {
+        path: "/course/:courseId/review",
+        element: <CourseReviews />,
       },
       {
         path: "/courses/:courseId",

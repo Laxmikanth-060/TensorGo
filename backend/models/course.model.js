@@ -58,6 +58,12 @@ const courseSchema = new mongoose.Schema({
       // required: true,
     },
   },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',  // Refers to the Review model
+    },
+  ],
 }, { timestamps: true });
 
 const moduleSchema = new mongoose.Schema({
@@ -97,6 +103,30 @@ const videoSchema = new mongoose.Schema({
   },
 }, { timestamps: true });
 
+
+const reviewSchema = new mongoose.Schema({
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',  // Refers to the Course model
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',  // If you have a User model for tracking who wrote the review
+    required: true,
+  },
+  rating: {
+    type: Number,
+    required: true,
+  },
+  review: {
+    type: String,
+    required: true,
+  },
+});
+
+
 export const Course = mongoose.model('Course', courseSchema);
 export const Module = mongoose.model('Module', moduleSchema);
 export const Video = mongoose.model('Video', videoSchema);
+export const Review = mongoose.model('Review',reviewSchema);
