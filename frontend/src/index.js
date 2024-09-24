@@ -12,7 +12,6 @@ import Login from "./components/Login/Login";
 import Signup from "./components/Signup/Signup";
 import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
 import { UserProvider } from "./context/UserContext";
-import CourseDetails from "./components/CourseDetails/CourseDetails"
 import Profile from "./components/Profile/Profile"
 import EditProfile from "./components/Profile/EditProfile";
 import CoursePage from "./components/CourseDetails/CoursePage";
@@ -50,10 +49,7 @@ const appRouter = createBrowserRouter([
         path:"/add-new-course",
         element:<CreateCourseMain/>,
       },
-      {
-        path:'/p/courses/:courseId',
-        element:<CourseDetails/>
-      },
+
       {
         path:'/profile',
         element:<Profile/>
