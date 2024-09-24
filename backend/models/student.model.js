@@ -6,11 +6,7 @@ const studentSchema = new mongoose.Schema({
         required:true,
         ref:'User',
     },
-    batchId:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Batch',
-        require:true,
-    }],
+    
     coursesEnrolled: [{
         courseId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -19,11 +15,10 @@ const studentSchema = new mongoose.Schema({
         },
         expiryDate: {
             type: Date,
-            required: true
+            default:null,
         }
     }],
 })
 
-const Student = mongoose.model('Student',studentSchema);
+export const Student = mongoose.model('Student',studentSchema);
 
-module.exports = Student;

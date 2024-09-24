@@ -5,6 +5,10 @@
   border-radius: 5px;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; 
+  overflow-y: auto;   
+  max-width: 100%;    
+  box-sizing: border-box;
 }
 
 .formDiv {
@@ -108,10 +112,14 @@ textarea {
   color: #007bff;
 }
 
-.previewImage {
-  height: 250px;
-  padding: 0;
-}
+  .previewImage {
+    max-width: 100%;     /* Ensure the image doesn’t exceed the container width */
+    max-height: 300px;   /* Limit the height to prevent tall images from causing overflow */
+    object-fit: contain; /* Maintain the aspect ratio and contain the image within the given dimensions */
+    padding: 0;
+    border: 1px solid #ccc; /* Optional: add a border for better visual feedback */
+    border-radius: 5px;
+  }
 
 /* Responsive styles */
 @media (max-width: 600px) {

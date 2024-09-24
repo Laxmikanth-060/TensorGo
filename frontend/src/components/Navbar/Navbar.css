@@ -121,6 +121,49 @@
   border-top: 1px solid #ececec;
 }
 
+.notificationIcon{
+  color: white;
+}
+.announcementsSlide {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100%;
+  max-width: 100%; 
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.announcementsSlide.show {
+  transform: translateX(0);
+}
+
+/* Overlay to capture clicks outside the announcements */
+.announcementsOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  z-index: 999; /* Below the announcements container but above the rest of the content */
+}
+
+/* Close button styling */
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333; /* Color for the close button */
+}
+
 @media (max-width: 768px) {
   .navItems {
     flex-direction: column;

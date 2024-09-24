@@ -1,24 +1,27 @@
-import React,{useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './CoursePage.css';
+import axios from 'axios';
 import getCourseById from '../../utils/getCourseById';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Loader from '../shared/Loader';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdOndemandVideo, MdOutlineVideoLibrary } from "react-icons/md";
-import { FaStar } from 'react-icons/fa';
 
 const CoursePage = () => {
+  const url = "http://localhost:1234";
   const { courseId } = useParams(); 
-  const [title,setTitle] = useState('')
-  const [description,setDescription] = useState('')
-  const [coverImage,setCoverImage] = useState('')
+  const [reviews, setReviews] = useState([]);
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState('');
   const [courseData, setCourseData] = useState([]);
   const [currentVideo, setCurrentVideo] = useState('');
   const [modules, setModules] = useState([]);
-  const [price,setPrice] = useState('');
-  const [rating,setRating] = useState(0);
+  const [price, setPrice] = useState('');
+  const [rating, setRating] = useState(0);
   const [activeModule, setActiveModule] = useState(null);
-
 
   useEffect(() => {
     const fetchCourseData = async () => {
@@ -36,73 +39,101 @@ const CoursePage = () => {
       }
     };
     fetchCourseData();
+
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(`${url}/courses/${courseId}/getreviews`, {
+          withCredentials: true,
+        });
+        setReviews(response.data); // Set the reviews data to state
+        console.log(response.data); // Log the fetched reviews
+
+        // Calculate total reviews and average rating
+        if (response.data.length > 0) {
+          const total = response.data.length;
+          const avgRating = response.data.reduce((acc, review) => acc + review.rating, 0) / total;
+          setTotalReviews(total);
+          setAverageRating(avgRating);
+        }
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews(); // Call the fetch function
   }, [courseId]);
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((star, index) => (
+      <span key={index} className={`star ${rating > index ? 'filled' : ''}`}>
+        ★
+      </span>
+    ));
+  };
 
   const toggleModule = (idx) => {
     setActiveModule(activeModule === idx ? null : idx); 
   };
 
-
-  if(courseData.length === 0){
-    return(
+  if (courseData.length === 0) {
+    return (
       <div>
-        <Loader/>
+        <Loader />
       </div>
-    )
+    );
   }
 
   return (
     <div className="course-page">
-        <div className="course-banner">
-          <img
-            src={coverImage}
-            alt="course-banner"
-          />
-        </div>
-      <div className='course-bottom-container'>
-      <div className="course-header">
-        <div className="course-info">
-          <h1>{title}</h1>
-          <p >Instructor: Abhilash Sandupatla</p>
-          <div className="rating">
-          <span>Rating: </span>
-            {[...Array(Math.floor(rating))].map((_, i) => (
-              <span key={i} className='rating-star'><FaStar/></span>
-            ))} 
-            {rating % 1 !== 0 && <span className='rating-star'><FaStar/></span>} 
-            {rating}/5 
-          </div>
-        </div>
+      <div className="course-banner">
+        <img
+          src={coverImage}
+          alt="course-banner"
+        />
       </div>
-        <hr/>
-      <div className="content-container">
-        <div className="main-content">
-          <h2>What You'll Learn</h2>
-          <p>{description}</p>
-          {/* <h3>Curriculum</h3>
-          <ul>
-            <li>Introduction to HTML, CSS, and JavaScript</li>
-            <li>Backend with Node.js</li>
-            <li>Frontend with React.js</li>
-          </ul> */}
+
+      <div className='course-bottom-container'>
+        <div className="course-header">
+          <div className="course-info">
+            <h1>{title}</h1>
+            <p>Instructor: Abhilash Sandupatla</p>    
+          </div>
+          <div className="rating">
+            {totalReviews > 0 ? (
+              <div className="average-rating">
+                {renderStars(Math.round(averageRating))}
+                <span className="average-rating-number">
+                  {averageRating.toFixed(1)} / 5
+                  <p style={{ color: 'grey' }}>({totalReviews} Ratings)</p>
+                </span>
+              </div>
+            ) : (
+              ' '
+            )}
+          </div>
         </div>
 
-        <div className="sidebar">
-          <div className="pricing">
-            <p className="discounted-price">₹{price}</p>
-            {/* <p className="original-price">$199.99</p>
-            <p className="discount-info">Special Offer: 92% Off!</p> */}
-            <button className="enroll-btn">Enroll Now</button>
+        <hr />
+        <div className="content-container">
+          <div className="main-content">
+            <h2>What You'll Learn</h2>
+            <p>{description}</p>
           </div>
-          <div className="course-details">
-            <p>No.of Modules : {modules.length}</p>
-            <p>Lifetime Access</p>
+
+          <div className="sidebar">
+            <div className="pricing">
+              <p className="discounted-price">₹{price}</p>
+              <Link to={`/enroll/${courseId}`}><button className="enroll-btn">Enroll Now</button></Link>
+            </div>
+            <div className="course-details">
+              <p>No. of Modules: {modules.length}</p>
+              <p>Lifetime Access</p>
+            </div>
           </div>
         </div>
-      </div>
-        <hr/>
+        <hr />
         <div>
-        <h3 className='preview-heading'>Preview This Course</h3>
+          <h3 className='preview-heading'>Preview This Course</h3>
           <div className="course-preview">
             <div className="video-preview">
               <h4 className='preview-heading'>Sample Video</h4>
@@ -121,10 +152,10 @@ const CoursePage = () => {
                     <li key={idx} className={`module-item ${activeModule === idx ? 'active' : ''}`}>
                       <div className="module-header" onClick={() => toggleModule(idx)}>
                         <div>
-                        <MdOutlineVideoLibrary /> <span className='module-name'>{module.moduleName}</span>
+                          <MdOutlineVideoLibrary /> <span className='module-name'>{module.moduleName}</span>
                         </div>
                         <span className={`toggle-icon ${activeModule === idx ? 'expanded' : ''}`}>
-                          {activeModule === idx ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown/>}
+                          {activeModule === idx ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
                         </span>
                       </div>
                       {activeModule === idx && (
@@ -146,11 +177,34 @@ const CoursePage = () => {
 
           </div>
         </div>
-      <div className="register-prompt">
-        <h2>Not Registered Yet?</h2>
-        <p>Sign up now to access full course modules and videos!</p>
-        <button className="register-btn">Register Now</button>
-      </div>
+        <div className="course-review-container">
+          <h1>Reviews</h1>
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
+              <div key={review._id} className="review-card">
+                <div className="review-user">
+                  <img 
+                    src={review.user.profileImg} // Assume the user has a profile picture field
+                    alt={`${review.user.username}'s profile`}
+                    className="profile-picture"
+                  />
+                  <h5 style={{ marginTop: '4px' }}>{review.user.username}</h5>
+                </div>
+                <div>
+                  <p className='reviewStars'>{renderStars(review.rating)}</p>
+                  <p className="review-text">{review.review}</p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No Reviews & Ratings...</p>
+          )}
+        </div>
+        <div className="register-prompt">
+          <h2>Not Registered Yet?</h2>
+          <p>Sign up now to access full course modules and videos!</p>
+          <Link to={`/enroll/${courseId}`}><button className="register-btn">Register Now</button></Link>
+        </div>
       </div>
     </div>
   );

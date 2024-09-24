@@ -280,3 +280,31 @@
   right: -25px;
 }
 
+.addNewCourseButtonContainer {
+  display: flex;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.addNewCourseButton {
+  background-color: #479cf7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  text-align: center;
+}
+
+.addNewCourseButton:hover {
+  background-color: #3683c4; /* Darker blue on hover */
+}
+
+.addNewCourseButton:focus {
+  outline: none; /* Removes default focus outline */
+  box-shadow: 0 0 0 3px rgba(71, 156, 247, 0.5); /* Custom focus effect */
+}
+
