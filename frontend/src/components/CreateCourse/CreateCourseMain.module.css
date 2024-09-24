@@ -1,5 +1,7 @@
 .CreateCourseMainContainer{
     margin-top: 20px;
+    /* overflow-x: hidden; Prevent horizontal overflow */
+    /* overflow-y: auto;  */
 }
 .mainTitle{
     text-align: center;

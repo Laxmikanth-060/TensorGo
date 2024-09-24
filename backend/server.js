@@ -8,6 +8,7 @@ import gDriveRoutes from "./routes/gdrive.routes.js";
 import courseRoutes from './routes/course.routes.js';
 import moduleRoutes from './routes/module.routes.js';
 import userRoutes from './routes/user.routes.js';
+import announcementsRoutes from './routes/announcements.routes.js'
 dotenv.config();
 
 const app = express();
@@ -49,6 +50,7 @@ app.use(
   })
 );
 
+app.use('/api/announcements', announcementsRoutes);
 app.use('/courses', courseRoutes);
 app.use('/modules', moduleRoutes);
 app.use('/profile',userRoutes)
