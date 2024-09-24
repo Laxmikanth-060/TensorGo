@@ -53,6 +53,10 @@ const courseSchema = new mongoose.Schema({
       type: Number,
       // required: true,
     },
+    discount: {
+      type: Number,
+      default: 0,
+    },
     upiId: {
       type: String,
       // required: true,

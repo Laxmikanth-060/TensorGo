@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './EnrollCourse.css';
 import { useParams, useNavigate } from 'react-router-dom';
 
@@ -7,12 +7,33 @@ const url = "http://localhost:1234";
 const EnrollCourse = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const [course, setCourse] = useState(null); 
   const { courseId } = useParams();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCourse = async () => {
+      try {
+        const response = await fetch(`${url}/courses/${courseId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch course details');
+        }
+        const data = await response.json();
+        setCourse(data); // Store the course data
+      } catch (error) {
+        console.error('Error fetching course:', error);
+        setModalMessage("Failed to load course details.");
+        setShowModal(true);
+      }
+    };
+
+    fetchCourse();
+  }, [courseId]);
 
   const handleEnroll = async () => {
     try {
-      const token = localStorage.getItem('token'); // Retrieve your JWT token
+      const token = localStorage.getItem('token');
       const response = await fetch(`${url}/courses/enroll`, {
         method: 'POST',
         headers: {
@@ -28,7 +49,6 @@ const EnrollCourse = () => {
 
       if (response.ok) {
         setModalMessage("Enrollment Successful! You have successfully enrolled in the Complete Web Development Bootcamp.");
-
       } else if (response.status === 400) {
         setModalMessage("You are already enrolled in this course.");
       } else {
@@ -38,8 +58,8 @@ const EnrollCourse = () => {
       setShowModal(true);
 
       setTimeout(() => {
-        navigate(-1); // Go back to the previous page
-      }, 3000);
+        navigate(-1); 
+      }, 2000);
     } catch (error) {
       console.error('Error enrolling in course:', error);
       setModalMessage("An unexpected error occurred. Please try again.");
@@ -54,15 +74,23 @@ const EnrollCourse = () => {
   return (
     <div className="enroll-page">
       <h1>Enroll in the Course</h1>
-      <div className="enroll-container">
-        <h2>Complete Web Development Bootcamp</h2>
-        <p>Instructor: Abhilash Sandupatla</p>
-        <p>Price: <span className="discounted-price">$14.99</span> <span className="original-price">$199.99</span></p>
-        <p>Duration: 45 hours</p>
-        <p>Lifetime Access</p>
-        <hr />
-        <button type="button" className="enroll-btn" onClick={handleEnroll}>Complete Enrollment</button>
-      </div>
+      {course ? (
+        <div className="enroll-container">
+          <img src={course.thumbnailImage} alt={course.title} />
+          <h2>{course.title}</h2>
+          <p>Price: 
+          <span className="discounted-price">${course.pricingInfo.price - (course.pricingInfo.discount || 0)}</span> 
+          {course.pricingInfo.discount > 0 && (
+            <span className="original-price">${course.pricingInfo.price}</span>
+          )}
+        </p>
+          <p>Lifetime Access</p>
+          <hr />
+          <button type="button" className="enroll-btn" onClick={handleEnroll}>Complete Enrollment</button>
+        </div>
+      ) : (
+        <p>Loading course details...</p> // Show loading message until course details are fetched
+      )}
 
       {showModal && (
         <div className="modal">
