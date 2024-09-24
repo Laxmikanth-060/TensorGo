@@ -3,6 +3,10 @@
   height: 100vh;
   font-size: "Roboto";
 }
+.text-heading{
+  font-size: 22px;
+}
+
 
 
 .video-display {
@@ -21,6 +25,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.video-description{
+  font-size: 14px;
 }
 
 .module-list {

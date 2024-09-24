@@ -91,7 +91,7 @@ export const courseReview = async (req, res) => {
 
     res.status(201).json({ message: 'Review created successfully!', review: newReview });
   } catch (error) {
-    console.error('Error creating review:', error);
+    // console.error('Error creating review:', error);
     res.status(500).json({ message: 'Error creating review' });
   }
 };
@@ -101,7 +101,7 @@ export const courseReview = async (req, res) => {
 
 export const getCourseReviews = async (req, res) => {
   const { courseId } = req.params;  
-  console.log(`Fetching reviews for course ID: ${courseId}`);
+  // console.log(`Fetching reviews for course ID: ${courseId}`);
 
   try {
     // Fetch reviews for the course and populate user details
@@ -115,7 +115,7 @@ export const getCourseReviews = async (req, res) => {
 
     res.status(200).json(reviews);
   } catch (error) {
-    console.error('Error fetching reviews:', error);
+    // console.error('Error fetching reviews:', error);
     res.status(500).json({ message: 'Error fetching reviews' });
   }
 };

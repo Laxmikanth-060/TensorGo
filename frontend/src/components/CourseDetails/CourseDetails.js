@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import './CourseDetails.css';
-import { FaPlayCircle, FaCheckCircle, FaRegCircle, FaCircle } from 'react-icons/fa'; 
+import { FaPlayCircle, FaCheckCircle, FaCircle } from 'react-icons/fa'; 
 import { Accordion } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import getCourseById from '../../utils/getCourseById';
@@ -101,7 +101,7 @@ const CourseDetails = () => {
       </div>
       <div className="video-display">
          <div className='video-container'>
-          <h1>{currentVideoTitle}</h1>
+          <h1 className='text-heading'>{currentVideoTitle}</h1>
           <ReactPlayer
             url={`http://localhost:1234/gDrive/file/${currentVideo}`}
             controls
@@ -115,7 +115,7 @@ const CourseDetails = () => {
          </div>
         <div className='video-description-container'>
           <div>
-            <h1>Description</h1>
+            <h1 className='text-heading'>Description</h1>
             <p className='video-description'>{currentVideoDescription}</p>
           </div>
         </div>
