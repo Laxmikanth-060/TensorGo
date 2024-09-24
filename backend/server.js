@@ -54,7 +54,6 @@ app.use('/api/announcements', announcementsRoutes);
 app.use('/courses', courseRoutes);
 app.use('/modules', moduleRoutes);
 app.use('/profile',userRoutes)
-
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`);
   connectMongoDB();

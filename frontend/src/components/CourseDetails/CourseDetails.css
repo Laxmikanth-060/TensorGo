@@ -1,41 +1,115 @@
 .course-home {
   display: flex;
-  padding: 50px ;
-  
+  height: 100vh;
+  font-size: "Roboto";
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.text-heading{
+  font-size: 22px;
 }
 
-li {
+
+
+.video-display {
+  width: 75%; 
+  padding: 20px;
+  background-color: #eef2f7;
   display: flex;
-  align-items: center;
-  cursor: pointer;
+}
+.video-container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 1em;
 }
 
-li .icon {
-  margin-right: 8px;
-  color: #007bff; /* Change this to your desired icon color */
+.video-description-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.video-description{
+  font-size: 14px;
 }
 
 .module-list {
-  width: 30%;
-  border-right: 1px solid #ccc;
-  padding-right: 10px;
+  width: 25%;
+  background-color: #eef2f7;
+  padding: 20px;
+  border-right: 1px solid #ddd;
 }
-.video-display {
+
+.module-list ul {
+  padding: 0;
+}
+
+.module-list li {
+  padding: 10px;
+  cursor: pointer;
   display: flex;
-  flex-direction: column; 
-  flex-grow: 1;        
-  width: 100%;           
-  background-color: #f0f0f0; 
-  padding: 20px;        
-  box-sizing: border-box; 
+  align-items: center;
+  /* background-color: aliceblue;
+  margin-bottom: 4px; */
 }
 
-#course-video {
-  width: 100%;           
-  height: auto;          
+.module-list li .icon {
+  margin-right: 10px;
+  font-size: 18px;
 }
 
+.module-list li.completed .icon {
+  color: #28a745; /* Green for completed */
+}
+
+.icon {
+  margin-right: 10px;
+  color: #999;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.video-name-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-name{
+  font-size: 14px;
+  margin: 0;
+}
+
+.status-icon {
+  font-size: 1.2em;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.completed {
+  color: #6cdf9b;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+}
+
+.incomplete {
+  background: none;
+  border: 0.5px solid rgb(197, 197, 197);
+  border-radius: 50%;
+  color: #fff;
+}
+
+.mark-complete-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #00a6f6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.mark-complete-btn:hover {
+  background-color: #007bb5;
+}
