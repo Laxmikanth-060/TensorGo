@@ -4,7 +4,8 @@ import getCourseById from '../../utils/getCourseById';
 import { useParams } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Loader from '../shared/Loader';
-import { MdOndemandVideo, MdOutlineVideoLibrary } from "react-icons/md";
+import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdOndemandVideo, MdOutlineVideoLibrary } from "react-icons/md";
+import { FaStar } from 'react-icons/fa';
 
 const CoursePage = () => {
   const { courseId } = useParams(); 
@@ -62,13 +63,13 @@ const CoursePage = () => {
       <div className="course-header">
         <div className="course-info">
           <h1>{title}</h1>
-          <p>Instructor: Abhilash Sandupatla</p>
+          <p >Instructor: Abhilash Sandupatla</p>
           <div className="rating">
           <span>Rating: </span>
             {[...Array(Math.floor(rating))].map((_, i) => (
-              <span key={i}>⭐</span>
+              <span key={i} className='rating-star'><FaStar/></span>
             ))} 
-            {rating % 1 !== 0 && <span>⭐</span>} 
+            {rating % 1 !== 0 && <span className='rating-star'><FaStar/></span>} 
             {rating}/5 
           </div>
         </div>
@@ -123,7 +124,7 @@ const CoursePage = () => {
                         <MdOutlineVideoLibrary /> <span className='module-name'>{module.moduleName}</span>
                         </div>
                         <span className={`toggle-icon ${activeModule === idx ? 'expanded' : ''}`}>
-                          {activeModule === idx ? '-' : '+'}
+                          {activeModule === idx ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown/>}
                         </span>
                       </div>
                       {activeModule === idx && (
