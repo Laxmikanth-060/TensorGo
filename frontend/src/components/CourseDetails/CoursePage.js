@@ -1,7 +1,10 @@
 import React from 'react';
 import './CoursePage.css';
 
+import { Link, useParams } from "react-router-dom";
+
 const CoursePage = () => {
+  const { courseId } = useParams();
   return (
     <div className="course-page">
         <div className="course-banner">
@@ -44,7 +47,7 @@ const CoursePage = () => {
             <p className="discounted-price">$14.99</p>
             <p className="original-price">$199.99</p>
             <p className="discount-info">Special Offer: 92% Off!</p>
-            <button className="enroll-btn">Enroll Now</button>
+            <Link to={`/enroll/${courseId}`}><button className="enroll-btn">Enroll Now</button></Link>
           </div>
           <div className="course-details">
             <p>Duration: 45 hours</p>

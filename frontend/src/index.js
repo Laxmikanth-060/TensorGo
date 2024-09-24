@@ -16,6 +16,7 @@ import CourseDetails from "./components/CourseDetails/CourseDetails"
 import Profile from "./components/Profile/Profile"
 import EditProfile from "./components/Profile/EditProfile";
 import CoursePage from "./components/CourseDetails/CoursePage";
+import EnrollCourse from "./components/EnrollCourse/EnrollCourse";
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -43,7 +44,7 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/course/:courseId",
-        element: <CoursePage />,
+        element: <CoursePage/>,
       },
       {
         path:"/add-new-course",
@@ -61,6 +62,10 @@ const appRouter = createBrowserRouter([
         path:'/edit-profile',
         element:<EditProfile/>
       },
+      {
+        path:"/enroll/:courseId",
+        element:<EnrollCourse/>,
+      }
     ],
   },
   {
