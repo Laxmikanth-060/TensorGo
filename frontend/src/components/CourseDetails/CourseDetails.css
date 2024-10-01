@@ -40,15 +40,13 @@
 
 .module-list ul {
   padding: 0;
+  margin: 0;
 }
 
 .module-list li {
-  padding: 10px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  /* background-color: aliceblue;
-  margin-bottom: 4px; */
 }
 
 .module-list li .icon {
@@ -65,18 +63,18 @@
   color: #999;
   height: 20px;
   width: 20px;
-  margin-right: 10px;
 }
 
 .video-name-container{
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.7rem;
 }
 
 .video-name{
   font-size: 14px;
-  margin: 0;
+  margin: 0;  
 }
 
 .status-icon {
@@ -84,6 +82,7 @@
   height: 20px;
   width: 20px;
   margin-right: 10px;
+  margin-bottom: 0.7rem;
 }
 
 .completed {
@@ -91,6 +90,7 @@
   height: 20px;
   width: 20px;
   margin-right: 10px;
+  margin-bottom: 0.7rem;
 }
 
 .incomplete {

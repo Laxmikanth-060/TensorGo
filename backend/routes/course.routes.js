@@ -4,6 +4,8 @@ import {
   createCourseWithDetails,
   getAllCourses,
   getCourseById,
+  getUserProgress,
+  markVideoAsCompleted,
   getCourseReviews,
 } from "../controllers/course.controller.js";
 
@@ -17,6 +19,8 @@ router.post('/enroll',protectRoute,enrollCourse)
 router.post("/create-with-details", createCourseWithDetails);  //main-one
 router.get("/", getAllCourses);
 router.get("/:courseId", getCourseById);
+router.get("/progress/:courseId/:userId", getUserProgress);
+router.post("/complete-video", markVideoAsCompleted);
 router.post("/reviews",courseReview);
 router.get("/:courseId/getreviews",getCourseReviews);
 
