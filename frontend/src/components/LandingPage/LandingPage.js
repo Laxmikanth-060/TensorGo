@@ -84,6 +84,60 @@ const WhatIsAbhiTrainings = () => {
     </div>
   );
 };
+const CourseContentComp = () => {
+  const courseContent = [
+    { title: "Linux", imgSrc: "assets/img/linux.webp" },
+    { title: "Shell Scripting", imgSrc: "assets/img/shell.webp" },
+    { title: "AWS Cloud", imgSrc: "assets/img/aws.webp" },
+    { title: "Git & Github", imgSrc: "assets/img/git.webp" },
+    { title: "Terraform", imgSrc: "assets/img/terra.webp" },
+    { title: "Jenkins", imgSrc: "assets/img/jenkin.webp" },
+    { title: "Ansible", imgSrc: "assets/img/ansible.webp" },
+    { title: "Docker", imgSrc: "assets/img/docker (2).webp" },
+    { title: "Kubernetes", imgSrc: "assets/img/kuber.webp" },
+    { title: "Helm Charts", imgSrc: "assets/img/helm.webp" },
+    { title: "Prometheus & Grafana", imgSrc: "assets/img/promth.webp" },
+    { title: "Real Time Project", imgSrc: "assets/img/project.webp" }
+  ];
+
+  return (
+    <section
+      id="courseDetails"
+      className="tp-category-area bg-bottom grey-bg pt-110 pb-80 wow fadeInUp"
+      data-wow-duration="1.5s"
+      data-wow-delay=".4s"
+      style={{
+        backgroundImage: "url(assets/img/bg/shape-bg-1.png)",
+        visibility: "visible",
+        animationDuration: "1.5s",
+        animationDelay: "0.4s",
+        animationName: "fadeInUp",
+      }}
+    >
+      <div className="container">
+        <div className="row text-center">
+          <div className="col-lg-12">
+            <div className="section-title mb-40">
+              <h2 className="tp-section-title">Course Content</h2>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          {courseContent.map((course, index) => (
+            <div key={index} className="col-xl-3 col-lg-4 col-md-6">
+              <div className="tp-cat-item mb-40 d-flex align-items-center">
+                <div className="tp-category-icon mr-15">
+                  <img src={course.imgSrc} alt={`${course.title}-img`} />
+                </div>
+                <h4 className="tp-category-title">{course.title}</h4>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const LandingPage = () => {
   return (
@@ -91,6 +145,7 @@ const LandingPage = () => {
       <Hero />
       <OurSuccess />
       <WhatIsAbhiTrainings />
+      {/* <CourseContentComp/> */}
     </div>
   );
 };
