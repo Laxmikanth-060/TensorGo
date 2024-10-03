@@ -35,7 +35,7 @@ function Signup() {
       });
       setUser(data);
       setLoading(false);
-      navigate("/");
+      // navigate("/");
     } catch (error) {
       if (error.response) {
         setError(error.response.data.error);

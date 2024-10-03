@@ -17,6 +17,8 @@ import Profile from "./components/Profile/Profile"
 import EditProfile from "./components/Profile/EditProfile";
 import CoursePage from "./components/CourseDetails/CoursePage";
 import CourseReviews from "./components/CourseDetails/CourseReviews";
+import EmailVerify from "./components/EmailVerify/EmailVerify";
+
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -67,6 +69,10 @@ const appRouter = createBrowserRouter([
         element:<EditProfile/>
       },
     ],
+  },
+  {
+      path:"/api/auth/users/:id/verify/:token",
+      element:<EmailVerify/>
   },
   {
     path: "/login",
