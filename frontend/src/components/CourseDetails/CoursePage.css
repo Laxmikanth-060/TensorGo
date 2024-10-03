@@ -168,7 +168,7 @@ body {
   margin: 0;
 }
 
-.video-name {
+.video-title {
   padding: 10px 15px;
   display: flex;
   align-items: center;
@@ -176,11 +176,11 @@ body {
   border-top: 1px solid #ddd;
 }
 
-.video-name:first-child {
+.video-title:first-child {
   border-top: none;
 }
 
-.video-name svg {
+.video-title svg {
   margin-right: 8px;
   color: #999;
 }
@@ -597,4 +597,3 @@ body {
 .register-btn:hover {
   background-color: #00596b;
 }
-

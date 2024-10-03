@@ -1,14 +1,17 @@
 import React, { useContext, useState, useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaBell } from 'react-icons/fa';
 import { UserContext } from '../../context/UserContext';
 import axios from 'axios';
 import './Navbar.css';
+import Announcements from '../Announcements/Announcements'; // Import the announcements page
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showAnnouncements, setShowAnnouncements] = useState(false);
   const dropdownRef = useRef(null);
+  const announcementsRef = useRef(null);
   const userInfo = useContext(UserContext);
   const { user, setUser } = userInfo;
   const navigate = useNavigate();
@@ -19,6 +22,10 @@ const Navbar = () => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const toggleAnnouncements = () => {
+    setShowAnnouncements((prev) => !prev);
   };
 
   const handleLogout = async () => {
@@ -37,20 +44,16 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
+      if (showAnnouncements && announcementsRef.current && !announcementsRef.current.contains(event.target)) {
+        setShowAnnouncements(false); // Close announcements on outside click
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
-
-  // Close dropdown on route change
-  useEffect(() => {
-    return navigate((location) => {
-      setIsDropdownOpen(false);
-    });
-  }, [navigate]);
+  }, [showAnnouncements]);
 
   return (
     <div className="navbarContainer">
@@ -66,6 +69,10 @@ const Navbar = () => {
         <li><NavLink className="navItem" activeclassname="active" to="/home" onClick={toggleNav}>Home</NavLink></li>
         <li><NavLink className="navItem" activeclassname="active" to="/courses" onClick={toggleNav}>Courses</NavLink></li>
         <li><NavLink className="navItem" activeclassname="active" to="/about" onClick={toggleNav}>About Us</NavLink></li>
+        <li className="notificationItem">
+          <FaBell className="notificationIcon" onClick={toggleAnnouncements} />
+        </li>
+
         {user ? (
           <>
             <li className="profileItem" ref={dropdownRef}>
@@ -88,6 +95,16 @@ const Navbar = () => {
           <li><NavLink className="navItem" to="/login" onClick={toggleNav}>Login</NavLink></li>
         )}
       </ul>
+
+      {/* Sliding Announcements Page */}
+      {showAnnouncements && (
+      <>
+        <div className="announcementsOverlay" onClick={toggleAnnouncements}></div>
+        <div className={`announcementsSlide ${showAnnouncements ? 'show' : ''}`} ref={announcementsRef}>
+          <Announcements onClose={toggleAnnouncements} />
+        </div>
+      </>
+    )}
     </div>
   );
 };

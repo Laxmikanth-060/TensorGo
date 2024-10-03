@@ -53,6 +53,10 @@ const courseSchema = new mongoose.Schema({
       type: Number,
       // required: true,
     },
+    discount: {
+      type: Number,
+      default: 0,
+    },
     upiId: {
       type: String,
       // required: true,
@@ -126,7 +130,33 @@ const reviewSchema = new mongoose.Schema({
 });
 
 
+const UserProgressSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
+  courseId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course',
+    required: true,
+  },
+  completedVideos: [
+    {
+      videoId: {
+        type: String,
+      },
+      completedAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+});
+
 export const Course = mongoose.model('Course', courseSchema);
 export const Module = mongoose.model('Module', moduleSchema);
 export const Video = mongoose.model('Video', videoSchema);
 export const Review = mongoose.model('Review',reviewSchema);
+export const UserProgress = mongoose.model('UserProgress', UserProgressSchema);
+

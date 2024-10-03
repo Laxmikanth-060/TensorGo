@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useContext } from "react";
+import { UserContext } from "../../context/UserContext.js"; // Adjust path based on your file structure
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styles from "./Courses.module.css";
+import Slider from "react-slick";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { IoSearch } from "react-icons/io5";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { Link } from "react-router-dom";
 import CourseCard from "./CourseCard";
 import getAllCourses from "../../utils/getAllCourses";
+import styles from "./Courses.module.css";
 
 const RecommendedCourses = ({ courses, enrolledCourses }) => {
-  // Sort courses by enrollmentsCount in descending order
   const sortedCourses = courses.sort(
     (a, b) => b.enrollmentsCount - a.enrollmentsCount
   );
@@ -66,7 +66,6 @@ const RecommendedCourses = ({ courses, enrolledCourses }) => {
               to={`/courses/${eachCourse._id}`}
               className={styles.courseCardLinkContainer}
               key={eachCourse._id}
-              marketingCourses={filteredCourses}
             >
               <CourseCard courseDetails={eachCourse} />
             </Link>
@@ -82,12 +81,13 @@ const Courses = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredCoursesList, setFilteredCoursesList] = useState([]);
   const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const { user } = useContext(UserContext); // Accessing the user from UserContext
 
   useEffect(() => {
     const fetchCourses = async () => {
       const courses = await getAllCourses();
       setCoursesList(courses);
-      setEnrolledCourses([6, 3]);
+      setEnrolledCourses([6, 3]); // You can adjust this according to the actual data
     };
     fetchCourses();
   }, []);
@@ -131,6 +131,15 @@ const Courses = () => {
         </div>
       </div>
       <div className={styles.coursesMiddleContainer}>
+        {user && user.isSuperAdmin === true && (
+          <div className={styles.addNewCourseButtonContainer}>
+            <Link to="/add-new-course">
+              <button className={styles.addNewCourseButton} type="button">
+                Add New Course
+              </button>
+            </Link>
+          </div>
+        )}
         <ul className={styles.coursesContainer}>
           {filteredCoursesList.map((eachCourse) => (
             <Link
