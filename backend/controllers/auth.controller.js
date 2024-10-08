@@ -1,6 +1,9 @@
 import bcrypt from "bcryptjs"
 import  {generateTokenAndSetCookie}  from "../lib/utils/generateToken.js";
 import User from '../models/user.model.js'
+import crypto from 'crypto'
+import emailToken  from '../models/token.model.js'
+import sendEmail from "../utils/sendEmail.js";
 
 export const signup = async (req,res)=>{
    try{
@@ -36,17 +39,28 @@ export const signup = async (req,res)=>{
 
     if(newUser){
         await newUser.save()
-        //console.log(newUser._id);
-        generateTokenAndSetCookie(newUser._id,res)
+        const token = await new emailToken({
+            userId:newUser._id,
+            token:crypto.randomBytes(32).toString("hex")
+        }).save()
 
-        res.status(201).json({
-            _id:newUser._id,
-            fullName:newUser.fullName,
-            email:newUser.email,
-            username:newUser.username,
-            profileImg:newUser.profileImg,
-            coverImg:newUser.coverImg,
-        })
+        const url = `${process.env.BASE_URL}users/${newUser._id}/verify/${token.token}`;
+        await sendEmail(newUser.email,"Verify Email",url);
+
+        // console.log("Email sent Successfully");
+        // generateTokenAndSetCookie(newUser._id,res)
+
+        // res.status(201).json({
+        //     _id:newUser._id,
+        //     fullName:newUser.fullName,
+        //     email:newUser.email,
+        //     username:newUser.username,
+        //     profileImg:newUser.profileImg,
+        //     coverImg:newUser.coverImg,
+        // })
+
+        return res.status(400).json({error:'Verification mail has been sent to your email.Please verity.'})
+
     }
     else{
         res.status(400).json({error:"Invalid User Data"})
@@ -59,6 +73,33 @@ export const signup = async (req,res)=>{
    }
 };
 
+export const emailVerification = async (req,res)=>{
+   
+    try{
+        const user = await User.findOne({_id:req.params.id});
+        if(!user)
+        return res.status(400).json({error:"Invalid link"});
+        
+        const token = await emailToken.findOne({
+            userId:user._id,
+            token: req.params.token
+        });
+        if(!token) 
+        return res.status(400).json({error:"Invalid link"});
+        
+        await User.updateOne({_id: user._id}, { $set: { verified: true } });
+        await emailToken.deleteOne({ userId:user._id,token:req.params.token});
+
+        res.status(200).json({message:"Email verified Successfully"});
+
+    }catch(error){
+
+        console.log("Error in EmailVerifcation controller",error);
+        res.status(500).json({error:"Internal Server Error:"})
+
+    }
+}
+
 export const login = async (req,res)=>{
     try{
         const {username, password} = req.body;
@@ -70,6 +111,21 @@ export const login = async (req,res)=>{
         if (!isPassword) {
             return res.status(400).json({ error: "Username or Password wrong" });
         }
+
+        if(!user.verified){
+            let token = await emailToken.findOne({userId:user._id});
+            if(!token){
+                token = await new emailToken({
+                    userId:user._id,
+                    token:crypto.randomBytes(32).toString("hex"),
+                }).save();
+                const url=`${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
+                await sendEmail(user.email,"Verify your Email",url);
+            }
+
+            return res.status(400).json({error:"verificaion mail has been sent to your account.Please verify"});
+        }
+
         generateTokenAndSetCookie(user._id,res);
 
         res.status(201).json({

@@ -22,6 +22,8 @@ import { ProtectedRoute,SuperAdminRoute,CourseAuthProtectedRoute } from "./prote
 import NotAuthorized from "./components/shared/NotAuthorized";
 import NotFound from "./components/shared/NotFound";
 
+import EmailVerify from "./components/EmailVerify/EmailVerify";
+
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -116,6 +118,14 @@ const appRouter = createBrowserRouter([
         element:<NotFound/>
       },
     ],
+  },
+  {
+      path:"/api/auth/users/:id/verify/:token",
+      element:<EmailVerify/>
+  },
+  {
+      path:"/api/auth/users/:id/verify/:token",
+      element:<EmailVerify/>
   },
   {
     path: "/login",
