@@ -122,10 +122,28 @@
   font-size: 18px;
   transition: background-color 0.3s ease;
 }
-
-.enroll-btn:hover {
-  background-color: #00596b;
+.go-to-course-btn {
+  background-color: rgb(34, 182, 34);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
 }
+.review-btn {
+  background-color: rgb(34, 81, 182);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem;
+}
+/* Sidebar Course Details */
 .course-details {
   width: 100%;
   margin: 20px 0px;

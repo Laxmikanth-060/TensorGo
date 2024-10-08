@@ -42,7 +42,6 @@ const Navbar = () => {
     }
   };
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -74,42 +73,35 @@ const Navbar = () => {
         {isOpen ? <FaTimes /> : <FaBars />}
       </div>
       <ul className={`navItems ${isOpen ? "open" : ""}`}>
-        <li>
-          <NavLink
-            className="navItem"
-            activeclassname="active"
-            to="/home"
-            onClick={toggleNav}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="navItem"
-            activeclassname="active"
-            to="/courses"
-            onClick={toggleNav}
-          >
-            Courses
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className="navItem"
-            activeclassname="active"
-            to="/about"
-            onClick={toggleNav}
-          >
-            About Us
-          </NavLink>
-        </li>
-        <li className="notificationItem" onClick={toggleAnnouncements}>
-          <FaBell className="notificationIcon" />
-        </li>
-
         {user ? (
+          // Show these items when the user is logged in
           <>
+            <li>
+              <NavLink
+                className="navItem"
+                activeclassname="active"
+                to="/home"
+                onClick={toggleNav}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="navItem"
+                activeclassname="active"
+                to="/courses"
+                onClick={toggleNav}
+              >
+                Courses
+              </NavLink>
+            </li>
+            <li className="notificationItem">
+              <FaBell
+                className="notificationIcon"
+                onClick={toggleAnnouncements}
+              />
+            </li>
             <li className="profileItem" ref={dropdownRef}>
               <img
                 src={user.profileImg}
@@ -148,11 +140,44 @@ const Navbar = () => {
             </li>
           </>
         ) : (
-          <li>
-            <NavLink className="navItem" to="/login" onClick={toggleNav}>
-              Login
-            </NavLink>
-          </li>
+          // Show these items when the user is not logged in
+          <>
+            <li>
+              <NavLink
+                className="navItem"
+                activeclassname="active"
+                to="/"
+                onClick={toggleNav}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="navItem"
+                activeclassname="active"
+                to="/courses"
+                onClick={toggleNav}
+              >
+                Courses
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className="navItem"
+                activeclassname="active"
+                to="/about"
+                onClick={toggleNav}
+              >
+                About Us
+              </NavLink>
+            </li>
+            <li>
+              <NavLink className="navItem" to="/login" onClick={toggleNav}>
+                Login
+              </NavLink>
+            </li>
+          </>
         )}
       </ul>
 

@@ -159,7 +159,7 @@ const Courses = () => {
         <ul className={styles.coursesContainer}>
           {filteredCoursesList.map((eachCourse) => (
             <Link
-              to={`/course/${eachCourse._id}`}
+              to={`/course/${eachCourse._id}/overview`}
               className={styles.courseCardLinkContainer}
               key={eachCourse._id}
             >
