@@ -72,7 +72,7 @@
 }
 
 .hamburgerProfileItem {
-  display: none; 
+  display: none;
 }
 .dropdownMenu {
   width: 180px;
@@ -120,16 +120,38 @@
 .dropdownItem + .dropdownItem {
   border-top: 1px solid #ececec;
 }
-
-.notificationIcon{
-  color: white;
+.notificationItem {
+  border-radius: 50%;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
+.notificationItem:hover {
+  background-color: white;
+}
+.notificationIcon {
+  color: white;
+  margin: auto;
+  transition: all 0.3s ease;
+}
+.notificationItem:hover .notificationIcon {
+  border-radius: 1rem;
+  color: #0e3f70;
+}
+/* .notificationIcon:hover {
+  border-radius: 1rem;
+  color: #0e3f70;
+} */
 .announcementsSlide {
   position: fixed;
   top: 0;
   right: 0;
   height: 100%;
-  max-width: 100%; 
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.9);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
   transform: translateX(100%);
@@ -179,13 +201,13 @@
     overflow: hidden;
     transition: all 0.3s;
   }
-  .logoutButton{
+  .logoutButton {
     margin-top: 5px;
     background-color: rgb(255, 80, 80);
     padding: 3px;
     border-radius: 10px;
   }
-  
+
   .navItems.open {
     display: flex;
     max-height: 20rem;
@@ -235,7 +257,7 @@
     display: none; /* Hide dropdown on mobile view */
   }
   .hamburgerProfileItem {
-    display: block; 
+    display: block;
   }
 
   /* Hide profile image dropdown on mobile */

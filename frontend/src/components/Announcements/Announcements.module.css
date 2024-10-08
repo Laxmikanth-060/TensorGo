@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f1f1f1;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   height: 100%;
   width: 500px;
@@ -12,10 +12,14 @@
   overflow-y: auto; /* Enables scrolling for the content */
 }
 
+.announcement-heading {
+  font-weight: 800;
+}
+
 .announcementList {
   flex: 1;
   overflow-y: auto; /* Enables scrolling for the announcement list */
-  max-height: 80vh; /* Restrict list height to enable scrolling */
+  max-height: 100%; /* Restrict list height to enable scrolling */
 }
 
 .announcementItem {
@@ -25,16 +29,28 @@
   padding: 10px;
   margin-bottom: 15px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  /* box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2); */
+  box-shadow: rgba(0, 48, 110, 0.2) 0px 0px 4px 0px;
   position: relative;
+  border-top: 2px solid black;
 }
-
-.announcementContentText {
+.announcementTitle {
   font-size: 16px;
+  font-weight: 550;
+  color: #333;
+  flex: 1;
+  margin: 0;
+  margin-right: 20px;
+  margin-bottom: 4px;
+}
+.announcementDescription {
+  font-size: 14px;
+  font-weight: 400;
   color: #333;
   flex: 1;
   margin-right: 20px;
+  margin-bottom: 4px;
 }
 
 .announcementTime {
@@ -44,7 +60,7 @@
 }
 
 .deleteButton {
-  background-color: #ff4d4f;
+  background-color: #940002c7;
   color: white;
   border: none;
   border-radius: 50%;
@@ -127,11 +143,12 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
   .announcement-content {
-    padding: 15px; 
+    padding: 15px;
     width: 100%;
   }
 
-  .announcementItem { /* Stack items vertically */
+  .announcementItem {
+    /* Stack items vertically */
     align-items: flex-start; /* Align items to the start */
   }
 
@@ -160,7 +177,6 @@
     margin-bottom: 10px; /* Add space below */
   }
 
-
   .closeButton {
     font-size: 20px; /* Smaller close button */
   }
@@ -174,4 +190,81 @@
   .sendButton {
     padding: 8px; /* Smaller button padding */
   }
+}
+
+.formContainer {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.announcement-form {
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding-top: 0px;
+  position: absolute;
+  transition: height 3s ease-in;
+  transition: transform 3s ease-in;
+  /* Smooth transition */
+}
+
+.announcement-form label {
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  text-shadow: 0px 0px 8px #ffffff;
+}
+.announcement-form input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  outline: none;
+  border: 0.5px solid rgba(0, 0, 0, 0.495);
+  background-color: rgba(238, 238, 238, 0.49);
+}
+.announcement-form input:focus {
+  background-color: #fff;
+  box-shadow: rgba(255, 255, 255) 0px 0px 10px 0px;
+}
+.announcement-form textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  outline: none;
+  border: 0.5px solid rgba(0, 0, 0, 0.495);
+  background-color: rgba(238, 238, 238, 0.49);
+}
+
+.announcement-form textarea:focus {
+  background-color: #fff;
+  box-shadow: rgba(255, 255, 255) 0px 0px 10px 0px;
+}
+.announcement-form button[type="submit"] {
+  width: 100%;
+  padding: 8px;
+}
+
+.formCloseButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  font-size: 24px;
+  transition: color 0.3s ease;
+  text-align: right;
+  display: block;
+  margin-left: auto;
+}
+
+.formCloseButton:hover {
+  color: #ff0000;
 }

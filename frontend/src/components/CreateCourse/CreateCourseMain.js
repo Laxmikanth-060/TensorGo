@@ -3,6 +3,7 @@ import styles from "./CreateCourseMain.module.css";
 import CourseInformation from "./forms/CourseInformation";
 import PricingInformation from "./forms/PricingInformation";
 import CourseMaterials from "./forms/CourseMaterials";
+import RippleButton from "../../utils/Buttons/RippleButton";
 
 const CreateCourseMain = () => {
   const [page, setPage] = useState(1);
@@ -68,13 +69,16 @@ const CreateCourseMain = () => {
 
   const handleSubmitAll = async () => {
     try {
-      const response = await fetch("http://localhost:1234/courses/create-with-details", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "http://localhost:1234/courses/create-with-details",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await response.json();
       console.log("Submission successful:", data);
       // Handle successful submission (e.g., show a success message, redirect)
@@ -120,9 +124,8 @@ const CreateCourseMain = () => {
       if (validateCourseInfo()) {
         handleCreateCourseFolder();
         setPage((prev) => prev + 1);
-      }
-      else{
-        alert("Please enter all the fields!")
+      } else {
+        alert("Please enter all the fields!");
       }
     } else {
       setPage((prev) => prev + 1);
@@ -145,7 +148,7 @@ const CreateCourseMain = () => {
         ) : page === 2 ? (
           <CourseMaterials
             data={formData.courseMaterials}
-            updateData={(data) => updateFormData('courseMaterials', data)}
+            updateData={(data) => updateFormData("courseMaterials", data)}
             courseId={formData.courseInfo.id}
           />
         ) : (
@@ -157,27 +160,45 @@ const CreateCourseMain = () => {
       </div>
       <div className={styles.buttonsNav}>
         {page !== 1 && (
-          <button
+          // <button
+          //   className={styles.backButton}
+          //   onClick={() => setPage((prev) => prev - 1)}
+          // >
+          //   Back
+          // </button>
+          <RippleButton
             className={styles.backButton}
             onClick={() => setPage((prev) => prev - 1)}
           >
             Back
-          </button>
+          </RippleButton>
         )}
         {page !== 3 ? (
-          <button
+          // <button
+          //   className={styles.nextButton}
+          //   onClick={handleNextButton}
+          // >
+          //   Next
+          // </button>
+          <RippleButton
             className={styles.nextButton}
             onClick={handleNextButton}
           >
             Next
-          </button>
+          </RippleButton>
         ) : (
-          <button
+          // <button
+          //   className={styles.submitButton}
+          //   onClick={handleSubmitAll}
+          // >
+          //   Submit
+          // </button>
+          <RippleButton
             className={styles.submitButton}
             onClick={handleSubmitAll}
           >
             Submit
-          </button>
+          </RippleButton>
         )}
       </div>
     </div>

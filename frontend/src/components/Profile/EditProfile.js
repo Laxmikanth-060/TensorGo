@@ -1,16 +1,17 @@
-import React, { useContext, useState } from 'react';
-import './EditProfile.css';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext.js';
+import React, { useContext, useState } from "react";
+import "./EditProfile.css";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext.js";
+import RippleButton from "../../utils/Buttons/RippleButton.js";
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
-    fullName: user.fullName || '',
-    email: user.email || '',
-    profileImg: user.profileImg || '',
-    coverImg: user.coverImg || '',
+    fullName: user.fullName || "",
+    email: user.email || "",
+    profileImg: user.profileImg || "",
+    coverImg: user.coverImg || "",
   });
   const [profileImageFile, setProfileImageFile] = useState(null);
   const [coverImageFile, setCoverImageFile] = useState(null);
@@ -20,13 +21,16 @@ const EditProfile = () => {
   const uploadImageToImgbb = async (file) => {
     const formData = new FormData();
     formData.append("image", file);
-    formData.append("key", "8781a1d6743760303a07331a4de14957");// Replace with your imgbb API key
+    formData.append("key", "8781a1d6743760303a07331a4de14957"); // Replace with your imgbb API key
 
     try {
-      const response = await axios.post('https://api.imgbb.com/1/upload', formData);
-      return response.data.data.url;  // Return the image URL from imgbb
+      const response = await axios.post(
+        "https://api.imgbb.com/1/upload",
+        formData
+      );
+      return response.data.data.url; // Return the image URL from imgbb
     } catch (error) {
-      console.error('Error uploading image:', error);
+      console.error("Error uploading image:", error);
       return null;
     }
   };
@@ -39,7 +43,7 @@ const EditProfile = () => {
   };
 
   const handleImageChange = (e, setImageFile) => {
-    setImageFile(e.target.files[0]);  // Set the selected file
+    setImageFile(e.target.files[0]); // Set the selected file
   };
 
   const handleSubmit = async (e) => {
@@ -67,15 +71,18 @@ const EditProfile = () => {
       };
 
       // Submit the updated form data to the server
-      const { data } = await axios.put('http://localhost:1234/profile/edit', updatedFormData, {
-        withCredentials: true,
-      });
+      const { data } = await axios.put(
+        "http://localhost:1234/profile/edit",
+        updatedFormData,
+        {
+          withCredentials: true,
+        }
+      );
 
-      setUser(data);  // Update user context with new data
-      navigate('/profile');  // Navigate back to profile page
-
+      setUser(data); // Update user context with new data
+      navigate("/profile"); // Navigate back to profile page
     } catch (error) {
-      console.error('Error updating profile:', error);
+      console.error("Error updating profile:", error);
     }
   };
 
@@ -117,9 +124,12 @@ const EditProfile = () => {
             onChange={(e) => handleImageChange(e, setCoverImageFile)}
           />
         </div>
-        <button type="submit" className="save-button">
+        {/* <button type="submit" className="save-button">
           Save Changes
-        </button>
+        </button> */}
+        <RippleButton type="submit" className="save-button">
+          Save Changes
+        </RippleButton>
       </form>
     </div>
   );

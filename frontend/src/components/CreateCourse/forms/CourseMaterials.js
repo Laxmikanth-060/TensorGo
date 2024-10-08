@@ -1,12 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt, faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTrashAlt,
+  faChevronDown,
+  faChevronUp,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./CourseMaterials.module.css";
+import RippleButton from "../../../utils/Buttons/RippleButton";
 
 const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
   const [modules, setModules] = useState(data);
   const fileInputRefs = useRef([]);
-  const[uploadStatus,setUploadStatus] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState(false);
 
   useEffect(() => {
     setModules(data);
@@ -34,7 +39,8 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
 
   const toggleExpand = (moduleIndex, videoIndex) => {
     const updatedModules = [...modules];
-    updatedModules[moduleIndex].videosList[videoIndex].expanded = !updatedModules[moduleIndex].videosList[videoIndex].expanded;
+    updatedModules[moduleIndex].videosList[videoIndex].expanded =
+      !updatedModules[moduleIndex].videosList[videoIndex].expanded;
     setModules(updatedModules);
     updateData(updatedModules);
   };
@@ -98,7 +104,7 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
     return true;
   };
 
-  const  handleFileUpload = async (moduleIndex, videoIndex) => {
+  const handleFileUpload = async (moduleIndex, videoIndex) => {
     setUploadStatus(true);
     const fileInputRef = fileInputRefs.current[moduleIndex][videoIndex];
     const files = fileInputRef.files;
@@ -135,7 +141,13 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
 
   return (
     <div className={styles.container}>
-      <form onSubmit={(e) => { e.preventDefault(); handleSubmit(validateForm()); }} className={styles.formContainer}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit(validateForm());
+        }}
+        className={styles.formContainer}
+      >
         <h5 className={styles.title}>Modules and Videos</h5>
         {modules.map((module, moduleIndex) => (
           <div key={moduleIndex} className={styles.moduleContainer}>
@@ -151,9 +163,16 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                   required
                 />
               </div>
-              <button type="button" onClick={() => removeModule(moduleIndex)} className={styles.removeButton}>
+              {/* <button type="button" onClick={() => removeModule(moduleIndex)} className={styles.removeButton}>
                 Remove
-              </button>
+              </button> */}
+              <RippleButton
+                type="button"
+                onClick={() => removeModule(moduleIndex)}
+                className={styles.removeButton}
+              >
+                Remove
+              </RippleButton>
             </div>
             {module.videosList.map((video, videoIndex) => (
               <div key={videoIndex} className={styles.videoContainer}>
@@ -164,7 +183,9 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                         type="text"
                         name="videoName"
                         value={video.videoName}
-                        onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                        onChange={(e) =>
+                          handleVideoChange(moduleIndex, videoIndex, e)
+                        }
                         className={styles.input}
                         placeholder=""
                         required
@@ -192,12 +213,16 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                         <textarea
                           name="description"
                           value={video.description}
-                          onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                          onChange={(e) =>
+                            handleVideoChange(moduleIndex, videoIndex, e)
+                          }
                           className={styles.textarea}
                           placeholder=""
                           required
                         />
-                        <label className={styles.floatingLabel}>Description</label>
+                        <label className={styles.floatingLabel}>
+                          Description
+                        </label>
                       </div>
                     </div>
                     <div className={styles.videoField}>
@@ -213,25 +238,45 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                             fileInputRefs.current[moduleIndex][videoIndex] = el;
                           }}
                           name="videoFile"
-                          onChange={(e) => handleVideoChange(moduleIndex, videoIndex, e)}
+                          onChange={(e) =>
+                            handleVideoChange(moduleIndex, videoIndex, e)
+                          }
                           className={styles.fileInput}
                           required
                         />
-                        <button 
+                        {/* <button 
                           type="button" 
                           className={styles.uploadButton} 
                           onClick={() => triggerFileInput(moduleIndex, videoIndex)}
                         >
                           Select Video
-                        </button>
+                        </button> */}
+                        <RippleButton
+                          type="button"
+                          className={styles.uploadButton}
+                          onClick={() =>
+                            triggerFileInput(moduleIndex, videoIndex)
+                          }
+                        >
+                          Select Video
+                        </RippleButton>
 
-                        <button 
+                        {/* <button 
                           type="button" 
                           className={styles.uploadButton} 
                           onClick={() => handleFileUpload(moduleIndex, videoIndex)}
                         >
                           Upload Video
-                        </button>
+                        </button> */}
+                        <RippleButton
+                          type="button"
+                          className={styles.uploadButton}
+                          onClick={() =>
+                            handleFileUpload(moduleIndex, videoIndex)
+                          }
+                        >
+                          Upload Video
+                        </RippleButton>
                         {uploadStatus && (
                           <div className="spinner-border" role="status">
                             <span className="visually-hidden">Loading...</span>
@@ -243,28 +288,44 @@ const CourseMaterials = ({ data, updateData, courseId, handleSubmit }) => {
                 )}
               </div>
             ))}
-            <button
+            {/* <button
               type="button"
               onClick={() => addVideo(moduleIndex)}
               className={styles.addVideoButton}
             >
               Add Video
-            </button>
+            </button> */}
+            <RippleButton
+              type="button"
+              onClick={() => addVideo(moduleIndex)}
+              className={styles.addVideoButton}
+            >
+              Add Video
+            </RippleButton>
           </div>
         ))}
-        <button
+        {/* <button
           type="button"
           onClick={addModule}
           className={styles.addModuleButton}
         >
           Add Module
-        </button>
+        </button> */}
+        <RippleButton
+          type="button"
+          onClick={addModule}
+          className={styles.addModuleButton}
+        >
+          Add Module
+        </RippleButton>
       </form>
       <div className={styles.previewContainer}>
         <h5 className={styles.title}>Course Structure</h5>
         {modules.map((module, moduleIndex) => (
           <div key={moduleIndex} className={styles.previewModule}>
-            <strong>{moduleIndex + 1}. {module.moduleName}</strong>
+            <strong>
+              {moduleIndex + 1}. {module.moduleName}
+            </strong>
             {module.videosList.map((video, videoIndex) => (
               <div key={videoIndex} className={styles.previewVideo}>
                 {moduleIndex + 1}.{videoIndex + 1} {video.videoName}

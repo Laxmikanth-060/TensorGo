@@ -44,7 +44,7 @@ export const googleDriveUpload = async (req, res) => {
     res.json({ files: uploadedFiles });
   } catch (error) {
     //console.error("Error during file upload:", error);
-    console.log("Error in file upload!")
+    console.log("Error in file upload!");
     res.status(500).send("An error occurred during file upload.");
   }
 };
@@ -93,19 +93,72 @@ export const listFilesInFolder = async (req, res) => {
 };
 
 //TO GET THE SPECIFIC FILE BASED ON THE FILE ID
+// export const getFile = async (req, res) => {
+//   try {
+//     const fileId = req.params.fileId;
+//     //console.log("FILE ID :" + fileId);
+//     const drive = google.drive({ version: "v3", auth });
+//     const response = await drive.files.get(
+//       {
+//         fileId: fileId,
+//         alt: "media",
+//       },
+//       { responseType: "stream" }
+//     );
+
+//     response.data.pipe(res);
+//   } catch (error) {
+//     console.error("Error fetching file:", error);
+//     res.status(500).send("An error occurred while fetching the file.");
+//   }
+// };
+//TO GET THE SPECIFIC FILE BASED ON THE FILE ID with seeking feature
 export const getFile = async (req, res) => {
   try {
     const fileId = req.params.fileId;
-    //console.log("FILE ID :" + fileId);
+    const range = req.headers.range;
+
+    if (!range) {
+      return res
+        .status(400)
+        .send("Range header is required for video seeking.");
+    }
+
     const drive = google.drive({ version: "v3", auth });
+
+    // Get the file metadata to determine the file size
+    const fileMetadata = await drive.files.get({
+      fileId: fileId,
+      fields: "size",
+    });
+    const fileSize = fileMetadata.data.size;
+
+    // Parse the Range header to determine the byte range requested
+    const CHUNK_SIZE = 10 ** 6; // 1MB per chunk
+    const start = Number(range.replace(/\D/g, ""));
+    const end = Math.min(start + CHUNK_SIZE - 1, fileSize - 1);
+
+    // Set the response headers for partial content
+    res.writeHead(206, {
+      "Content-Range": `bytes ${start}-${end}/${fileSize}`,
+      "Accept-Ranges": "bytes",
+      "Content-Length": end - start + 1,
+      "Content-Type": "video/mp4",
+    });
+
+    // Get the file content for the specified byte range
     const response = await drive.files.get(
       {
         fileId: fileId,
         alt: "media",
       },
-      { responseType: "stream" }
+      {
+        responseType: "stream",
+        headers: { Range: `bytes=${start}-${end}` },
+      }
     );
 
+    // Pipe the response data to the client
     response.data.pipe(res);
   } catch (error) {
     console.error("Error fetching file:", error);

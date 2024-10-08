@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import './Profile.css';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/UserContext.js';
+import React, { useContext } from "react";
+import "./Profile.css";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext.js";
+import RippleButton from "../../utils/Buttons/RippleButton.js";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -13,7 +14,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="cover-image">
         <img
-          src={user.coverImg || 'https://via.placeholder.com/1500x400'}
+          src={user.coverImg || "https://via.placeholder.com/1500x400"}
           alt="Cover"
         />
       </div>
@@ -21,17 +22,25 @@ const Profile = () => {
       <div className="profile-section">
         <div className="profile-left">
           <img
-            src={user.profileImg || 'https://via.placeholder.com/150'}
+            src={user.profileImg || "https://via.placeholder.com/150"}
             alt="Profile"
             className="profile-image"
           />
         </div>
         <div className="profile-right">
-          <h2><strong>{user.fullName}</strong></h2>
+          <h2>
+            <strong>{user.fullName}</strong>
+          </h2>
           <p>{user.email}</p>
-          <button className="edit-button" onClick={() => navigate('/edit-profile')}>
+          {/* <button className="edit-button" onClick={() => navigate('/edit-profile')}>
             Edit Profile
-          </button>
+          </button> */}
+          <RippleButton
+            className="edit-button"
+            onClick={() => navigate("/edit-profile")}
+          >
+            Edit Profile
+          </RippleButton>
         </div>
       </div>
     </div>

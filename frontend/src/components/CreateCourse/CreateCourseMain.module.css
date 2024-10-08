@@ -1,37 +1,38 @@
-.CreateCourseMainContainer{
-    margin-top: 20px;
-    /* overflow-x: hidden; Prevent horizontal overflow */
-    /* overflow-y: auto;  */
+.CreateCourseMainContainer {
+  margin-top: 20px;
+  /* overflow-x: hidden; Prevent horizontal overflow */
+  /* overflow-y: auto;  */
 }
-.mainTitle{
-    text-align: center;
-    font-weight: 700;
+.mainTitle {
+  text-align: center;
+  font-weight: 700;
 }
-.pageNumberContainer{
-    display: flex;
+.pageNumberContainer {
+  display: flex;
 }
-.pageNumber{
-    margin-left: 90%;
+.pageNumber {
+  margin-left: 90%;
 }
-.buttonsNav{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap:10px;
-    margin-bottom: 10%;
+.buttonsNav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+  margin-bottom: 10%;
 }
 .backButton,
-.nextButton{
-    width: 5rem;
-    padding: 5px 10px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
+.nextButton,
+.submitButton {
+  width: 5rem;
+  padding: 5px 10px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
 }
-.backButton{
-    background-color: lightgray;
-    color: black;
+.backButton {
+  background-color: lightgray;
+  color: black;
 }

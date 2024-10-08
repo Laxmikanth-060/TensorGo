@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { FaBars, FaTimes, FaBell } from 'react-icons/fa';
-import { UserContext } from '../../context/UserContext';
-import axios from 'axios';
-import './Navbar.css';
-import Announcements from '../Announcements/Announcements'; // Import the announcements page
+import { FaBars, FaTimes, FaBell } from "react-icons/fa";
+import { UserContext } from "../../context/UserContext";
+import axios from "axios";
+import "./Navbar.css";
+import Announcements from "../Announcements/Announcements"; // Import the announcements page
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,9 +30,13 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('http://localhost:1234/api/auth/logout', {}, { withCredentials: true });
+      await axios.post(
+        "http://localhost:1234/api/auth/logout",
+        {},
+        { withCredentials: true }
+      );
       setUser(null);
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.error("Error logging out", error);
     }
@@ -44,67 +48,127 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
-      if (showAnnouncements && announcementsRef.current && !announcementsRef.current.contains(event.target)) {
+      if (
+        showAnnouncements &&
+        announcementsRef.current &&
+        !announcementsRef.current.contains(event.target)
+      ) {
         setShowAnnouncements(false); // Close announcements on outside click
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showAnnouncements]);
 
   return (
     <div className="navbarContainer">
-      <img 
-        src="https://i.ibb.co/3Tv149f/image.png" 
-        alt="logo" 
-        className="logo" 
+      <img
+        src="https://i.ibb.co/3Tv149f/image.png"
+        alt="logo"
+        className="logo"
       />
       <div className="hamburger" onClick={toggleNav}>
         {isOpen ? <FaTimes /> : <FaBars />}
       </div>
-      <ul className={`navItems ${isOpen ? 'open' : ''}`}>
-        <li><NavLink className="navItem" activeclassname="active" to="/home" onClick={toggleNav}>Home</NavLink></li>
-        <li><NavLink className="navItem" activeclassname="active" to="/courses" onClick={toggleNav}>Courses</NavLink></li>
-        <li><NavLink className="navItem" activeclassname="active" to="/about" onClick={toggleNav}>About Us</NavLink></li>
-        <li className="notificationItem">
-          <FaBell className="notificationIcon" onClick={toggleAnnouncements} />
+      <ul className={`navItems ${isOpen ? "open" : ""}`}>
+        <li>
+          <NavLink
+            className="navItem"
+            activeclassname="active"
+            to="/home"
+            onClick={toggleNav}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navItem"
+            activeclassname="active"
+            to="/courses"
+            onClick={toggleNav}
+          >
+            Courses
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className="navItem"
+            activeclassname="active"
+            to="/about"
+            onClick={toggleNav}
+          >
+            About Us
+          </NavLink>
+        </li>
+        <li className="notificationItem" onClick={toggleAnnouncements}>
+          <FaBell className="notificationIcon" />
         </li>
 
         {user ? (
           <>
             <li className="profileItem" ref={dropdownRef}>
-              <img src={user.profileImg} alt="Profile" className="profileImg" onClick={toggleDropdown} />
+              <img
+                src={user.profileImg}
+                alt="Profile"
+                className="profileImg"
+                onClick={toggleDropdown}
+              />
               {isDropdownOpen && (
                 <div className="dropdownMenu">
-                  <div><NavLink className="dropdownItem" to="/profile" onClick={toggleNav}>My Profile</NavLink></div>
-                  <div><span className="dropdownItem" onClick={handleLogout}>Log out</span></div>
+                  <div>
+                    <NavLink
+                      className="dropdownItem"
+                      to="/profile"
+                      onClick={toggleNav}
+                    >
+                      My Profile
+                    </NavLink>
+                  </div>
+                  <div>
+                    <span className="dropdownItem" onClick={handleLogout}>
+                      Log out
+                    </span>
+                  </div>
                 </div>
               )}
             </li>
             <li className="hamburgerProfileItem mobile">
-              <NavLink className="navItem" to="/profile" onClick={toggleNav}>My Profile</NavLink>
+              <NavLink className="navItem" to="/profile" onClick={toggleNav}>
+                My Profile
+              </NavLink>
             </li>
             <li className="hamburgerProfileItem mobile logoutButton">
-              <span className="navItem" onClick={handleLogout}>Logout</span>
+              <span className="navItem" onClick={handleLogout}>
+                Logout
+              </span>
             </li>
           </>
         ) : (
-          <li><NavLink className="navItem" to="/login" onClick={toggleNav}>Login</NavLink></li>
+          <li>
+            <NavLink className="navItem" to="/login" onClick={toggleNav}>
+              Login
+            </NavLink>
+          </li>
         )}
       </ul>
 
       {/* Sliding Announcements Page */}
       {showAnnouncements && (
-      <>
-        <div className="announcementsOverlay" onClick={toggleAnnouncements}></div>
-        <div className={`announcementsSlide ${showAnnouncements ? 'show' : ''}`} ref={announcementsRef}>
-          <Announcements onClose={toggleAnnouncements} />
-        </div>
-      </>
-    )}
+        <div
+          className="announcementsOverlay"
+          onClick={toggleAnnouncements}
+        ></div>
+      )}
+      <div
+        className={`announcementsSlide ${showAnnouncements ? "show" : ""}`}
+        ref={announcementsRef}
+      >
+        <Announcements onClose={toggleAnnouncements} />
+      </div>
     </div>
   );
 };

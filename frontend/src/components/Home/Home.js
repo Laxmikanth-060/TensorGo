@@ -4,7 +4,6 @@ import courseimg from "./a.jpeg";
 import "./Home.css";
 import { UserContext } from "../../context/UserContext";
 
-
 const Home = () => {
   const { user } = useContext(UserContext);
 
