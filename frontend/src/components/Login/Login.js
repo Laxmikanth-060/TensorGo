@@ -39,7 +39,7 @@ function Login() {
       });
       setUser(userData);
       setLoading(false);
-      navigate("/home");
+      navigate(-1);
     } catch (error) {
       if (error.response) {
         setError(error.response.data.error);

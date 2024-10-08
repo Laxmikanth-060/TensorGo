@@ -1,5 +1,5 @@
 import { Course, Module, UserProgress, Video, Review } from '../models/course.model.js';
-
+import { Student } from '../models/student.model.js';
 export const createCourseWithDetails = async (req, res) => {
   try {
     // Create Course
@@ -160,6 +160,22 @@ export const getCourseReviews = async (req, res) => {
   }
 };
 
+export const getRegisteredCourseByUserId = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+      const student = await Student.findOne({ userId: userId }).populate('coursesEnrolled.courseId');
+
+      if (!student) {
+          return res.status(404).json({ message: 'Student not found' });
+      }
+      const enrolledCourses = student.coursesEnrolled.map(enrollment => enrollment.courseId);
+      res.json(enrolledCourses);
+  } catch (error) {
+      console.error("Error fetching courses:", error);
+      res.status(500).json({ message: 'Server error' });
+  }
+};
 //Not required but dont remove
 // export const getModulesByCourseId = async (req, res) => {
 //   try {

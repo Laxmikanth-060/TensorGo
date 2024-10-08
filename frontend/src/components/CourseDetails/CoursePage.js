@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './CoursePage.css';
 import axios from 'axios';
 import getCourseById from '../../utils/getCourseById';
@@ -6,10 +6,13 @@ import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import Loader from '../shared/Loader';
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdOndemandVideo, MdOutlineVideoLibrary } from "react-icons/md";
+import { UserContext } from '../../context/UserContext';
+import getRegisteredCourseByUserId from '../../utils/getRegisteredCoursesByUserId.js';
 
 const CoursePage = () => {
   const url = "http://localhost:1234";
   const { courseId } = useParams(); 
+  const { user } = useContext(UserContext); 
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
@@ -22,12 +25,13 @@ const CoursePage = () => {
   const [price, setPrice] = useState('');
   const [rating, setRating] = useState(0);
   const [activeModule, setActiveModule] = useState(null);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   useEffect(() => {
+    // Fetch the course data
     const fetchCourseData = async () => {
       const courseData = await getCourseById(courseId);
       if (courseData) {
-        console.log(courseData);
         setCourseData(courseData);
         setModules(courseData.modules);
         setPrice(courseData.pricingInfo.price);
@@ -35,20 +39,30 @@ const CoursePage = () => {
         setDescription(courseData.description);
         setCoverImage(courseData.coverImage);
         setRating(courseData.rating);
-        setCurrentVideo(courseData.modules[0].videosList[0].videoUrl);
+        setCurrentVideo(courseData.modules[0]?.videosList[0]?.videoUrl);
       }
     };
     fetchCourseData();
-
+    const fetchRegisteredCourses = async () => {
+      if (user) {
+        try {
+          const registeredCourses = await getRegisteredCourseByUserId(user._id);
+          const isUserRegistered = registeredCourses.some(
+            (course) => String(course._id) === String(courseId)
+          );
+          setIsRegistered(isUserRegistered); 
+        } catch (error) {
+          console.error('Error fetching registered courses:', error);
+        }
+      }
+    };
+    fetchRegisteredCourses();
     const fetchReviews = async () => {
       try {
         const response = await axios.get(`${url}/courses/${courseId}/getreviews`, {
           withCredentials: true,
         });
-        setReviews(response.data); // Set the reviews data to state
-        console.log(response.data); // Log the fetched reviews
-
-        // Calculate total reviews and average rating
+        setReviews(response.data);
         if (response.data.length > 0) {
           const total = response.data.length;
           const avgRating = response.data.reduce((acc, review) => acc + review.rating, 0) / total;
@@ -59,9 +73,8 @@ const CoursePage = () => {
         console.error('Error fetching reviews:', error);
       }
     };
-
-    fetchReviews(); // Call the fetch function
-  }, [courseId]);
+    fetchReviews();
+  }, [courseId, user]);
 
   const renderStars = (rating) => {
     return [...Array(5)].map((star, index) => (
@@ -72,7 +85,7 @@ const CoursePage = () => {
   };
 
   const toggleModule = (idx) => {
-    setActiveModule(activeModule === idx ? null : idx); 
+    setActiveModule(activeModule === idx ? null : idx);
   };
 
   if (courseData.length === 0) {
@@ -123,14 +136,29 @@ const CoursePage = () => {
           <div className="sidebar">
             <div className="pricing">
               <p className="discounted-price">₹{price}</p>
-              <Link to={`/enroll/${courseId}`}><button className="enroll-btn">Enroll Now</button></Link>
+              {isRegistered ? (
+                <>
+                  <Link to={`/p/course/${courseId}`}>
+                    <button className="go-to-course-btn">Go to Course</button>
+                  </Link>
+                  <Link to={`/course/${courseId}/review`}>
+                    <button className="review-btn">Review This Course</button>
+                  </Link>
+                </>
+              ) : (
+                <Link to={`/enroll/${courseId}`}>
+                  <button className="enroll-btn">Enroll Now</button>
+                </Link>
+              )}
             </div>
+
             <div className="course-details">
               <p>No. of Modules: {modules.length}</p>
               <p>Lifetime Access</p>
             </div>
           </div>
         </div>
+
         <hr />
         <div>
           <h3 className='preview-heading'>Preview This Course</h3>
@@ -200,10 +228,8 @@ const CoursePage = () => {
             <p>No Reviews & Ratings...</p>
           )}
         </div>
-        <div className="register-prompt">
-          <h2>Not Registered Yet?</h2>
-          <p>Sign up now to access full course modules and videos!</p>
-          <Link to={`/enroll/${courseId}`}><button className="register-btn">Register Now</button></Link>
+        <div>
+          <hr />
         </div>
       </div>
     </div>
