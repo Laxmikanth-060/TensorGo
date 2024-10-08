@@ -52,20 +52,19 @@ const CourseAuthProtectedRoute = ({ children }) => {
           console.error("Error fetching registered courses:", error);
           setIsRegistered(false); 
         }
-      } else {
-        setIsRegistered(false); 
       }
     };
-
-    fetchRegisteredCourses();
+    if (user) {
+      fetchRegisteredCourses();
+    }
   }, [user, courseId]);
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
 
   if (loading || isRegistered === null) {
     return <Loader />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
   }
 
   if (!isRegistered) {
@@ -74,6 +73,8 @@ const CourseAuthProtectedRoute = ({ children }) => {
 
   return children;
 };
+
+
 
 
 

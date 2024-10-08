@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import imgg from "./banner-icon.png";
-import courseimg from "./a.jpeg";
 import "./Home.css";
 import { UserContext } from "../../context/UserContext";
+import ActiveCourses from "../Courses/ActiveCourses/ActiveCourses.js"; 
 
 const Home = () => {
   const { user } = useContext(UserContext);
@@ -26,9 +26,15 @@ const Home = () => {
           </div>
         </div>
         <div className="banner-right">
-          <img src={imgg} alt="" />
+          <img src={imgg} alt="Study Portal" />
         </div>
       </div>
+
+      {user && (
+        <div className="active-courses-section">
+          <ActiveCourses userId={user._id} />
+        </div>
+      )}
     </div>
   );
 };

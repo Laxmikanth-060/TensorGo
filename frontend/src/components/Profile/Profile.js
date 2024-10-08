@@ -3,6 +3,7 @@ import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext.js";
 import RippleButton from "../../utils/Buttons/RippleButton.js";
+import ActiveCourses from "../Courses/ActiveCourses/ActiveCourses.js";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -32,9 +33,6 @@ const Profile = () => {
             <strong>{user.fullName}</strong>
           </h2>
           <p>{user.email}</p>
-          {/* <button className="edit-button" onClick={() => navigate('/edit-profile')}>
-            Edit Profile
-          </button> */}
           <RippleButton
             className="edit-button"
             onClick={() => navigate("/edit-profile")}
@@ -42,6 +40,9 @@ const Profile = () => {
             Edit Profile
           </RippleButton>
         </div>
+      </div>
+      <div className="active-courses-section">
+        <ActiveCourses userId={user._id} />
       </div>
     </div>
   );

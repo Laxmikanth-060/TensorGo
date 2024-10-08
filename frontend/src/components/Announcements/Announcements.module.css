@@ -33,7 +33,7 @@
   /* box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.2); */
   box-shadow: rgba(0, 48, 110, 0.2) 0px 0px 4px 0px;
   position: relative;
-  border-top: 2px solid black;
+  border-top: 2px solid #0080ff;
 }
 .announcementTitle {
   font-size: 16px;
@@ -183,9 +183,9 @@
 }
 
 @media (max-width: 480px) {
-  .announcement-content {
-    min-width: 100%; /* Ensure full width on very small screens */
-  }
+  /* .announcement-content {
+    min-width: 100%; Ensure full width on very small screens
+  } */
 
   .sendButton {
     padding: 8px; /* Smaller button padding */

@@ -4,7 +4,7 @@ import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
 import "./Navbar.css";
-import Announcements from "../Announcements/Announcements"; // Import the announcements page
+import Announcements from "../Announcements/Announcements"; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -96,10 +96,9 @@ const Navbar = () => {
                 Courses
               </NavLink>
             </li>
-            <li className="notificationItem">
+            <li className="notificationItem" onClick={toggleAnnouncements}>
               <FaBell
                 className="notificationIcon"
-                onClick={toggleAnnouncements}
               />
             </li>
             <li className="profileItem" ref={dropdownRef}>
@@ -142,16 +141,6 @@ const Navbar = () => {
         ) : (
           // Show these items when the user is not logged in
           <>
-            <li>
-              <NavLink
-                className="navItem"
-                activeclassname="active"
-                to="/"
-                onClick={toggleNav}
-              >
-                Home
-              </NavLink>
-            </li>
             <li>
               <NavLink
                 className="navItem"
