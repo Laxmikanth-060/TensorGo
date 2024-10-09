@@ -9,7 +9,6 @@ import styles from "./Courses.module.css";
 import { UserContext } from "../../context/UserContext.js";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { getAverageRating } from "../../utils/getAverageRating";
 
 const CourseCard = (props) => {
@@ -31,6 +30,7 @@ const CourseCard = (props) => {
     pricingInfo,
     publishedDate,
     instructorImage,
+    modules,
     instructorName,
   } = courseDetails;
   // console.log(courseDetails)
