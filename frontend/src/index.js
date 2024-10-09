@@ -18,7 +18,11 @@ import EditProfile from "./components/Profile/EditProfile";
 import CoursePage from "./components/CourseDetails/CoursePage";
 import EnrollCourse from "./components/EnrollCourse/EnrollCourse";
 import CourseReviews from "./components/CourseDetails/CourseReviews";
-import { ProtectedRoute,SuperAdminRoute,CourseAuthProtectedRoute } from "./protectedRoutes/protectedRoutes";
+import {
+  ProtectedRoute,
+  SuperAdminRoute,
+  CourseAuthProtectedRoute,
+} from "./protectedRoutes/protectedRoutes";
 import NotAuthorized from "./components/shared/NotAuthorized";
 import NotFound from "./components/shared/NotFound";
 
@@ -114,18 +118,18 @@ const appRouter = createBrowserRouter([
         element: <NotAuthorized />,
       },
       {
-        path:"*",
-        element:<NotFound/>
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },
   {
-      path:"/api/auth/users/:id/verify/:token",
-      element:<EmailVerify/>
+    path: "/api/auth/users/:id/verify/:token",
+    element: <EmailVerify />,
   },
   {
-      path:"/api/auth/users/:id/verify/:token",
-      element:<EmailVerify/>
+    path: "/api/auth/users/:id/verify/:token",
+    element: <EmailVerify />,
   },
   {
     path: "/login",

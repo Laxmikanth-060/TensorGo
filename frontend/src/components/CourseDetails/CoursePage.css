@@ -106,6 +106,18 @@
   border-radius: 8px;
   text-align: center;
 }
+.pricing-sidebar .delete-course-button {
+  background-color: rgb(174, 24, 24);
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin-bottom: 1em;
+}
 .pricing-sidebar .regular-price {
   font-weight: bold;
   text-decoration: line-through;

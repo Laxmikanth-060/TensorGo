@@ -2,10 +2,11 @@ import React, { useState, useEffect, useContext } from "react";
 import "./CoursePage.css";
 import axios from "axios";
 import getCourseById from "../../utils/getCourseById";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import ReactPlayer from "react-player";
 import Loader from "../shared/Loader";
 import {
+  MdDelete,
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
   MdOndemandVideo,
@@ -34,12 +35,13 @@ const CoursePage = () => {
   const [rating, setRating] = useState(0);
   const [activeModule, setActiveModule] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the course data
     const fetchCourseData = async () => {
       const courseData = await getCourseById(courseId);
-      console.log(courseData);
+      // console.log(courseData);
       if (courseData) {
         setCourseData(courseData);
         setModules(courseData.modules);
@@ -51,7 +53,7 @@ const CoursePage = () => {
         setRating(courseData.rating);
         setCurrentVideo(courseData?.modules[0]?.videosList[0]?.videoUrl);
       }
-      console.log(courseData);
+      // console.log(courseData);
     };
     fetchCourseData();
     const fetchRegisteredCourses = async () => {
@@ -102,6 +104,20 @@ const CoursePage = () => {
 
   const toggleModule = (idx) => {
     setActiveModule(activeModule === idx ? null : idx);
+  };
+
+  const deleteCourse = async () => {
+    try {
+      // console.log("Hoi");
+
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseId}`
+      );
+      alert("Course deleted successfully!");
+      navigate("/courses");
+    } catch (e) {
+      alert("Unable to delete the course. Try again later!");
+    }
   };
 
   if (courseData.length === 0) {
@@ -182,6 +198,14 @@ const CoursePage = () => {
               <p>No. of Modules: {modules.length}</p>
               <p>Lifetime Access</p>
             </div>
+            {user && user.isSuperAdmin === true && (
+              <RippleButton
+                className="delete-course-button"
+                onClick={deleteCourse}
+              >
+                Delete Course <MdDelete />
+              </RippleButton>
+            )}
           </div>
         </div>
 

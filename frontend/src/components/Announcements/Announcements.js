@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import styles from "./Announcements.module.css";
-import { FaTimes, FaPaperPlane } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext.js";
 import RippleButton from "../../utils/Buttons/RippleButton.js";
-import axios from "axios";
+// import axios from "axios";
+import { MdDelete } from "react-icons/md";
 const Announcements = ({ onClose }) => {
   const [announcementTitle, setAnnouncementTitle] = useState("");
   const [announcementDescription, setAnnouncementDescription] = useState("");
@@ -160,7 +161,7 @@ const Announcements = ({ onClose }) => {
             className={styles.deleteButton}
             onClick={() => handleDelete(ann._id)}
           >
-            <FaTimes />
+            <MdDelete />
           </button>
         )}
       </div>

@@ -6,30 +6,19 @@ import {
 } from "react-icons/md";
 // import { IoMdTime } from "react-icons/io";
 import styles from "./Courses.module.css";
-import { UserContext } from "../../context/UserContext.js";
-import { useContext, useEffect, useState } from "react";
-import axios from "axios";
+
+import { useEffect, useState } from "react";
+
 import { getAverageRating } from "../../utils/getAverageRating";
 
 const CourseCard = (props) => {
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
-  const { user } = useContext(UserContext);
-  useEffect(() => {
-    if (user && user.isSuperAdmin === true) {
-      setIsSuperAdmin(true);
-    }
-  }, []);
-
   const { courseDetails } = props;
   const {
     _id,
     title,
     description,
     thumbnailImage,
-    duration,
     pricingInfo,
-    publishedDate,
-    instructorImage,
     modules,
     instructorName,
   } = courseDetails;
@@ -73,18 +62,6 @@ const CourseCard = (props) => {
     return stars;
   };
 
-  const deleteCourse = async () => {
-    try {
-      console.log("Hoi");
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseDetails._id}`
-      );
-      alert("Course deleted successfully!");
-    } catch (e) {
-      alert("Unable to delete the course. Try again later!");
-    }
-  };
-
   return (
     <li className={styles.courseCard}>
       <img
@@ -121,9 +98,6 @@ const CourseCard = (props) => {
           <p className={styles.courseCardInstructorName}>{instructorName}</p>
         </div>
         <div className={styles.courseCardPriceContainer}>
-          <div>
-            <MdDelete onClick={deleteCourse} />
-          </div>
           <div>
             {discount === 0 ? (
               <h1 className={styles.courseCardDiscountPrice}>&#8377;{price}</h1>
