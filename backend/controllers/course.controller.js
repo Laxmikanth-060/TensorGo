@@ -193,12 +193,12 @@ export const deleteCourseById = async (req, res) => {
 
     // Delete associated modules and videos
     const moduleIds = course.modules;
-    console.log(moduleIds)
+    // console.log(moduleIds)
     await Promise.all(
       moduleIds.map(async (moduleId) => {
-        console.log("Hii");
+       // console.log("Hii");
         const module = await Module.findById(moduleId);
-        console.log(module)
+       // console.log(module)
         if (module) {
           await Video.deleteMany({ _id: { $in: module.videosList } });
         }
@@ -227,3 +227,4 @@ export const deleteCourseById = async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // };
+

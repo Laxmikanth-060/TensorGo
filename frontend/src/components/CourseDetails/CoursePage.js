@@ -48,7 +48,7 @@ const CoursePage = () => {
         setRating(courseData.rating);
         setCurrentVideo(courseData?.modules[0]?.videosList[0]?.videoUrl);
       }
-      console.log(courseData);
+      //console.log(courseData);
     };
     fetchCourseData();
     const fetchRegisteredCourses = async () => {

@@ -10,6 +10,7 @@ const CreateCourseMain = () => {
   const [formData, setFormData] = useState({
     courseInfo: {
       id: "",
+      driveFolderId:"",
       title: "",
       category: "",
       level: "",
@@ -69,6 +70,7 @@ const CreateCourseMain = () => {
 
   const handleSubmitAll = async () => {
     try {
+      //console.log(formData)
       const response = await fetch(
         "http://localhost:1234/courses/create-with-details",
         {
@@ -80,7 +82,7 @@ const CreateCourseMain = () => {
         }
       );
       const data = await response.json();
-      console.log("Submission successful:", data);
+      //console.log("Submission successful:", data);
       // Handle successful submission (e.g., show a success message, redirect)
     } catch (error) {
       console.error("Submission failed:", error);
@@ -109,6 +111,7 @@ const CreateCourseMain = () => {
           courseInfo: {
             ...prevFormData.courseInfo,
             id: data.folderId,
+            driveFolderId:data.folderId,
           },
         }));
       } catch (error) {

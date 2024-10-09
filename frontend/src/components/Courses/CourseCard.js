@@ -16,6 +16,7 @@ const CourseCard = (props) => {
 
   const { courseDetails } = props;
   const {
+    driveFolderId,
     title,
     description,
     thumbnailImage,
@@ -51,11 +52,12 @@ const CourseCard = (props) => {
 
   const deleteCourse = async () => {
     try {
-      console.log("Hoi")
+      console.log("The drive id is :",driveFolderId);
       const response = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseDetails._id}`);
+      const driveResponse = await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/gDrive/delete-folder/${driveFolderId}`);
       alert("Course deleted successfully!");
     } catch (e) {
-      alert("Unable to delete the course. Try again later!");
+      alert("Unable to delete the course!");
     }
   };
   

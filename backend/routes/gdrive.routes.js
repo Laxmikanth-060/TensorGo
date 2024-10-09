@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import {
   createFolder,
+  deleteFolder,
   getFile,
   googleDriveUpload,
   listFilesInFolder,
@@ -23,5 +24,6 @@ router.post("/upload", upload.array("files"), googleDriveUpload);
 router.post("/create-folder", createFolder);
 router.get("/list-files/:folderId", listFilesInFolder);
 router.get("/file/:fileId", getFile);
+router.delete("/delete-folder/:folderId", deleteFolder);
 
 export default router;
