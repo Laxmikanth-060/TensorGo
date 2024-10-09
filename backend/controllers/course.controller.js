@@ -205,7 +205,7 @@ export const getRegisteredCourseByUserId = async (req, res) => {
 export const deleteCourseById = async (req, res) => {
   try {
     const { courseId } = req.params; 
-    console.log("Course Id:",courseId)
+    //console.log("Course Id:",courseId)
     const course = await Course.findById(courseId);
 
     if (!course) {

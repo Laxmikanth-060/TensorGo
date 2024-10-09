@@ -4,9 +4,11 @@ import CourseInformation from "./forms/CourseInformation";
 import PricingInformation from "./forms/PricingInformation";
 import CourseMaterials from "./forms/CourseMaterials";
 import RippleButton from "../../utils/Buttons/RippleButton";
+import {useNavigate } from "react-router-dom";
 
 const CreateCourseMain = () => {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     courseInfo: {
       id: "",
@@ -82,6 +84,7 @@ const CreateCourseMain = () => {
         }
       );
       const data = await response.json();
+      navigate("/courses")
       //console.log("Submission successful:", data);
       // Handle successful submission (e.g., show a success message, redirect)
     } catch (error) {

@@ -123,14 +123,15 @@ const CoursePage = () => {
   // };
   const deleteCourse = async () => {
     try {
-      console.log("The drive id is :", driveFolderId);
-      const response = await axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseId}`
-      );
+      //console.log("The drive id is :", driveFolderId);
       const driveResponse = await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/gDrive/delete-folder/${driveFolderId}`
       );
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseId}`
+      );
       alert("Course deleted successfully!");
+      navigate("/courses")
     } catch (e) {
       alert("Unable to delete the course!");
     }

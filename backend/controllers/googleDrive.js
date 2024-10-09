@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
-import { drive } from "googleapis/build/src/apis/drive/index.js";
 
 
 
@@ -177,7 +176,7 @@ export const getFile = async (req, res) => {
     // Pipe the response data to the client
     response.data.pipe(res);
   } catch (error) {
-    console.error("Error fetching file:", error);
+    //console.error("Error fetching file:", error);
 
     // Handle specific errors like network issues or file not found
     if (error.response && error.response.status === 404) {
@@ -216,7 +215,7 @@ export const deleteFolder = async (req, res) => {
       res.status(response.status).send("Failed to delete folder.");
     }
   } catch (error) {
-    console.error("Error deleting folder:", error);
+    //console.error("Error deleting folder:", error);
     res.status(500).send("An error occurred during folder deletion.");
   }
 };
