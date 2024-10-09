@@ -7,7 +7,8 @@ import {
   getUserProgress,
   markVideoAsCompleted,
   getCourseReviews,
-  getRegisteredCourseByUserId
+  getRegisteredCourseByUserId,
+  deleteCourseById
 } from "../controllers/course.controller.js";
 
 import { enrollCourse } from "../controllers/course.enroll.js";
@@ -24,7 +25,7 @@ router.post("/complete-video", markVideoAsCompleted);
 router.post("/reviews",courseReview);
 router.get("/:courseId/getreviews",getCourseReviews);
 router.get('/:userId/courses', getRegisteredCourseByUserId);
-
+router.delete("/delete/:courseId",deleteCourseById);
 // router.get("/:courseId/modules", getModulesByCourseId);
 // router.post("/:courseId/modules", createModuleForCourse);
 
