@@ -4,6 +4,9 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import { drive } from "googleapis/build/src/apis/drive/index.js";
+
+
 
 // Define __dirname for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -112,6 +115,8 @@ export const listFilesInFolder = async (req, res) => {
 //     res.status(500).send("An error occurred while fetching the file.");
 //   }
 // };
+
+
 //TO GET THE SPECIFIC FILE BASED ON THE FILE ID with seeking feature
 export const getFile = async (req, res) => {
   try {
@@ -182,5 +187,36 @@ export const getFile = async (req, res) => {
     } else {
       res.status(500).send("An error occurred while fetching the file.");
     }
+  }
+};
+
+
+
+//TO DELETE A FOLDER
+export const deleteFolder = async (req, res) => {
+  //console.log("Delete Folder Params:", req.params); 
+  const folderId = req.params.folderId;
+
+  if (!folderId) {
+    return res.status(400).send("Folder ID is required.");
+  }
+
+  try {
+    const drive = google.drive({ version: "v3", auth });
+    //console.log("Folder ID before deletion:", folderId);
+
+    const response = await drive.files.delete({
+      fileId: folderId,
+    });
+
+    //console.log("Delete Response:", response.status, response.statusText); 
+    if (response.status === 204) {
+      res.status(200).send("Folder deleted successfully.");
+    } else {
+      res.status(response.status).send("Failed to delete folder.");
+    }
+  } catch (error) {
+    console.error("Error deleting folder:", error);
+    res.status(500).send("An error occurred during folder deletion.");
   }
 };

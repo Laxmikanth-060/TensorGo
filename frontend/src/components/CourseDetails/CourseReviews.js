@@ -12,14 +12,13 @@ const CourseReviews = () => {
   const [review, setReview] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const url = "http://localhost:1234";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Attempt to submit the review
       await axios.post(
-        `${url}/courses/reviews`,
+        `${process.env.REACT_APP_BACKEND_URL}/courses/reviews`,
         {
           user,
           courseId,

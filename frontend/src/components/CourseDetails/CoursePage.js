@@ -35,6 +35,7 @@ const CoursePage = () => {
   const [rating, setRating] = useState(0);
   const [activeModule, setActiveModule] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
+  const [driveFolderId, setDriveFolderId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,6 +53,7 @@ const CoursePage = () => {
         setCoverImage(courseData.coverImage);
         setRating(courseData.rating);
         setCurrentVideo(courseData?.modules[0]?.videosList[0]?.videoUrl);
+        setDriveFolderId(courseData.driveFolderId);
       }
       // console.log(courseData);
     };
@@ -106,17 +108,31 @@ const CoursePage = () => {
     setActiveModule(activeModule === idx ? null : idx);
   };
 
+  // const deleteCourse = async () => {
+  //   try {
+  //     // console.log("Hoi");
+
+  //     const response = await axios.delete(
+  //       `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseId}`
+  //     );
+  //     alert("Course deleted successfully!");
+  //     navigate("/courses");
+  //   } catch (e) {
+  //     alert("Unable to delete the course. Try again later!");
+  //   }
+  // };
   const deleteCourse = async () => {
     try {
-      // console.log("Hoi");
-
+      console.log("The drive id is :", driveFolderId);
       const response = await axios.delete(
         `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseId}`
       );
+      const driveResponse = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/gDrive/delete-folder/${driveFolderId}`
+      );
       alert("Course deleted successfully!");
-      navigate("/courses");
     } catch (e) {
-      alert("Unable to delete the course. Try again later!");
+      alert("Unable to delete the course!");
     }
   };
 

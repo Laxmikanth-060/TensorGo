@@ -1,9 +1,4 @@
-import {
-  MdDelete,
-  MdOutlineStarOutline,
-  MdStarHalf,
-  MdStarRate,
-} from "react-icons/md";
+import { MdOutlineStarOutline, MdStarHalf, MdStarRate } from "react-icons/md";
 // import { IoMdTime } from "react-icons/io";
 import styles from "./Courses.module.css";
 
@@ -14,6 +9,7 @@ import { getAverageRating } from "../../utils/getAverageRating";
 const CourseCard = (props) => {
   const { courseDetails } = props;
   const {
+    driveFolderId,
     _id,
     title,
     description,
@@ -61,6 +57,21 @@ const CourseCard = (props) => {
 
     return stars;
   };
+
+  // const deleteCourse = async () => {
+  //   try {
+  //     console.log("The drive id is :", driveFolderId);
+  //     const response = await axios.delete(
+  //       `${process.env.REACT_APP_BACKEND_URL}/courses/delete/${courseDetails._id}`
+  //     );
+  //     const driveResponse = await axios.delete(
+  //       `${process.env.REACT_APP_BACKEND_URL}/gDrive/delete-folder/${driveFolderId}`
+  //     );
+  //     alert("Course deleted successfully!");
+  //   } catch (e) {
+  //     alert("Unable to delete the course!");
+  //   }
+  // };
 
   return (
     <li className={styles.courseCard}>
