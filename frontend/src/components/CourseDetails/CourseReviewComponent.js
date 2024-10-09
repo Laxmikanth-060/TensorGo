@@ -1,11 +1,13 @@
 import "./CourseReviewComponent.css";
 const CourseReviewComponent = (props) => {
   const { reviews } = props;
+  // console.log(reviews);
   const ratingsSummary = createRatingSummary(reviews);
   const totalReviews = ratingsSummary.reduce((acc, count) => acc + count, 0); // Sum of all ratings
-
+  // console.log("totalreviews :", totalReviews);
   const calculateBarWidth = (count) => {
-    return (count / totalReviews) * 100 + "%";
+    if (totalReviews == 0) return 0;
+    return (count / totalReviews) * 100;
   };
 
   const renderStars = (rating) => {
@@ -29,12 +31,12 @@ const CourseReviewComponent = (props) => {
                 <div
                   className="rating-bar-progression"
                   style={{
-                    width: calculateBarWidth(count),
+                    width: calculateBarWidth(count) + "%",
                   }}
                 ></div>
               </div>
               <span className="right">
-                {Math.floor((count / totalReviews) * 100)}%
+                {Math.round(calculateBarWidth(count))}%
               </span>
             </div>
           ))}

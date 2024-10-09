@@ -84,6 +84,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;
   /* padding: 2em 2em; */
 }
 .coursesContainer > * {
@@ -96,7 +97,8 @@
 
 .courseCard {
   padding: 0.75em;
-  border-radius: 1em;
+  padding-bottom: 1em;
+  border-radius: 0.5em;
   background-color: #fff;
   margin: 1em 0;
   margin-right: 3em;

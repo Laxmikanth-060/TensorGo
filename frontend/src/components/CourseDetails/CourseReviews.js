@@ -43,49 +43,51 @@ const CourseReviews = () => {
   };
 
   return (
-    <div className="review-container">
-      <h1 className="review-title">Course Reviews</h1>
+    <div className="review-container-bg">
+      <div className="review-container">
+        <h1 className="review-title">Course Review</h1>
 
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
-      {submitted && !errorMessage && (
-        <div className="success-message">Review submitted successfully!</div>
-      )}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {submitted && !errorMessage && (
+          <div className="success-message">Review submitted successfully!</div>
+        )}
 
-      {!submitted && !errorMessage && (
-        <form onSubmit={handleSubmit} className="review-form">
-          <div className="rating-container">
-            <label className="form-label">Rating</label>
-            <div className="stars">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={`star ${rating >= star ? "filled" : ""}`}
-                  onClick={() => setRating(star)}
-                >
-                  ★
-                </span>
-              ))}
+        {!submitted && !errorMessage && (
+          <form onSubmit={handleSubmit} className="review-form">
+            <div className="rating-container">
+              <label className="form-label">Rating</label>
+              <div className="stars">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                    key={star}
+                    className={`star ${rating >= star ? "filled" : ""}`}
+                    onClick={() => setRating(star)}
+                  >
+                    ★
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="review-input">
-            <label className="form-label">Review</label>
-            <textarea
-              className="textarea"
-              value={review}
-              onChange={(e) => setReview(e.target.value)}
-              placeholder="Write your review..."
-              rows="4"
-              required
-            />
-          </div>
+            <div className="review-input">
+              <label className="form-label">Review</label>
+              <textarea
+                className="textarea"
+                value={review}
+                onChange={(e) => setReview(e.target.value)}
+                placeholder="Write your review..."
+                rows="4"
+                required
+              />
+            </div>
 
-          {/* <button type="submit" className="submit-btn">Submit Review</button> */}
-          <RippleButton type="submit" className="submit-btn">
-            Submit Review
-          </RippleButton>
-        </form>
-      )}
+            {/* <button type="submit" className="submit-btn">Submit Review</button> */}
+            <RippleButton type="submit" className="submit-btn">
+              Submit Review
+            </RippleButton>
+          </form>
+        )}
+      </div>
     </div>
   );
 };

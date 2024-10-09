@@ -98,7 +98,7 @@
 }
 
 .pricing-sidebar {
-  flex: 2;
+  flex: 1.5;
   background-color: #f7f9fa;
   padding: 20px;
   border-left: 1px solid #ddd;
@@ -106,10 +106,15 @@
   border-radius: 8px;
   text-align: center;
 }
-
-.discounted-price {
-  font-size: 32px;
+.pricing-sidebar .regular-price {
   font-weight: bold;
+  text-decoration: line-through;
+  font-size: 1.4em;
+}
+.pricing-sidebar .discounted-price {
+  font-weight: bold;
+  color: #28a745;
+  font-size: 1.5em;
 }
 
 .enroll-btn {
@@ -131,6 +136,7 @@
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.3s ease;
+  width: 100%;
 }
 .review-btn {
   background-color: rgb(34, 81, 182);
@@ -142,6 +148,7 @@
   font-size: 18px;
   transition: background-color 0.3s ease;
   margin-top: 1rem;
+  width: 100%;
 }
 /* Sidebar Course Details */
 .course-details {
@@ -180,8 +187,7 @@
   padding: 0;
 }
 
-.module-preview ul,
-.module-preview h4 {
+.module-preview ul {
   margin-top: 0;
   margin-bottom: 0;
   width: 30vw;

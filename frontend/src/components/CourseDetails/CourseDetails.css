@@ -1,18 +1,23 @@
 .course-home {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   font-size: "Roboto";
+  background-color: #e6e6e6;
 }
 
 .video-display {
   width: 100%;
-  padding: 20px;
-  background-color: #eef2f7;
+  padding: 1em;
 }
 
 .video-container {
   width: 100%;
   text-align: right;
+  padding: 1em;
+  background-color: #eef2f7;
+  border-right: 1px solid #ddd;
+  border-radius: 0.5em;
+  box-shadow: 0px 0px 0.5em rgba(59, 58, 58, 0.2);
 }
 
 .text-heading {
@@ -22,6 +27,13 @@
 
 .video-description-container {
   width: 100%;
+  background-color: #eef2f7;
+  border-right: 1px solid #ddd;
+  padding: 1em;
+  min-height: 20vh;
+  border-radius: 0.5em;
+  margin: 1em 0px;
+  box-shadow: 0px 0px 0.5em rgba(59, 58, 58, 0.2);
 }
 
 .video-description {
@@ -32,9 +44,10 @@
   display: none;
   width: 30%;
   min-width: 250px;
-  background-color: #eef2f7;
   padding: 20px;
+  background-color: #eef2f7;
   border-right: 1px solid #ddd;
+  box-shadow: 0px 0px 0.5em rgba(59, 58, 58, 0.2);
 }
 
 .sidebar-open {
@@ -123,6 +136,7 @@
   gap: 0.5em;
   align-items: center;
   cursor: pointer;
+  padding: 1em 0px;
 }
 .sidebar-button {
   border: none;

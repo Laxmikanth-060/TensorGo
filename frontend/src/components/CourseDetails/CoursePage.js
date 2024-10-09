@@ -30,6 +30,7 @@ const CoursePage = () => {
   const [currentVideo, setCurrentVideo] = useState("");
   const [modules, setModules] = useState([]);
   const [price, setPrice] = useState(0);
+  const [discount, setDiscount] = useState(0);
   const [rating, setRating] = useState(0);
   const [activeModule, setActiveModule] = useState(null);
   const [isRegistered, setIsRegistered] = useState(false);
@@ -38,10 +39,12 @@ const CoursePage = () => {
     // Fetch the course data
     const fetchCourseData = async () => {
       const courseData = await getCourseById(courseId);
+      console.log(courseData);
       if (courseData) {
         setCourseData(courseData);
         setModules(courseData.modules);
         setPrice(courseData.pricingInfo?.price);
+        setDiscount(courseData.pricingInfo?.discount);
         setTitle(courseData.title);
         setDescription(courseData.description);
         setCoverImage(courseData.coverImage);
@@ -142,8 +145,7 @@ const CoursePage = () => {
             <p>{description}</p>
           </div>
 
-          <div className="pricicin-sidebar">
-            <p className="discounted-price">₹{price}</p>
+          <div className="pricing-sidebar">
             {isRegistered ? (
               <>
                 <Link to={`/p/course/${courseId}`}>
@@ -151,6 +153,7 @@ const CoursePage = () => {
                     Go to Course
                   </RippleButton>
                 </Link>
+                <br />
                 <Link to={`/course/${courseId}/review`}>
                   <RippleButton className="review-btn">
                     Review This Course
@@ -158,9 +161,22 @@ const CoursePage = () => {
                 </Link>
               </>
             ) : (
-              <Link to={`/enroll/${courseId}`}>
-                <RippleButton className="enroll-btn">Enroll Now</RippleButton>
-              </Link>
+              <>
+                {discount === 0 ? (
+                  <h3 className="discounted-price">&#8377;{price}</h3>
+                ) : (
+                  <div className="discount-price-container">
+                    <h3 className="discounted-price">
+                      &#8377;
+                      {price - (discount || 0)}
+                    </h3>
+                    <h3 className="regular-price">&#8377;{price}</h3>
+                  </div>
+                )}
+                <Link to={`/enroll/${courseId}`}>
+                  <RippleButton className="enroll-btn">Enroll Now</RippleButton>
+                </Link>
+              </>
             )}
             <div className="course-details">
               <p>No. of Modules: {modules.length}</p>
@@ -180,17 +196,7 @@ const CoursePage = () => {
                 width="100%"
                 height="auto"
                 url={`http://localhost:1234/gDrive/file/${currentVideo}`}
-                controls={[
-                  "play-large",
-                  "play",
-                  "progress",
-                  "current-time",
-                  "mute",
-                  "volume",
-                  "captions",
-                  "fullscreen",
-                  "speed",
-                ]}
+                controls={true}
                 config={{
                   file: { attributes: { controlsList: "nodownload" } },
                 }}

@@ -87,12 +87,16 @@ function Login() {
               required
               className={styles.login_input}
             />
-            {/* <button type="submit" className={styles.login_green_btn}>
-              Log In
-            </button> */}
             <RippleButton type="submit" className={styles.login_green_btn}>
               Log In
             </RippleButton>
+            <br />
+            <span className={styles.signup_text}>
+              Dont have an account?{" "}
+              <Link className="signup-link" to="/signup">
+                Sign Up
+              </Link>
+            </span>
           </form>
         </div>
         <div className={styles.login_right}>
@@ -102,9 +106,6 @@ function Login() {
             className={styles.login_right_img}
           />
           <Link to="/signup">
-            {/* <button type="button" className={styles.login_white_btn}>
-              Sign Up
-            </button> */}
             <RippleButton type="button" className={styles.login_white_btn}>
               Sign Up
             </RippleButton>

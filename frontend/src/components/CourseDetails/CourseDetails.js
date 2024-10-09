@@ -110,7 +110,7 @@ const CourseDetails = () => {
             >
               <g
                 fill="rgba(255,255,255,1)"
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 transform="scale(-1, 1) translate(-16, 0)"
               >
                 <path d="M0 18.61h3.541V0H0zM15.935 9.014l-3.541 2.617V9.887H5.311V8.142h7.083V6.397z"></path>
@@ -176,7 +176,7 @@ const CourseDetails = () => {
               >
                 <g
                   fill="rgba(255,255,255,1)"
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   transform="scale(-1, 1) translate(-16, 0)"
                 >
                   <path d="M0 18.61h3.541V0H0zM15.935 9.014l-3.541 2.617V9.887H5.311V8.142h7.083V6.397z"></path>
@@ -195,17 +195,7 @@ const CourseDetails = () => {
             width="100%"
             height="auto"
             url={`http://localhost:1234/gDrive/file/${currentVideo}`}
-            controls={[
-              "play-large",
-              "play",
-              "progress",
-              "current-time",
-              "mute",
-              "volume",
-              "captions",
-              "fullscreen",
-              "speed",
-            ]}
+            controls={true}
             config={{
               file: { attributes: { controlsList: "nodownload" } },
             }}

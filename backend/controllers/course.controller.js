@@ -1,5 +1,11 @@
-import { Course, Module, UserProgress, Video, Review } from '../models/course.model.js';
-import { Student } from '../models/student.model.js';
+import {
+  Course,
+  Module,
+  UserProgress,
+  Video,
+  Review,
+} from "../models/course.model.js";
+import { Student } from "../models/student.model.js";
 export const createCourseWithDetails = async (req, res) => {
   try {
     // Create Course
@@ -11,15 +17,22 @@ export const createCourseWithDetails = async (req, res) => {
 
     // Create Modules and Store Videos
     const modulePromises = req.body.courseMaterials.map(async (module) => {
-      const videos = await Promise.all(module.videosList.map(async (video) => {
-        const newVideo = new Video(video);
-        return await newVideo.save();
-      }));
-      
-      const newModule = new Module({ ...module, videosList: videos.map(video => video._id) });
+      const videos = await Promise.all(
+        module.videosList.map(async (video) => {
+          const newVideo = new Video(video);
+          return await newVideo.save();
+        })
+      );
+
+      const newModule = new Module({
+        ...module,
+        videosList: videos.map((video) => video._id),
+      });
       const savedModule = await newModule.save();
-      
-      await Course.findByIdAndUpdate(savedCourse._id, { $push: { modules: savedModule._id } });
+
+      await Course.findByIdAndUpdate(savedCourse._id, {
+        $push: { modules: savedModule._id },
+      });
 
       return savedModule;
     });
@@ -32,10 +45,9 @@ export const createCourseWithDetails = async (req, res) => {
   }
 };
 
-
 export const getAllCourses = async (req, res) => {
   try {
-    const courses = await Course.find().populate('instructor');
+    const courses = await Course.find().populate("instructor");
     res.json(courses);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -46,14 +58,14 @@ export const getCourseById = async (req, res) => {
   try {
     const courseId = req.params.courseId;
     const course = await Course.findById(courseId).populate({
-      path: 'modules',
+      path: "modules",
       populate: {
-        path: 'videosList',
+        path: "videosList",
       },
     });
     
     if (!course) {
-      return res.status(404).json({ error: 'Course not found' });
+      return res.status(404).json({ error: "Course not found" });
     }
     res.json(course);
   } catch (error) {
@@ -81,9 +93,13 @@ export const markVideoAsCompleted = async (req, res) => {
     }
 
     await progress.save();
-    return res.status(200).json({ message: 'Video marked as completed', progress });
+    return res
+      .status(200)
+      .json({ message: "Video marked as completed", progress });
   } catch (error) {
-    return res.status(500).json({ message: 'Error marking video as completed', error });
+    return res
+      .status(500)
+      .json({ message: "Error marking video as completed", error });
   }
 };
 
@@ -93,15 +109,13 @@ export const getUserProgress = async (req, res) => {
   try {
     const progress = await UserProgress.findOne({ userId, courseId });
     if (!progress) {
-      return res.status(404).json({ message: 'Progress not found' });
+      return res.status(404).json({ message: "Progress not found" });
     }
     return res.status(200).json({ progress });
   } catch (error) {
-    return res.status(500).json({ message: 'Error fetching progress', error });
+    return res.status(500).json({ message: "Error fetching progress", error });
   }
 };
-
-
 
 export const courseReview = async (req, res) => {
   const { user, courseId, rating, review } = req.body;
@@ -109,11 +123,15 @@ export const courseReview = async (req, res) => {
   try {
     const userId = user._id;
 
-    const existingReview = await Review.findOne({ user: userId, course: courseId });
+    const existingReview = await Review.findOne({
+      user: userId,
+      course: courseId,
+    });
 
     if (existingReview) {
-      return res.status(400).json({ message: 'You have already submitted a review for this course.' });
-
+      return res.status(400).json({
+        message: "You have already submitted a review for this course.",
+      });
     }
 
     // Create a new review if no existing review is found
@@ -130,34 +148,33 @@ export const courseReview = async (req, res) => {
       $push: { reviews: newReview._id },
     });
 
-    res.status(201).json({ message: 'Review created successfully!', review: newReview });
+    res
+      .status(201)
+      .json({ message: "Review created successfully!", review: newReview });
   } catch (error) {
     // console.error('Error creating review:', error);
-    res.status(500).json({ message: 'Error creating review' });
+    res.status(500).json({ message: "Error creating review" });
   }
 };
 
-
-
-
 export const getCourseReviews = async (req, res) => {
-  const { courseId } = req.params;  
+  const { courseId } = req.params;
   // console.log(`Fetching reviews for course ID: ${courseId}`);
 
   try {
     // Fetch reviews for the course and populate user details
     const reviews = await Review.find({ course: courseId })
-      .populate('user', 'username profileImg') 
+      .populate("user", "username profileImg")
       .exec();
 
     if (!reviews || reviews.length === 0) {
-      return res.status(404).json({ message: 'No reviews found for this course' });
+      return res.status(200).json(reviews);
     }
 
     res.status(200).json(reviews);
   } catch (error) {
     // console.error('Error fetching reviews:', error);
-    res.status(500).json({ message: 'Error fetching reviews' });
+    res.status(500).json({ message: "Error fetching reviews" });
   }
 };
 
@@ -165,16 +182,20 @@ export const getRegisteredCourseByUserId = async (req, res) => {
   const { userId } = req.params;
 
   try {
-      const student = await Student.findOne({ userId: userId }).populate('coursesEnrolled.courseId');
+    const student = await Student.findOne({ userId: userId }).populate(
+      "coursesEnrolled.courseId"
+    );
 
-      if (!student) {
-          return res.status(404).json({ message: 'Student not found' });
-      }
-      const enrolledCourses = student.coursesEnrolled.map(enrollment => enrollment.courseId);
-      res.json(enrolledCourses);
+    if (!student) {
+      return res.status(404).json({ message: "Student not found" });
+    }
+    const enrolledCourses = student.coursesEnrolled.map(
+      (enrollment) => enrollment.courseId
+    );
+    res.json(enrolledCourses);
   } catch (error) {
-      console.error("Error fetching courses:", error);
-      res.status(500).json({ message: 'Server error' });
+    console.error("Error fetching courses:", error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -227,4 +248,5 @@ export const deleteCourseById = async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // };
+
 
