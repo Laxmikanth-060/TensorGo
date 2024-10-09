@@ -63,6 +63,7 @@ export const getCourseById = async (req, res) => {
         path: "videosList",
       },
     });
+    
     if (!course) {
       return res.status(404).json({ error: "Course not found" });
     }
@@ -197,6 +198,43 @@ export const getRegisteredCourseByUserId = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+
+
+// Controller to delete a course and its related data
+export const deleteCourseById = async (req, res) => {
+  try {
+    const { courseId } = req.params; 
+    console.log("Course Id:",courseId)
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ message: 'Course not found' });
+    }
+
+    // Delete associated modules and videos
+    const moduleIds = course.modules;
+    console.log(moduleIds)
+    await Promise.all(
+      moduleIds.map(async (moduleId) => {
+        console.log("Hii");
+        const module = await Module.findById(moduleId);
+        console.log(module)
+        if (module) {
+          await Video.deleteMany({ _id: { $in: module.videosList } });
+        }
+        await Module.findByIdAndDelete(moduleId);
+      })
+    );
+    await Course.findByIdAndDelete(courseId);
+
+    res.status(200).json({ message: 'Course and associated data deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error deleting course', error: error.message });
+  }
+};
+
+
 //Not required but dont remove
 // export const getModulesByCourseId = async (req, res) => {
 //   try {
