@@ -81,7 +81,7 @@ const Courses = () => {
   const [coursesList, setCoursesList] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filteredCoursesList, setFilteredCoursesList] = useState([]);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [_enrolledCourses, setEnrolledCourses] = useState([]);
   const { user } = useContext(UserContext); // Accessing the user from UserContext
 
   useEffect(() => {
@@ -97,6 +97,8 @@ const Courses = () => {
     const filteredList = coursesList.filter((eachCourse) =>
       eachCourse.title.toLowerCase().includes(searchText.toLowerCase())
     );
+    // console.log(filteredList);
+
     setFilteredCoursesList(filteredList);
   }, [coursesList, searchText]);
 
@@ -115,20 +117,6 @@ const Courses = () => {
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
-          {/* <button
-            className={`${styles.courseBannerSearchButton} d-md-none`}
-            type="button"
-            onClick={filterData}
-          >
-            <IoSearch />
-          </button> 
-          <button
-            className={`${styles.courseBannerSearchButton} d-none d-md-block`}
-            type="button"
-            onClick={filterData}
-          >
-            Search
-          </button> */}
           <RippleButton
             className={`${styles.courseBannerSearchButton} d-md-none`}
             onClick={filterData}

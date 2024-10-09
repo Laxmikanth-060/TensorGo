@@ -118,6 +118,11 @@ export const getFile = async (req, res) => {
     const fileId = req.params.fileId;
     const range = req.headers.range;
 
+    // Check if the file ID and range are provided
+    if (!fileId) {
+      return res.status(400).send("File ID is required.");
+    }
+
     if (!range) {
       return res
         .status(400)
@@ -131,6 +136,12 @@ export const getFile = async (req, res) => {
       fileId: fileId,
       fields: "size",
     });
+
+    // Check if file metadata is retrieved successfully
+    if (!fileMetadata || !fileMetadata.data || !fileMetadata.data.size) {
+      return res.status(404).send("File metadata not found.");
+    }
+
     const fileSize = fileMetadata.data.size;
 
     // Parse the Range header to determine the byte range requested
@@ -146,7 +157,7 @@ export const getFile = async (req, res) => {
       "Content-Type": "video/mp4",
     });
 
-    // Get the file content for the specified byte range
+    // Fetch the specified byte range of the file
     const response = await drive.files.get(
       {
         fileId: fileId,
@@ -162,6 +173,14 @@ export const getFile = async (req, res) => {
     response.data.pipe(res);
   } catch (error) {
     console.error("Error fetching file:", error);
-    res.status(500).send("An error occurred while fetching the file.");
+
+    // Handle specific errors like network issues or file not found
+    if (error.response && error.response.status === 404) {
+      res.status(404).send("File not found.");
+    } else if (error.code === "ECONNRESET") {
+      res.status(500).send("Network connection error. Please try again.");
+    } else {
+      res.status(500).send("An error occurred while fetching the file.");
+    }
   }
 };

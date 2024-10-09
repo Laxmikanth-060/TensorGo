@@ -84,11 +84,12 @@ const EnrollCourse = () => {
           <p>
             Price:
             <span className="discounted-price">
-              ${course.pricingInfo.price - (course.pricingInfo.discount || 0)}
+              &#8377;
+              {course.pricingInfo.price - (course.pricingInfo.discount || 0)}
             </span>
             {course.pricingInfo.discount > 0 && (
               <span className="original-price">
-                ${course.pricingInfo.price}
+                &#8377;{course.pricingInfo.price}
               </span>
             )}
           </p>
