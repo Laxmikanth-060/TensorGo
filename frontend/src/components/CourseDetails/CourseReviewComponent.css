@@ -1,0 +1,117 @@
+.star {
+  font-size: 1.1rem; /* Star size */
+  margin-right: 3px; /* Space between stars */
+}
+
+.filled- {
+  color: #f5a623;
+  font-size: 1.2rem;
+  margin-right: 3px;
+}
+
+/* Course Review Section Styling */
+.course-review-container {
+  padding: 20px; /* Reduced padding */
+  margin-top: 20px; /* Reduced margin */
+  background-color: #f9f9f9;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Reduced margin */
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.review-container-left {
+  width: 100%;
+  padding: 0 1em;
+}
+
+.rating-bar-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  gap: 0.5em;
+}
+.rating-bar-container span {
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.rating-bar-container .left {
+  width: 6em;
+}
+.rating-bar-container .right {
+  width: 5em;
+}
+.rating-bar {
+  width: 100%;
+  height: 1.25em;
+  position: relative;
+  box-shadow: inset 0 0 0 1px #888c8c;
+  border-radius: 4px;
+}
+.rating-bar-progression {
+  background-color: #f5a623;
+  height: 100%;
+  border-radius: 4px;
+}
+.review-container-right {
+  width: 100%;
+  border-radius: 0.5em;
+}
+.review-card {
+  margin-bottom: 15px;
+  border: 1px solid #e0e0e0;
+  padding: 5px;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  vertical-align: top;
+}
+
+/* Profile Picture and User Name */
+.review-user {
+  display: flex;
+  align-items: center;
+  /* margin-bottom: 8px;  */
+}
+
+.profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+
+.reviewStars {
+  margin-left: 15px;
+  margin-bottom: 0;
+}
+
+.review-text {
+  font-size: 0.9rem; /* Review text size */
+  color: #555;
+  line-height: 1.4; /* Line height for readability */
+  margin-top: 5px; /* Space above the review text */
+  margin-left: 15px;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+  max-width: 100%;
+  line-break: anywhere;
+}
+
+@media screen and (min-width: 768px) {
+  .course-review-container {
+    flex-direction: row;
+  }
+  .review-container-left {
+    width: 40%;
+  }
+  .review-container-right {
+    width: 60%;
+  }
+}

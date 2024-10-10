@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const courseSchema = new mongoose.Schema({
+  driveFolderId: {
+    type: String,
+    // required: true,
+  },
   title: {
     type: String,
     // required: true,

@@ -7,6 +7,13 @@
 .coursesMiddleContainer {
   margin: 2em 3em;
 }
+
+@media screen and (max-width: 992px) {
+  .coursesMiddleContainer {
+    margin: 1em 1em;
+  }
+}
+
 .coursesBannerContainer {
   background-image: url("https://i.ibb.co/zFshV0W/Courses-Banner.png");
   width: 100%;
@@ -27,6 +34,11 @@
   border-radius: 0.5rem;
   justify-content: space-between;
 }
+@media screen and (max-width: 992px) {
+  .coursesBannerSearchContainer {
+    width: 80vw;
+  }
+}
 
 .courseBannerSearch {
   width: 80%;
@@ -36,14 +48,35 @@
   font-size: 1em;
 }
 
-.courseBannerSearchButton {
+/* .courseBannerSearchButton {
   min-width: 12%;
-  background-color: #479cf7;
+  background-color: #185fbd;
   color: #fff;
   border: none;
-  border-radius: 0.4em;
+  border-radius: 0.3em;
   cursor: pointer;
-  padding: 0em 0.5em;
+  padding: 0em 0.75em;
+  --webkit-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.courseBannerSearchButton:hover {
+  background-color: #0074b8;
+} */
+
+.courseBannerSearchButton {
+  min-width: 20%;
+  background-color: #185fbd;
+  color: #fff;
+  border: none;
+  border-radius: 0.3em;
+  cursor: pointer;
+  padding: 0em 0.75em;
 }
 
 .coursesContainer {
@@ -51,6 +84,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: stretch;
   /* padding: 2em 2em; */
 }
 .coursesContainer > * {
@@ -62,7 +96,8 @@
 }
 
 .courseCard {
-  padding: 1em;
+  padding: 0.75em;
+  padding-bottom: 1em;
   border-radius: 0.5em;
   background-color: #fff;
   margin: 1em 0;
@@ -73,12 +108,43 @@
   width: 18em;
   height: 25em;
   align-items: start;
+  box-shadow: rgba(0, 48, 110, 0.2) 0px 1px 8px 3px;
+  transition: translate 300ms;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .coursesContainer {
+    gap: 1em;
+  }
+  .courseCard {
+    margin: 0em;
+    display: flex;
+    width: 40vw;
+  }
+}
+@media screen and (max-width: 576px) {
+  .coursesContainer {
+    gap: 1em;
+    padding: 1em;
+  }
+  .courseCard {
+    margin: 0em;
+    display: flex;
+    width: 90vw;
+  }
+}
+
+.courseCard:hover {
+  translate: 0px -0.5em;
 }
 
 .courseCardImageUrl {
   width: 100%;
-  border-radius: 0.5em;
+  border-radius: 0.6em;
   height: 30%;
+  object-fit: cover;
 }
 
 .coursesRatingDurationContainer {
@@ -121,14 +187,13 @@
 
 .courseName {
   font-size: 1em;
-  margin-bottom: 0.4em;
+  margin-top: 0.2em;
+  font-weight: 600;
 }
 
 .courseDescription {
   font-size: 0.8em;
-  font-weight: 500;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  font-weight: 400;
   flex-grow: 1;
 }
 
@@ -161,6 +226,8 @@
   display: flex;
   align-items: center;
   margin: 0em;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .courseCardRegularPrice {
@@ -228,13 +295,16 @@
 }
 
 .startLearningNowButton {
-  background-color: #479cf7;
+  background-color: #185fbd;
   color: #fff;
   border: none;
   border-radius: 0.4em;
   cursor: pointer;
   padding: 0.5em 1em;
   margin: 1em 0em;
+}
+.startLearningNowButton:hover {
+  background-color: 0074b8;
 }
 
 .recommendedCoursesContainer {
@@ -288,7 +358,7 @@
 }
 
 .addNewCourseButton {
-  background-color: #479cf7;
+  background-color: #185fbd;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -297,14 +367,9 @@
   font-size: 16px;
   transition: background-color 0.3s ease;
   text-align: center;
+  outline: none;
 }
 
 .addNewCourseButton:hover {
-  background-color: #3683c4; /* Darker blue on hover */
+  background-color: #0074b8; /* Darker blue on hover */
 }
-
-.addNewCourseButton:focus {
-  outline: none; /* Removes default focus outline */
-  box-shadow: 0 0 0 3px rgba(71, 156, 247, 0.5); /* Custom focus effect */
-}
-

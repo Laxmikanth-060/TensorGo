@@ -4,15 +4,16 @@ import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import ErrorMessage from "../shared/ErrorMessage";
-import Loader from "../shared/Loader"; 
+import Loader from "../shared/Loader";
 import { UserContext } from "../../context/UserContext";
+import RippleButton from "../../utils/Buttons/RippleButton";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { setUser } = useContext(UserContext);      
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const url = "http://localhost:1234";
 
@@ -31,7 +32,7 @@ function Login() {
           password,
         },
         {
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
       const { data: userData } = await axios.get(`${url}/api/auth/authCheck`, {
@@ -39,7 +40,7 @@ function Login() {
       });
       setUser(userData);
       setLoading(false);
-      navigate("/home");
+      navigate(-1);
     } catch (error) {
       if (error.response) {
         setError(error.response.data.error);
@@ -49,7 +50,6 @@ function Login() {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className={styles.login_container}>
@@ -87,9 +87,16 @@ function Login() {
               required
               className={styles.login_input}
             />
-            <button type="submit" className={styles.login_green_btn}>
+            <RippleButton type="submit" className={styles.login_green_btn}>
               Log In
-            </button>
+            </RippleButton>
+            <br />
+            <span className={styles.signup_text}>
+              Dont have an account?{" "}
+              <Link className="signup-link" to="/signup">
+                Sign Up
+              </Link>
+            </span>
           </form>
         </div>
         <div className={styles.login_right}>
@@ -99,9 +106,9 @@ function Login() {
             className={styles.login_right_img}
           />
           <Link to="/signup">
-            <button type="button" className={styles.login_white_btn}>
+            <RippleButton type="button" className={styles.login_white_btn}>
               Sign Up
-            </button>
+            </RippleButton>
           </Link>
         </div>
       </div>

@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { MdEmail, MdHome } from "react-icons/md";
 import styles from "./Footer.module.css";
+import RippleButton from "../../utils/Buttons/RippleButton";
 
 function Footer() {
   return (
@@ -82,9 +83,13 @@ function Footer() {
                 className={styles.emailInput}
               />
             </div>
-            <button type="submit" className={styles.subscribeButton}>
+
+            <RippleButton className={styles.subscribeButton}>
               Subscribe
-            </button>
+            </RippleButton>
+            {/* <button  className={styles.subscribeButton}>
+              Subscribe
+            </button> */}
           </form>
         </div>
         <div className={styles.helpCenter}>

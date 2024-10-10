@@ -8,7 +8,6 @@ import ErrorMessage from "../shared/ErrorMessage";
 import Loader from "../shared/Loader";
 import EmailSentPopup from "../EmailVerify/EmailSentPopup";
 
-
 function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -126,6 +125,9 @@ function Signup() {
             <button type="submit" className={styles.signup_green_btn}>
               Sign Up
             </button>
+            <span className={styles.signin_text}>
+              Already have an account? <Link to="/signin">Sign in</Link>
+            </span>
           </form>
         </div>
         <div className={styles.signup_right}>
