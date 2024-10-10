@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styles from "./Signup.module.css";
 import { Link } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import ErrorMessage from "../shared/ErrorMessage";
 import Loader from "../shared/Loader";
-import { UserContext } from "../../context/UserContext";
+import EmailSentPopup from "../EmailVerify/EmailSentPopup";
 
 
 function Signup() {
@@ -16,9 +16,9 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const url = "http://localhost:1234";
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,14 +28,13 @@ function Signup() {
     }
     try {
       setLoading(true);
-      const { data } = await axios.post(`${url}/api/auth/signup`, {
+       await axios.post(`${url}/api/auth/signup`, {
         username,
         email,
         password,
       });
-      setUser(data);
       setLoading(false);
-      // navigate("/");
+      setShowPopup(true); 
     } catch (error) {
       if (error.response) {
         setError(error.response.data.error);
@@ -45,6 +44,31 @@ function Signup() {
       setLoading(false);
     }
   };
+
+  const handleResend = async (e) => {
+    e.preventDefault(); 
+
+    alert('Verification email resent successfully');
+
+    try {
+   
+     const data = await axios.post(`${url}/api/auth/emailresend`, {
+        username,
+        email,
+      });
+
+      if(data.data.message==="Email Verification done Successfully")
+      alert("Verification done Successfully. Login to continue..");
+
+    } catch (error) {
+      if (error.response) {
+        setError(error.response.data.error);
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+    }
+  };
+  
 
   return (
     <div className={styles.signup_container}>
@@ -117,6 +141,11 @@ function Signup() {
           </Link>
         </div>
       </div>
+      <EmailSentPopup
+        show={showPopup}
+        onResend={handleResend}
+        onClose={() => setShowPopup(false)}
+      />
     </div>
   );
 }

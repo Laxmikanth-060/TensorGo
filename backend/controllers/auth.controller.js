@@ -59,7 +59,7 @@ export const signup = async (req,res)=>{
         //     coverImg:newUser.coverImg,
         // })
 
-        return res.status(400).json({error:'Verification mail has been sent to your email.Please verity.'})
+        return res.status(201).json({message:'Verification mail has been sent to your email.Please verity.'})
 
     }
     else{
@@ -73,8 +73,30 @@ export const signup = async (req,res)=>{
    }
 };
 
+export const emailresend = async (req,res)=>{
+
+    try{
+
+        const {username,email} = req.body;     
+
+        const user = await User.findOne({username,email});
+        const token=await emailToken.findOne({userId:user._id});
+
+        if(!token)
+        return res.status(200).json({message:"Email Verification done Successfully"});
+        
+        const url = `${process.env.BASE_URL}users/${user._id}/verify/${token.token}`;
+        await sendEmail(user.email,"Verify Email",url);
+
+
+    }catch(error){
+        console.log("Error in Email Resend controller",error);
+        res.status(500).json({error:"Internal Server Error:"})
+    }
+}
+
 export const emailVerification = async (req,res)=>{
-   
+
     try{
         const user = await User.findOne({_id:req.params.id});
         if(!user)
