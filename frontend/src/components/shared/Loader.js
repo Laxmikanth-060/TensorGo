@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <div className={styles.loaderContainer}>
       <div className={styles.loader}></div>
-      <p className={styles.loaderText}>Abhi Trainings</p>
+      <p className={styles.loaderText}>TensorGO</p>
     </div>
   );
 };

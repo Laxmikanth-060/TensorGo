@@ -40,7 +40,7 @@ const EmailVerify = () =>{
             <div className="email-image">
                 <img 
                     src="/assets/email.png"
-                    alt="AbhiTrainings"
+                    alt="tensorgo"
                     className="email-img"
                 />
             </div>

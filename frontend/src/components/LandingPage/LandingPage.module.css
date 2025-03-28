@@ -49,11 +49,11 @@
   font-weight: 600;
 }
 
-.WhatIsAbhiTrainingsComponent {
+.WhatIstensorgoComponent {
   margin-top: 4rem;
 }
 
-.WhatIsAbhiTrainingsHeadingPara {
+.WhatIstensorgoHeadingPara {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,13 +61,13 @@
   text-align: center;
 }
 
-.WhatIsAbhiTrainingsHeadingPara > h1 > span {
+.WhatIstensorgoHeadingPara > h1 > span {
   background: linear-gradient(#007BFF, #09008b);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.WhatIsAbhiTrainingsHeadingPara > p {
+.WhatIstensorgoHeadingPara > p {
   margin-top: 0.5em;
   font-size: 14px;
   width: 50%;

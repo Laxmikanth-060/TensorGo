@@ -46,6 +46,7 @@
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
+  margin-top: 2em;
 }
 
 .enroll-btn:hover {
@@ -98,4 +99,17 @@
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.enrollcourse-features {
+  display: flex;
+  justify-content: space-between;
+}
+
+.enroll-plan-name {
+  margin-bottom: 1em;
+}
+
+.enrollcourse-details{
+  margin-top: 1em;
 }

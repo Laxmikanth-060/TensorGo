@@ -4,11 +4,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectMongoDB from "./db/connectMongoDB.js";
 import authRoutes from "./routes/auth.routes.js";
-import gDriveRoutes from "./routes/gdrive.routes.js";
-import courseRoutes from "./routes/course.routes.js";
-import moduleRoutes from "./routes/module.routes.js";
 import userRoutes from "./routes/user.routes.js";
-import announcementsRoutes from "./routes/announcements.routes.js";
+import payment from "./routes/payment.js"
 dotenv.config();
 
 const app = express();
@@ -37,11 +34,8 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/announcements", announcementsRoutes);
-app.use("/gDrive", gDriveRoutes);
-app.use("/courses", courseRoutes);
-app.use("/modules", moduleRoutes);
 app.use("/profile", userRoutes);
+app.use("/payment",payment)
 
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}!`);

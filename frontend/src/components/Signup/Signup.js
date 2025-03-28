@@ -132,8 +132,8 @@ function Signup() {
         </div>
         <div className={styles.signup_right}>
           <img
-            src="./assets/abhiTrainings-logo.png"
-            alt="AbhiTrainings"
+            src="./assets/tensorgo-logo.png"
+            alt="tensorgo"
             className={styles.signup_right_img}
           />
           <Link to="/login">

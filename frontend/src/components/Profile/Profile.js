@@ -3,7 +3,6 @@ import "./Profile.css";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext.js";
 import RippleButton from "../../utils/Buttons/RippleButton.js";
-import ActiveCourses from "../Courses/ActiveCourses/ActiveCourses.js";
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -42,7 +41,6 @@ const Profile = () => {
         </div>
       </div>
       <div className="active-courses-section">
-        <ActiveCourses userId={user._id} />
       </div>
     </div>
   );

@@ -50,10 +50,10 @@ const OurSuccess = () => {
   );
 };
 
-const WhatIsAbhiTrainings = () => {
+const WhatIstensorgo = () => {
   return (
-    <div className={styles.WhatIsAbhiTrainingsComponent}>
-      <div className={styles.WhatIsAbhiTrainingsHeadingPara}>
+    <div className={styles.WhatIstensorgoComponent}>
+      <div className={styles.WhatIstensorgoHeadingPara}>
         <h1>
           What is <span>Abhi Trainings?</span>
         </h1>
@@ -144,7 +144,7 @@ const LandingPage = () => {
     <div>
       <Hero />
       <OurSuccess />
-      <WhatIsAbhiTrainings />
+      <WhatIstensorgo />
       {/* <CourseContentComp/> */}
     </div>
   );

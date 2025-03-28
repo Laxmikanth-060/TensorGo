@@ -4,14 +4,11 @@ import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import { UserContext } from "../../context/UserContext";
 import axios from "axios";
 import "./Navbar.css";
-import Announcements from "../Announcements/Announcements"; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showAnnouncements, setShowAnnouncements] = useState(false);
   const dropdownRef = useRef(null);
-  const announcementsRef = useRef(null);
   const userInfo = useContext(UserContext);
   const { user, setUser } = userInfo;
   const navigate = useNavigate();
@@ -22,10 +19,6 @@ const Navbar = () => {
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const toggleAnnouncements = () => {
-    setShowAnnouncements((prev) => !prev);
   };
 
   const handleLogout = async () => {
@@ -47,27 +40,22 @@ const Navbar = () => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
-      if (
-        showAnnouncements &&
-        announcementsRef.current &&
-        !announcementsRef.current.contains(event.target)
-      ) {
-        setShowAnnouncements(false); // Close announcements on outside click
-      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showAnnouncements]);
+  }, []);
 
   return (
     <div className="navbarContainer">
       <img
-        src="https://i.ibb.co/3Tv149f/image.png"
+        src="https://media.licdn.com/dms/image/v2/D560BAQEEDxu49xkTCw/company-logo_200_200/company-logo_200_200/0/1731404362714/tensorgo_logo?e=2147483647&v=beta&t=B47-m9NQsfE50yPXVTC4BjbNYsfadX9j5zhUm8JFnYY"
         alt="logo"
         className="logo"
+        width="100px"
+        height="300px"
       />
       <div className="hamburger" onClick={toggleNav}>
         {isOpen ? <FaTimes /> : <FaBars />}
@@ -76,7 +64,7 @@ const Navbar = () => {
         {user ? (
           // Show these items when the user is logged in
           <>
-            <li>
+            {/* <li>
               <NavLink
                 className="navItem"
                 activeclassname="active"
@@ -84,6 +72,12 @@ const Navbar = () => {
                 onClick={toggleNav}
               >
                 Home
+              </NavLink>
+            </li> */}
+
+            <li>
+              <NavLink className="navItem" to="/add-plan" onClick={toggleNav}>
+                Add Plan
               </NavLink>
             </li>
             <li>
@@ -95,11 +89,6 @@ const Navbar = () => {
               >
                 Courses
               </NavLink>
-            </li>
-            <li className="notificationItem" onClick={toggleAnnouncements}>
-              <FaBell
-                className="notificationIcon"
-              />
             </li>
             <li className="profileItem" ref={dropdownRef}>
               <img
@@ -141,7 +130,9 @@ const Navbar = () => {
         ) : (
           // Show these items when the user is not logged in
           <>
+          
             <li>
+            
               <NavLink
                 className="navItem"
                 activeclassname="active"
@@ -149,16 +140,6 @@ const Navbar = () => {
                 onClick={toggleNav}
               >
                 Courses
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                className="navItem"
-                activeclassname="active"
-                to="/about"
-                onClick={toggleNav}
-              >
-                About Us
               </NavLink>
             </li>
             <li>
@@ -170,19 +151,6 @@ const Navbar = () => {
         )}
       </ul>
 
-      {/* Sliding Announcements Page */}
-      {showAnnouncements && (
-        <div
-          className="announcementsOverlay"
-          onClick={toggleAnnouncements}
-        ></div>
-      )}
-      <div
-        className={`announcementsSlide ${showAnnouncements ? "show" : ""}`}
-        ref={announcementsRef}
-      >
-        <Announcements onClose={toggleAnnouncements} />
-      </div>
     </div>
   );
 };

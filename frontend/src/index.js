@@ -1,54 +1,32 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
+import App from "./App.js";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CreateCourseMain from "./components/CreateCourse/CreateCourseMain";
-import CourseDetails from "./components/CourseDetails/CourseDetails";
-import Courses from "./components/Courses/Courses";
-import Home from "./components/Home/Home";
-import LandingPage from "./components/LandingPage/LandingPage";
-import About from "./components/About/About";
-import Login from "./components/Login/Login";
-import Signup from "./components/Signup/Signup";
-import GoogleDrive from "./components/GoogleDrive/GoogleDrive";
-import { UserProvider } from "./context/UserContext";
-import Profile from "./components/Profile/Profile";
-import EditProfile from "./components/Profile/EditProfile";
-import CoursePage from "./components/CourseDetails/CoursePage";
-import EnrollCourse from "./components/EnrollCourse/EnrollCourse";
-import CourseReviews from "./components/CourseDetails/CourseReviews";
+import CreateCourseMain from "./components/CreateCourse/CreateCourseMain.js";
+import Courses from "./components/Courses/Courses.js";
+import Login from "./components/Login/Login.js";
+import Signup from "./components/Signup/Signup.js";
+import { UserProvider } from "./context/UserContext.js";
+import Profile from "./components/Profile/Profile.js";
+import EditProfile from "./components/Profile/EditProfile.js";
+import EnrollCourse from "./components/EnrollCourse/EnrollCourse.js";
 import {
   ProtectedRoute,
   SuperAdminRoute,
-  CourseAuthProtectedRoute,
-} from "./protectedRoutes/protectedRoutes";
-import NotAuthorized from "./components/shared/NotAuthorized";
-import NotFound from "./components/shared/NotFound";
+} from "./protectedRoutes/protectedRoutes.js";
+import NotAuthorized from "./components/shared/NotAuthorized.js";
+import NotFound from "./components/shared/NotFound.js";
 
-import EmailVerify from "./components/EmailVerify/EmailVerify";
+import AddPlan from "./components/Courses/Addplan.js"
+
+import EmailVerify from "./components/EmailVerify/EmailVerify.js";
 
 const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <LandingPage />,
-      },
-      {
-        path: "/home",
-        element: (
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/about",
-        element: <About />,
-      },
       {
         path: "/courses",
         element: <Courses />,
@@ -61,40 +39,13 @@ const appRouter = createBrowserRouter([
           </SuperAdminRoute>
         ),
       },
+      
       {
-        path: "/course/:courseId/overview",
-        element: <CoursePage />,
-      },
-      {
-        path: "/course/:courseId/review",
-        element: (
-          <CourseAuthProtectedRoute>
-            <CourseReviews />
-          </CourseAuthProtectedRoute>
-        ),
-      },
-      {
-        path: "/p/course/:courseId",
-        element: (
-          <CourseAuthProtectedRoute>
-            <CourseDetails />
-          </CourseAuthProtectedRoute>
-        ),
-      },
-      {
-        path: "/enroll/:courseId",
+        path: "/enroll/:planId",
         element: (
           <ProtectedRoute>
             <EnrollCourse />
           </ProtectedRoute>
-        ),
-      },
-      {
-        path: "/driveUpload",
-        element: (
-          <SuperAdminRoute>
-            <GoogleDrive />
-          </SuperAdminRoute>
         ),
       },
       {
@@ -121,6 +72,10 @@ const appRouter = createBrowserRouter([
         path: "*",
         element: <NotFound />,
       },
+      {
+        path:"/add-plan",
+        element:<AddPlan/>
+      }
     ],
   },
   {
